@@ -30,6 +30,10 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-notion
+  
+notion:
+  pages:
+    - id: 976a6ab5f89447ccb04e0ead815fa672
 
 # Exclude from processing.
 # The following items will not be processed, by default.
