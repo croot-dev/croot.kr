@@ -23,17 +23,15 @@ email: croot-dev@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   private blog site.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://croot-dev.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+ domain: "croot-dev.github.io"
+url: "https://croot-dev.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: jekyllrb
+github_username:  jekyll
 
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
-  - jekyll-notion
-  
-notion:
-  pages:
-    - id: 976a6ab5f89447ccb04e0ead815fa672
 
 # Exclude from processing.
 # The following items will not be processed, by default.

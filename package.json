@@ -1,0 +1,13 @@
+{
+  "name": "croot-dev.github.io",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/croot-dev/croot-dev.github.io.git",
+  "author": "croot <croot.dev@gmail.com>",
+  "license": "LGPL-3.0-or-later",
+  "private": true,
+  "scripts": {
+    "build": "bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve"
+  }
+}
