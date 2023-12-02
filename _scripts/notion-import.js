@@ -121,7 +121,7 @@ title: "${title}"${fmtags}${fmcats}
         else res = `_${p1}_`;
 
         return `![${index++}]` + `(/${filename})` + `${res}`;
-    );
+        });
 
     //writing to file
     fs.writeFile(path.join(root, ftitle), fm + edited_md, (err) => {
