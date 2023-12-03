@@ -50,16 +50,16 @@ const notion = new Client({
 
     // tags
     const tagList = properties?.[PROPERTY.TAGS]?.["multi_select"] || [];
-    const tags = tagList.map((tag) => tag['name']);
+    const tags = tagList.map((tag) => `${tag['name']}`);
     const category = properties?.["카테고리"]?.["select"]?.name || DEFAULT_CATEGORY_NAME
 
     // frontmatter
     const frontmatter = `---
 layout: post
-date: ${date}
 title: "${title}"
+date: ${date}
+category: [${category}]
 tags: [${tags.join(',')}]
-categories: [${category ? category : '기타'}]
 ---
 
 `;
