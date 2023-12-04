@@ -5,11 +5,10 @@ _gh_pages
 
 # project
 _site
+_posts
 .sass-cache
 .vagrant
 vendor
-_site/*
-_posts/*
 assets/img/*
 
 # env
