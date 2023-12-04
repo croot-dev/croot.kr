@@ -30,6 +30,7 @@ jobs:
               fi
           done
           rm -rf _posts/*
+          rm -rf _site
       
       - uses: actions/setup-node@v2
         with:
@@ -77,7 +78,7 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: bundle exec jekyll b -d "_site$"
+        run: bundle exec jekyll b -d "_site"
         env:
           JEKYLL_ENV: "production"
 
@@ -88,7 +89,7 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "_site$"
+          path: "_site"
 
   deploy:
     environment:
