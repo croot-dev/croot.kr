@@ -23,10 +23,10 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+const rootDir = "_posts";
+fs.mkdirSync(rootDir, { recursive: true });
+
 (async () => {
-  // ensure directory exists
-  const root = "_posts";
-  fs.mkdirSync(root, { recursive: true });
 
   const databaseId = process.env.DATABASE_ID;
   // TODO has_more
@@ -94,7 +94,8 @@ tags: [${tags.join(',')}]
       });
 
     // Write file
-    fs.writeFile(path.join(root, fileTitle), frontmatter + edited_markdown, (err) => {
+    console.log(fileTitle);
+    fs.writeFile(path.join(rootDir, fileTitle), frontmatter + edited_markdown, (err) => {
       if (err) {
         console.log(err);
       }
