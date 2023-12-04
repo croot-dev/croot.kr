@@ -4,12 +4,9 @@ _gh_pages
 .jekyll-cache
 
 # project
-_site
-_posts
 .sass-cache
 .vagrant
 vendor
-assets/img/*
 
 # env
 .env*
