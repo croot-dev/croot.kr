@@ -94,7 +94,6 @@ tags: [${tags.join(',')}]
       });
 
     // Write file
-    console.log(fileTitle);
     fs.writeFile(path.join(rootDir, fileTitle), frontmatter + edited_markdown, (err) => {
       if (err) {
         console.log(err);

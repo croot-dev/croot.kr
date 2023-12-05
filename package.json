@@ -7,17 +7,15 @@
   "license": "LGPL-3.0-or-later",
   "private": true,
   "scripts": {
-    "test": "cross-env NODE_ENV=local ENV_PATH=.env.local node ./_scripts/notion-import",
+    "test": "cross-env NODE_ENV=local ENV_PATH=.env.local node ./_scripts/notionPageImporter",
     "build": "bundle exec jekyll build",
     "serve": "bundle exec jekyll serve"
   },
   "devDependencies": {
     "@notionhq/client": "^1.0.4",
-    "@types/node-fetch": "^2.6.2",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
-    "node-fetch": "^2.6.7",
     "notion-to-md": "^2.5.5"
   },
   "dependencies": {
