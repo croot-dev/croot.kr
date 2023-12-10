@@ -6,7 +6,6 @@ _gh_pages
 # project
 .sass-cache
 .vagrant
-vendor
 
 # env
 .env*
