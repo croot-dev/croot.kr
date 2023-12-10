@@ -7,7 +7,7 @@ tags: []
 ---
 
 
-git commit 대상 ts, tsx 파일들의 console을 제거하는 스크립트
+## git commit 대상 ts, tsx 파일들의 console을 제거하는 스크립트
 
 
 ```shell
