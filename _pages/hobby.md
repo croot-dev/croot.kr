@@ -1,19 +1,18 @@
 ---
-layout: page
-title: Home
+layout: content
+title: Hobby
+permalink: /hobby/
 pagination:
     enabled: true
     per_page: 10
+    category: 취미
 ---
 
-<p style="font-size:1.75em;background: #efefef;padding: 1.2em 1.5em;line-height: 1.5;margin: -2em 0 3em;word-break: keep-all;">
-  <span>이 블로그의 모든 포스트는</span> <span>Notion 데이터베이스를 변환하여 작성하였습니다.</span><br />
-  <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank">원본 Notion 데이터베이스 보기</a>
-</p>
+{% assign posts = paginator.posts | where:"category", pagination.category %}
 
 <section class="c-archives">
   <link rel="shortcut icon" href="">
-  {% for post in paginator.posts  %}
+  {% for post in posts  %}
   {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
   {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
   {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
@@ -41,3 +40,20 @@ pagination:
   {% endif %}
   {% endfor %}
 </section>
+
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ paginator.next_page_path | absolute_url }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ '/' | absolute_url }}">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ paginator.previous_page_path | absolute_url }}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>

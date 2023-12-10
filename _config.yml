@@ -14,11 +14,18 @@ pagination:
     sort_field: "date"
     sort_reverse: true
 
+include: [_pages]
+markdown: kramdown
+sass:
+    style: compressed
+exclude: [vendor]
+
 # About/contact
 author:
   name: Croot
-  url: https://croot-dev.github.io
+  domain: croot-dev.github.io
   email: croot-dev@gmail.com
+github_username: croot-dev
 
 # Build settings
 plugins:
