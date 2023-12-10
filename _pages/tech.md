@@ -42,14 +42,13 @@ pagination:
 </section>
 
 <div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path | absolute_url }}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    <a class="pagination-item newer" href="{{ paginator.previous_page_path | absolute_url }}">Newer</a>
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
+  {% if paginator.page_trail %}
+  <ul>
+  {% for trail in paginator.page_trail %}
+    <li {% if page.url == trail.path %}class="selected"{% endif %}>
+        <a href="{{ trail.path | prepend: site.baseurl }}" title="{{trail.title}}">{{ trail.num }}</a>
+    </li>
+  {% endfor %}
+  </ul>
   {% endif %}
 </div>
