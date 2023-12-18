@@ -7,7 +7,7 @@ tags: []
 ---
 
 
-# HTTP의 정의.
+# HTTP의 정의
 
 
 > **HTTP**; HyperText Transfer Protocol : 하이퍼텍스트 전송 규약
