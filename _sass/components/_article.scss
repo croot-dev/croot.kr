@@ -34,15 +34,16 @@
 
 .c-article__time {
     @include fs--body;
-    color: $c-base__01;
+    color: $c-base__03;
 }
 
 .c-article__main {
     margin-bottom: 5rem; // 50px
     @include fs--body;
-    color: $c-base__01;
+    color: $c-base__03;
 
-    & * {
+    & > *,
+    & li > * {
         margin-top: 4px;
         margin-bottom: 4px;
     }
