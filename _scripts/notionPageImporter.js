@@ -70,6 +70,8 @@ tags: [${tags.join(',')}]
     const markdown = n2m.toMarkdownString(blocks)["parent"];
     const fileTitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
+    if(!markdown) { continue; }
+
     let imageIndex = 0;
     const edited_markdown = markdown.replace(
       /!\[(.*?)\]\((.*?)\)/g,

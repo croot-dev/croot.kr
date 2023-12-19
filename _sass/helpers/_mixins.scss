@@ -66,8 +66,12 @@
 }
 
 @mixin fs--code {
-    font-size: 1.4rem;
-    line-height: 1.5;
+    border-radius: 4px;
+    background-color: rgb(247, 246, 243);
+    color: #EB5757;
+    font-size: .75em;
+    padding: 0.2em 0.4em;
+    line-height: normal;
 }
 
 // Visually hide content

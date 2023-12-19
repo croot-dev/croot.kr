@@ -22,10 +22,18 @@ pre, code {
 }
 
 .highlight {
-    border-radius: 4px;
-    background: #FDFDFD;
-    border: 1px solid #E8E8EB;
-    color: #93a1a1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+
+    .highlight {
+        font-size: 85%;
+        tab-size: 2;
+        padding: 34px 16px 32px 32px;
+        min-height: 1em;
+        color: rgb(55, 53, 47);
+        white-space: pre;
+    }
 
     .gutter {
         padding: 1.2rem;
