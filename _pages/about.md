@@ -5,11 +5,10 @@ permalink: /about/
 ---
 
 
-![croot caricature](/assets/img/mmt-hardy.png){: width="240" height="240"}
+![croot caricature](/assets/img/Mmt-Hardy.png){: width="240" height="240"}
 <br />
 안녕하세요! Front-end Developer로 활동하고 있는 Croot 입니다.  
 다양한 프로젝트 경험이 있으며 IT와 관련된 모든 부분에 관심이 많습니다.  
-현재 구직 중에 있습니다.  
 
 ## Tech stack
 
@@ -26,6 +25,7 @@ permalink: /about/
 ## Contact
 
 - 이메일: [croot.dev@gmail.com](mailto:croot.dev@gmail.com)
-- 블로그: [croot-dev.github.io](https://croot-dev.github.io)
+- 블로그: [https://croot.kr](https://croot.kr)
+- Github: [https://github.com/croot-dev](https://github.com/croot-dev)
 - LinkedIn: [최근호-croot](www.linkedin.com/in/최근호-croot)
 

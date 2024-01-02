@@ -9,8 +9,9 @@ const axios = require("axios");
 const PROPERTY = {
   PUBLISH: '공개', // 타입: 체크박스(checkbox)
   TITLE: '게시물', // 타입: 제목(plain_text)
-  CREATED_AT: '날짜', // 타입: 날짜(date)
-  TAGS: '태그' // 타입: 다중선택(multi_select)
+  CATEGORY: '카테고리',
+  TAGS: '태그', // 타입: 다중선택(multi_select)
+  
 }
 const DEFAULT_CATEGORY_NAME = '기타'; // 카테고리 없을 시 기본으로 적용할 카테고리 명
 
@@ -39,25 +40,28 @@ fs.mkdirSync(rootDir, { recursive: true });
       },
     },
   });
-  for (const { id, properties, created_time } of response.results) {
+  for (const { id, properties, created_time, last_edited_time } of response.results) {
     // date
-    const createDate = properties?.[PROPERTY.CREATED_AT]?.["date"]?.["start"] || null;
-    const date = dayjs(createDate? createDate : created_time).format("YYYY-MM-DD");
+    const createdDate = dayjs(created_time).format("YYYY-MM-DD");
+    const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
     
     // title
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
     const title = tempTitle.length > 0? tempTitle[0]?.["plain_text"] : id;
 
+    // category
+    const category = properties?.[PROPERTY.CATEGORY]?.["select"]?.name || DEFAULT_CATEGORY_NAME;
+
     // tags
     const tagList = properties?.[PROPERTY.TAGS]?.["multi_select"] || [];
     const tags = tagList.map((tag) => `${tag['name']}`);
-    const category = properties?.["카테고리"]?.["select"]?.name || DEFAULT_CATEGORY_NAME
 
     // frontmatter
     const frontmatter = `---
 layout: post
 title: "${title}"
-date: ${date}
+created: ${createdDate}
+edited: ${updatedDate}
 category: [${category}]
 tags: [${tags.join(',')}]
 ---
@@ -68,7 +72,7 @@ tags: [${tags.join(',')}]
     const n2m = new NotionToMarkdown({ notionClient: notion });
     const blocks = await n2m.pageToMarkdown(id);
     const markdown = n2m.toMarkdownString(blocks)["parent"];
-    const fileTitle = `${date}-${title.replaceAll(" ", "-")}.md`;
+    const fileTitle = `${createdDate}-${title.replaceAll(" ", "-")}.md`;
 
     if(!markdown) { continue; }
 

@@ -1,0 +1,24 @@
+.pagination {
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        gap: .5em;
+        margin: 0;
+    }
+    li > a {
+        display: block;
+        width: 2em;
+        height: 2em;
+        margin: 0;
+        line-height: 2em;
+        text-align: center;
+    }
+
+    li.selected > a {
+        background: $c-accent__blue;
+        color: white;
+        font-weight: bold;
+    }
+}
