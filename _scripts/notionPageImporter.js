@@ -44,8 +44,8 @@ fs.mkdirSync(rootDir, { recursive: true });
     // date
     const createdDate = dayjs(created_time).format("YYYY-MM-DD");
     const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
-    
-    // title
+
+        // title
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
     const title = tempTitle.length > 0? tempTitle[0]?.["plain_text"] : id;
 
@@ -70,6 +70,14 @@ tags: [${tags.join(',')}]
     
     // passing notion client to the option
     const n2m = new NotionToMarkdown({ notionClient: notion });
+    n2m.setCustomTransformer("embed", async (block) => {
+      const { embed } = block;
+      if (!embed?.url) return "";
+      return `<figure>
+      <iframe src="${embed?.url}"></iframe>
+      <figcaption>${await n2m.blockToMarkdown(embed?.caption)}</figcaption>
+    </figure>`;
+    });
     const blocks = await n2m.pageToMarkdown(id);
     const markdown = n2m.toMarkdownString(blocks)["parent"];
     const fileTitle = `${createdDate}-${title.replaceAll(" ", "-")}.md`;
@@ -77,7 +85,9 @@ tags: [${tags.join(',')}]
     if(!markdown) { continue; }
 
     let imageIndex = 0;
-    const edited_markdown = markdown.replace(
+    const edited_markdown = markdown
+    // 이미지 링크 변경
+    .replace(
       /!\[(.*?)\]\((.*?)\)/g,
       (match, p1, p2, p3) => {
         const dirname = path.join("assets/img", fileTitle);

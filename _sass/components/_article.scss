@@ -65,14 +65,13 @@
     }
 
     strong {
-        color: $c-base__02;
+        color: $c-base__0;
         font-weight: 700;
     }
 
     blockquote {
-        border-radius: 4px;
-        background: rgb(241, 241, 239);
-        padding: 16px 16px 16px 12px;
+        border-left: 3px solid $c-base__0;
+        padding: 8px 14px;
     }
 
     ul,
