@@ -2,7 +2,7 @@
 layout: post
 title: "Notion Database 와 Github Pages 연동하기"
 created: 2023-12-02
-edited: 2023-12-31
+edited: 2024-01-03
 category: [기술]
 tags: [Notion,Github Pages]
 ---
@@ -416,7 +416,7 @@ yarn serve
 	위 주소로 접근하여 아래와 같이 값들을 넣어준다. (위에 생성한 **`.env.local`** 참고)
 
 
-	![0](/assets/img/2023-12-02-Notion-Database-와-Github-Pages-연동하기.md/0.png)
+	![0](/assets/img/2023-12-02-Notion-Database-와-Github-Pages-연동하기.md/0.png)_github secrets actions_
 
 2. 배포 요청 API 호출하는 HTML 생성 (**`COMMIT_TOKEN`** 수정 입력 필요)
 

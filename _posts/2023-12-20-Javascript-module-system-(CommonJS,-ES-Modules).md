@@ -83,4 +83,3 @@ func();
 | 활용 분야                          | 주로 서버 측 JavaScript 개발  | 주로 클라이언트 측 및 브라우저 환경      |
 | 사용 예시                          | Node.js                | 브라우저 및 Node.js (최신 버전)    |
 
-undefined

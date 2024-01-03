@@ -11,7 +11,7 @@ tags: [보안,블록암호]
 ## 블록암호화 개념도
 
 
-![0](/assets/img/2023-03-30-블록암호화-(Block-Cipher).md/0.png)
+![0](/assets/img/2023-03-30-블록암호화-(Block-Cipher).md/0.png)_Untitled.png_
 
 
 ## 용어정리

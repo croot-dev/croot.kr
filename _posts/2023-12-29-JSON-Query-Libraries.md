@@ -2,7 +2,7 @@
 layout: post
 title: "JSON Query Libraries"
 created: 2023-12-29
-edited: 2023-12-30
+edited: 2024-01-02
 category: [기술]
 tags: [JSON,jmespath,jsonpath-plus,json-query,jsonpath,JSONStream,oboe]
 ---
@@ -20,7 +20,7 @@ tags: [JSON,jmespath,jsonpath-plus,json-query,jsonpath,JSONStream,oboe]
 [https://npmtrends.com/JSONPath-vs-jmespath-vs-jq-vs-json-path-vs-json-query-vs-jsonpath-vs-jsonpath-plus](https://npmtrends.com/JSONPath-vs-jmespath-vs-jq-vs-json-path-vs-json-query-vs-jsonpath-vs-jsonpath-plus)
 
 
-![0](/assets/img/2023-12-29-JSON-Query-Libraries.md/0.png)
+![0](/assets/img/2023-12-29-JSON-Query-Libraries.md/0.png)_Untitled.png_
 
 
 ### 성능 비교 검증
@@ -33,10 +33,10 @@ tags: [JSON,jmespath,jsonpath-plus,json-query,jsonpath,JSONStream,oboe]
 
 
 > 💡 전체 성능 비교 코드는 아래 Github에서 확인 가능합니다.  
-> [🔗 ](https://github.com/croot-dev/json-querying-performance-testing)[`jmespath`](https://github.com/croot-dev/json-querying-performance-testing)[, ](https://github.com/croot-dev/json-querying-performance-testing)[`jsonpath-plus`](https://github.com/croot-dev/json-querying-performance-testing)[, ](https://github.com/croot-dev/json-querying-performance-testing)[`jsonpath`](https://github.com/croot-dev/json-querying-performance-testing)[, ](https://github.com/croot-dev/json-querying-performance-testing)[`map-filter-reduce`](https://github.com/croot-dev/json-querying-performance-testing)[ 성능 비교](https://github.com/croot-dev/json-querying-performance-testing)
+> [🔗 JSON Query Libraries 성능 비교](https://github.com/croot-dev/json-querying-performance-testing)
 
 
-	[🔗 ](https://github.com/croot-dev/json-querying-performance-testing)[`jmespath`](https://github.com/croot-dev/json-querying-performance-testing)[, ](https://github.com/croot-dev/json-querying-performance-testing)[`jsonpath-plus`](https://github.com/croot-dev/json-querying-performance-testing)[, ](https://github.com/croot-dev/json-querying-performance-testing)[`jsonpath`](https://github.com/croot-dev/json-querying-performance-testing)[, ](https://github.com/croot-dev/json-querying-performance-testing)[`map-filter-reduce`](https://github.com/croot-dev/json-querying-performance-testing)[ 성능 비교](https://github.com/croot-dev/json-querying-performance-testing)
+	[🔗 JSON Query Libraries 성능 비교](https://github.com/croot-dev/json-querying-performance-testing)
 
 
 > 성능 테스트는 각 라이브러리에 대하여 아래와 같이 세가지 쿼리를 실행합니다.

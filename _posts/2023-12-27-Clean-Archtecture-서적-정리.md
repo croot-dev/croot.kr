@@ -2,7 +2,7 @@
 layout: post
 title: "Clean Archtecture 서적 정리"
 created: 2023-12-27
-edited: 2024-01-02
+edited: 2024-01-03
 category: [기술]
 tags: [Architecture]
 ---
@@ -47,7 +47,7 @@ tags: [Architecture]
 시스템은 완전성과 변경용이성이 모두 중요하다. `아이젠하워 매트릭스`에 따라 판단이 중요하다.
 
 
-![0](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/0.png)
+![0](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/0.png)_Untitled.png_
 
 
 > 💡 현업은 주로 3번_(긴급하지만 중요하지 않은 일)_을 1번_(긴급하고 중요한 일)_으로 착각하는 실수를 저지른다. 
@@ -182,7 +182,7 @@ ISP의 포괄적인 버전
 세 가지 원칙은 서로 상충 관계이며 **`REP, CCP 는 포함 원칙`**이며 **`CRP는 배재 원칙`**이다.
 
 
-![1](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/1.png)
+![1](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/1.png)_Untitled.png_
 
 
 > 💡 프로젝트는 일반적으로 삼각형 오른쪽(CCP)에서 시작해서 다른 프로젝트가 시작되면 왼쪽(REP)으로 이동해간다.
@@ -196,11 +196,11 @@ ISP의 포괄적인 버전
 
 순환 구조 시 **`숙취 증후군`** 문제 발생하며, **`Weekly Build`**와 **`순환 의존성 제거`** 를 통해 해결
 
-	- **`Weekly Build`** : 통합 일정을 잡아 진행, 규모가 커질수록 비효율적
-	- **`순환 의존성 제거`** : 의존 관계가 **`DAG(Direct Access Graph)`**이 되도록 하는 방법.
-		- 의존성 역전 원칙(DIP) 적용하여 해결
-		- 의존하는 새로운 컴포넌트 생성
-		- 컴포넌트 구조 변경(Jitter)을 항상 관찰
+- **`Weekly Build`** : 통합 일정을 잡아 진행, 규모가 커질수록 비효율적
+- **`순환 의존성 제거`** : 의존 관계가 **`DAG(Direct Access Graph)`**이 되도록 하는 방법.
+	- 의존성 역전 원칙(DIP) 적용하여 해결
+	- 의존하는 새로운 컴포넌트 생성
+	- 컴포넌트 구조 변경(Jitter)을 항상 관찰
 
 > **숙취 증후군(morning after syndrome) :** 의존하던 무언가를 누군가 수정하여 동작되지 않는 현상
 
@@ -224,7 +224,7 @@ ISP의 포괄적인 버전
 	계산 예시
 
 
-	![2](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/2.png)
+	![2](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/2.png)_Untitled.png_
 
 
 ### 안정된 추상화 원칙 (SAP; Stable Abstractions Principle)
@@ -247,7 +247,7 @@ ISP의 포괄적인 버전
 
 - **A/I 그래프**
 
-	![3](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/3.png)
+	![3](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/3.png)_Untitled.png_
 
 
 	> **배재구역**(Zone of Exclusion)**의 종류**  
