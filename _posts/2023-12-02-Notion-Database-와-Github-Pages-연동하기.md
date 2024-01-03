@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Notion Database 와 Github Pages 연동하기"
-date: 2023-12-02
+created: 2023-12-02
+edited: 2023-12-31
 category: [기술]
 tags: [Notion,Github Pages]
 ---

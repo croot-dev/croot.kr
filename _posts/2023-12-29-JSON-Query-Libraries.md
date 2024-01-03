@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "JSON Query Libraries"
-date: 2023-12-29
+created: 2023-12-29
+edited: 2023-12-30
 category: [기술]
 tags: [JSON,jmespath,jsonpath-plus,json-query,jsonpath,JSONStream,oboe]
 ---

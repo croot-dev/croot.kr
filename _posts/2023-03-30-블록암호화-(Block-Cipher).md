@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "블록암호화 (Block Cipher)"
-date: 2023-03-30
+created: 2023-03-30
+edited: 2023-12-13
 category: [기술]
 tags: [보안,블록암호]
 ---

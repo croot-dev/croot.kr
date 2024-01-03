@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "HTTP Protocol"
-date: 2023-11-26
+created: 2023-11-26
+edited: 2023-12-13
 category: [기술]
 tags: []
 ---

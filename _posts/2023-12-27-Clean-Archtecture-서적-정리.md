@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Clean Archtecture 서적 정리"
-date: 2023-12-27
+created: 2023-12-27
+edited: 2024-01-02
 category: [기술]
 tags: [Architecture]
 ---
