@@ -2,7 +2,7 @@
 layout: post
 title: "Clean Archtecture 서적 정리"
 created: 2023-12-27
-edited: 2024-01-03
+edited: 2024-01-08
 category: [기술]
 tags: [Architecture]
 ---
@@ -252,7 +252,7 @@ ISP의 포괄적인 버전
 
 	> **배재구역**(Zone of Exclusion)**의 종류**  
 	> - **Zone of Pain :** 안정적이며 구체적인 컴포넌트, 변동성이 있는 컴포넌트는 변경해야 한다.  
-	> - **Zone of Useelessness :** 추상적이지만 의존이 없는 컴포넌트.
+	> - **Zone of Uselessness :** 추상적이지만 의존이 없는 컴포넌트.
 
 
 	> 💡 주계열(Main Sequence)에 가깝게 위치하는 컴포넌트가 가장 이상적이며,  
