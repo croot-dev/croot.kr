@@ -2,7 +2,7 @@
 layout: post
 title: "HTTP Protocol"
 created: 2023-11-26
-edited: 2023-12-13
+edited: 2024-03-13
 category: [기술]
 tags: []
 ---

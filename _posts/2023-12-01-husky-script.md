@@ -2,7 +2,7 @@
 layout: post
 title: "husky script"
 created: 2023-12-01
-edited: 2023-12-05
+edited: 2024-03-19
 category: [기술]
 tags: []
 ---

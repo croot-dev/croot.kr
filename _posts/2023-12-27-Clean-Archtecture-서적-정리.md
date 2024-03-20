@@ -2,7 +2,7 @@
 layout: post
 title: "Clean Archtecture 서적 정리"
 created: 2023-12-27
-edited: 2024-01-23
+edited: 2024-03-12
 category: [기술]
 tags: [Architecture]
 ---
@@ -285,4 +285,10 @@ ISP의 포괄적인 버전
 
 
 ### 경계(Boundary)
+
+
+컴포넌트 분리 후 핵심 업무 규칙과 플러그인으로 구분
+
+
+경계전략
 
