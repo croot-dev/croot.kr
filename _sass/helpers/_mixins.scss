@@ -26,28 +26,34 @@
 
 // Font sizing
 @mixin fs--title {
+    margin-top: 1em;
+    margin-bottom: 0.25em;
     line-height: 1.5;
-    font-size: 4.8rem; // 48px
+    font-size: 3rem; // 48px
+    font-weight: 700;
 }
 
 @mixin fs--heading-1 {
-    margin-top: 2em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
     line-height: 1.5;
-    font-size: 3.2rem; // 32px
+    font-size: 2.5rem; // 32px
     font-weight: 700;
 }
 
 @mixin fs--heading-2 {
-    margin-top: 1.4em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
     line-height: 1.5;
-    font-size: 2.4rem; // 24px
+    font-size: 2rem; // 24px
     font-weight: 600;
 }
 
 @mixin fs--heading-3 {
-    margin-top: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
     line-height: 1.5;
-    font-size: 2rem; // 20px
+    font-size: 1.5rem; // 20px
     font-weight: 600;
 }
 
@@ -58,26 +64,26 @@
 
 @mixin fs--body {
     line-height: 1.5;
-    font-size: 1.6rem; // 18px
+    font-size: 1.25rem; // 18px
 }
 
 @mixin fs--meta {
     line-height: 1;
-    font-size: 1.6rem; // 18px
+    font-size: 1rem; // 18px
 }
 
 @mixin fs--caption {
     line-height: 1;
-    font-size: 1.6rem; // 16px
+    font-size: 1rem; // 16px
 }
 
 @mixin fs--code {
     border-radius: 4px;
     background-color: rgb(247, 246, 243);
     color: #EB5757;
-    font-size: .75em;
+    font-size: 0.85em;
     padding: 0.2em 0.4em;
-    line-height: normal;
+    line-height: 1.5;
 }
 
 // Visually hide content

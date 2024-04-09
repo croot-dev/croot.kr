@@ -19,7 +19,7 @@
 .c-archives__item {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-    border-top: 1px solid #EFF1F3;
+    border-top: 1px solid #cacaca;
     @media screen and (min-width: $bp__sm) {
         display: -webkit-box;
         display: -webkit-flex;
@@ -40,6 +40,15 @@
 
     h3 {
         @include fs--body;
+
+        a { margin-bottom: 10px; }
+        small {
+            padding: 2px 7px;
+            background-color: rgba(#EB5757, 0.1);
+            border-radius: 7px;
+            font-size: .75em;
+            font-weight: 400;
+        }
     }
 
     p {

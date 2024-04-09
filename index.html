@@ -6,10 +6,14 @@ pagination:
     per_page: 5
 ---
 
-<p style="font-size:1.75em;background: #efefef;padding: 1.2em 1.5em;line-height: 1.5;margin: -2em 0 3em;word-break: keep-all;">
-  <span>이 블로그의 모든 포스트는</span> <span>Notion 데이터베이스를 변환하여 작성하였습니다.</span><br />
-  <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank">원본 Notion 데이터베이스 보기</a>
-</p>
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span><br />
+  <p style="font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성되었습니다.</span><br />
+    <span>문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">원본 Notion 데이터베이스 보러가기</a>
+  </p>
+</div>
 
 <section class="c-archives">
   <link rel="shortcut icon" href="">
@@ -26,7 +30,9 @@ pagination:
       <h3>
         <a href="{{ post.url | prepend: site.baseurl }}">{{post.title}}</a>
         <br>
-        <small>{{post.description}}</small>
+        {% for tag in post.tags %}
+        <small>{{tag}}</small>
+        {% endfor %}
       </h3>
       <p>{{ post.date | date: "%b %-d, %Y" }}</p>
     </li>

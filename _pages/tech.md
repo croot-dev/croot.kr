@@ -25,7 +25,9 @@ pagination:
       <h3>
         <a href="{{ post.url | prepend: site.baseurl }}">{{post.title}}</a>
         <br>
-        <small>{{post.description}}</small>
+        {% for tag in post.tags %}
+        <small>{{tag}}</small>
+        {% endfor %}
       </h3>
       <p>{{ post.date | date: "%b %-d, %Y" }}</p>
     </li>
