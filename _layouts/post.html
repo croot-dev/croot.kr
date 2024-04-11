@@ -6,17 +6,37 @@ layout: page
 <article class="c-article">
   <header class="c-article__header">
     <h1 class="c-article__title">{{ page.title }}</h1>
-    <p class="c-article__time"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time></p>
+    <!-- <p class="c-article__time"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time></p> -->
   </header>
-  <!-- Post Tags -->
-  <ul class="c-tags">
-    {% for tag in page.tags %}
-    <li class="c-tag">{{ tag }}</li>
-    {% endfor %}
-  </ul>
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>카테고리</th><td>{{page.category}}</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              {% for tag in page.tags %}
+              <li class="c-tag">{{ tag }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>{{page.edited | date: "%b %-d, %Y" }}</td>
+        </tr>
+        <tr>
+          <th>작성일</th><td>{{page.created | date: "%b %-d, %Y" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="c-article__main">
     {{ content }}
   </div>
+
   <!-- Previous / Next Buttons -->
   <div class="pagenav">
     {% if page.previous.url %}

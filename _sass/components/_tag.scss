@@ -3,60 +3,83 @@
    ========================================================================== */
 
 .c-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
   list-style: none;
   margin: 0;
   overflow: hidden; 
   padding: 0;
 }
 
-.c-tags li {
+.c-tags > li {
   float: left; 
 }
 
+// .c-tag {
+//   background: #eee;
+//   border-radius: 3px 0 0 3px;
+//   color: #999;
+//   display: inline-block;
+//   height: 26px;
+//   line-height: 26px;
+//   padding: 0 12px 0 16px;
+//   position: relative;
+//   margin: 0 5px 3px 0;
+//   text-decoration: none;
+//   -webkit-transition: color 0.2s;
+//   font-size: .85em;
+// }
+
+// .c-tag::before {
+//   background: #fff;
+//   border-radius: 10px;
+//   box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+//   content: '';
+//   height: 6px;
+//   left: 6px;
+//   position: absolute;
+//   width: 6px;
+//   top: 10px;
+// }
+
+// .c-tag::after {
+//   background: #fff;
+//   border-bottom: 13px solid transparent;
+//   border-left: 10px solid #eee;
+//   border-top: 13px solid transparent;
+//   content: '';
+//   position: absolute;
+//   right: 0;
+//   top: 0;
+// }
+
+// .c-tag:hover {
+//   background-color: $c-accent__blue;
+//   color: white;
+// }
+
+// .c-tag:hover::after {
+//    border-left-color: $c-accent__blue;
+// }
+
 .c-tag {
-  background: #eee;
-  border-radius: 3px 0 0 3px;
-  color: #999;
-  display: inline-block;
-  height: 26px;
-  line-height: 26px;
-  padding: 0 20px 0 23px;
-  position: relative;
-  margin: 0 10px 50px 0;
-  text-decoration: none;
-  -webkit-transition: color 0.2s;
-}
-
-.c-tag::before {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
-  content: '';
-  height: 6px;
-  left: 10px;
-  position: absolute;
-  width: 6px;
-  top: 10px;
-}
-
-.c-tag::after {
-  background: #fff;
-  border-bottom: 13px solid transparent;
-  border-left: 10px solid #eee;
-  border-top: 13px solid transparent;
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.c-tag:hover {
-  background-color: $c-accent__blue;
-  color: white;
-}
-
-.c-tag:hover::after {
-   border-left-color: $c-accent__blue;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 0px;
+  max-width: 100%;
+  height: 20px;
+  border-radius: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 14px;
+  line-height: 120%;
+  color: rgb(24, 51, 71);
+  background: rgb(211, 229, 239);
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .c-c-tag {

@@ -26,6 +26,31 @@
                 align-items: baseline;
     }
 }
+.c-article__info {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(55,53,47,.09);
+
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        height: 34px;
+        padding: 0 0 4px 0;
+    }
+    th {
+        width: 120px;
+        padding-left: 1rem;
+        font-weight: 400;
+        color: rgba(55, 53, 47, 0.65);
+        text-align: left;
+    }
+
+    @media screen and (min-width: $bp__sm) {
+        th { width: 160px; }
+    }
+}
 
 .c-article__title {
     @include fs--title;
