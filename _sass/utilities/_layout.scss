@@ -11,3 +11,8 @@
     padding-left: 1rem;
 }
 
+@media screen and (max-width: $bp__sm) {
+    html {
+        font-size: 14px;
+    }
+}

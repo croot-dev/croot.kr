@@ -7,18 +7,18 @@
 }
 
 .c-archives__year {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     @include fs--heading-1;
 }
 
 .c-archives__list {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     list-style: none;
 }
 
 .c-archives__item {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-top: 1px solid #cacaca;
     @media screen and (min-width: $bp__sm) {
         display: -webkit-box;
@@ -40,8 +40,8 @@
 
     h3 {
         @include fs--body;
+        margin-bottom: 1rem;
 
-        a { margin-bottom: 10px; }
         small {
             padding: 2px 7px;
             background-color: rgba(#EB5757, 0.1);
@@ -49,6 +49,11 @@
             font-size: .75em;
             font-weight: 400;
         }
+    }
+
+    @media screen and (min-width: $bp__sm) {
+        h3 { margin-bottom: 0; }
+        h3 a { margin-bottom: 10px; }
     }
 
     p {
