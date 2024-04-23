@@ -2,7 +2,7 @@
 layout: post
 title: "Gradle + SpringBoot+ GraphQL"
 created: 2024-03-19
-edited: 2024-04-12
+edited: 2024-04-22
 category: [기술]
 tags: [SpringBoot,Gradle,VSCode,MariaDB,Java,GraphQL]
 ---
