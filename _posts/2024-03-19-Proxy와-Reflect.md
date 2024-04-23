@@ -2,13 +2,13 @@
 layout: post
 title: "Proxy와 Reflect"
 created: 2024-03-19
-edited: 2024-04-11
+edited: 2024-04-12
 category: [기술]
 tags: [ES6,Javascript]
 ---
 
 
-# Proxy
+## Proxy
 
 
 ### 정의
