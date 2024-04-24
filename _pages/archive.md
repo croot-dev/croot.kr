@@ -23,5 +23,19 @@ pagination:
             allowfullscreen="true"
         ></iframe>
     </li>
+    <li class="c-archives__item">
+        <h3>Vue3 Gauge Canvas 버전 그래프</h3>
+        <iframe
+            height="300"
+            style="width:100%;"
+            scrolling="no"
+            title="Untitled"
+            src="https://codepen.io/croot-dev/embed/VwNgyPL?default-tab="
+            frameborder="no"
+            loading="lazy"
+            allowtransparency="true"
+            allowfullscreen="true"
+        ></iframe>
+    </li>
   </ul>
 </section>
