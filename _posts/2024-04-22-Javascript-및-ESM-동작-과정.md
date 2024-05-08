@@ -2,13 +2,10 @@
 layout: post
 title: "Javascript 및 ESM 동작 과정"
 created: 2024-04-22
-edited: 2024-04-22
+edited: 2024-04-28
 category: [기술]
 tags: [es modules,ESM,Javascript]
 ---
-
-
-ㄴ
 
 
 # Javascript 동작 과정
