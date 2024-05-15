@@ -36,3 +36,42 @@ pagination:
     <dd class="document__desc"><a href="https://trends.google.com/trends/" target="_blank" rel="noopener noreferrer">Google Trends</a> : 구글 검색 트렌드</dd>
   </dl>
 </section>
+
+<div style="display:flex;flex-direction:row;gap:10px;justify-content:flex-end;padding-bottom:1em;">
+  <input id="tokenInput" />
+  <button id="updateButton">갱신</button>
+  <div id="updateMessage"></div>
+</div>
+
+
+<script>
+  const updateButton = document.getElementById("updateButton")
+  updateButton.addEventListener("click", function() {
+    var tokenInput = document.getElementById("tokenInput");
+    if (!tokenInput.value) {
+      return;
+    }
+    var messageElement = document.getElementById("updateMessage");
+    messageElement.textContent = "요청 전송 중...";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.github.com/repos/croot-dev/croot-dev.github.io/dispatches", true);
+    xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
+    xhr.setRequestHeader("Authorization", "Bearer " + tokenInput.value);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function() {
+      if (xhr.status === 204) {
+        messageElement.textContent = "요청이 성공적으로 전송되었습니다.";
+      } else {
+        messageElement.textContent = `요청 전송에 실패했습니다. (${xhr.status})`;
+      }
+    };
+
+    xhr.onerror = function() {
+      messageElement.textContent = "요청 전송 중 알 수 없는 오류가 발생했습니다.";
+    };
+
+    xhr.send(JSON.stringify({"event_type": "RUN_WORKFLOW_DISPATCH"}));
+  });
+</script>
