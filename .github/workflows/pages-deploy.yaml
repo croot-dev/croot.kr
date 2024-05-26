@@ -1,4 +1,4 @@
-name: "Build and Deploy"
+name: "Post Import and Deploy"
 on:
   repository_dispatch:
     types: [RUN_WORKFLOW_DISPATCH]
@@ -57,7 +57,6 @@ jobs:
   build:
     needs: importer
     runs-on: ubuntu-latest
-
     steps:           
       - name: Checkout
         uses: actions/checkout@v3
