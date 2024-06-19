@@ -2,7 +2,7 @@
 layout: post
 title: "UDL(Unified Design for Learning) 관련"
 created: 2024-05-28
-edited: 2024-06-03
+edited: 2024-06-12
 category: [기술]
 tags: [웹접근성,AIDT]
 ---
@@ -11,7 +11,7 @@ tags: [웹접근성,AIDT]
 참고 : [AI 디지털 교과서 개발 가이드라인](https://www.keris.or.kr/common/nttFileDownload.do?fileKey=bc31d34d85b620d81fe0b6e9ad8e1b2c)
 
 
-[%E1%84%92%E1%85%A1%E1%86%AB%E1%84%80%E1%85%AE%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC_%E1%84%8B%E1%85%B0%E1%86%B8_%E1%84%8F%E1%85%A9%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AB%E1%84%8E%E1%85%B3_%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%80%E1%85%B3%E1%86%AB%E1%84%89%E1%85%A5%E1%86%BC_%E1%84%8C%E1%85%B5%E1%84%8E%E1%85%B5%E1%86%B7_2.2-2_2.pdf](https://prod-files-secure.s3.us-west-2.amazonaws.com/8daffe33-d95b-4c96-91e6-1b899bcdb2d7/cac6aabd-fc6d-4393-bfd2-0b6843b16f00/%E1%84%92%E1%85%A1%E1%86%AB%E1%84%80%E1%85%AE%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC_%E1%84%8B%E1%85%B0%E1%86%B8_%E1%84%8F%E1%85%A9%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AB%E1%84%8E%E1%85%B3_%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%80%E1%85%B3%E1%86%AB%E1%84%89%E1%85%A5%E1%86%BC_%E1%84%8C%E1%85%B5%E1%84%8E%E1%85%B5%E1%86%B7_2.2-2_2.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45HZZMZUHI%2F20240603%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240603T093857Z&X-Amz-Expires=3600&X-Amz-Signature=57fe5d88d38f70eba236a19565d951b01c9598265da90c23bcc9174622609357&X-Amz-SignedHeaders=host&x-id=GetObject)
+[%E1%84%92%E1%85%A1%E1%86%AB%E1%84%80%E1%85%AE%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC_%E1%84%8B%E1%85%B0%E1%86%B8_%E1%84%8F%E1%85%A9%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AB%E1%84%8E%E1%85%B3_%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%80%E1%85%B3%E1%86%AB%E1%84%89%E1%85%A5%E1%86%BC_%E1%84%8C%E1%85%B5%E1%84%8E%E1%85%B5%E1%86%B7_2.2-2_2.pdf](https://prod-files-secure.s3.us-west-2.amazonaws.com/8daffe33-d95b-4c96-91e6-1b899bcdb2d7/cac6aabd-fc6d-4393-bfd2-0b6843b16f00/%E1%84%92%E1%85%A1%E1%86%AB%E1%84%80%E1%85%AE%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC_%E1%84%8B%E1%85%B0%E1%86%B8_%E1%84%8F%E1%85%A9%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AB%E1%84%8E%E1%85%B3_%E1%84%8C%E1%85%A5%E1%86%B8%E1%84%80%E1%85%B3%E1%86%AB%E1%84%89%E1%85%A5%E1%86%BC_%E1%84%8C%E1%85%B5%E1%84%8E%E1%85%B5%E1%86%B7_2.2-2_2.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45HZZMZUHI%2F20240619%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240619T114344Z&X-Amz-Expires=3600&X-Amz-Signature=202388156b79aeb0533c4c545ba68b0a0da74b062749f0bb0224140515ca4574&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 ## UDL(Unified Design for Learning)이란
@@ -247,4 +247,7 @@ aria 속성 예제 : [https://www.w3.org/WAI/ARIA/apg/patterns/](https://www.w3.
 
 
 이미지 alt 생성기(영문) : [https://alttext.ai/](https://alttext.ai/)
+
+
+Nuli 웹접근성 진단 도구 : [https://nuli.navercorp.com/education/tools](https://nuli.navercorp.com/education/tools)
 
