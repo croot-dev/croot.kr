@@ -73,12 +73,11 @@ fetch(url, options)
 ```
 
 
-> **Notice:**
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">**Notice:**</div>
+</div>
 
-	- 데이터를 보내려면 `fetch()`는 post 요청의 body 속성을 사용하여 데이터를 엔드포인트로 보내고, Axios는 `data` 속성을 사용합니다.
-	- `fetch()`의 데이터는 `JSON.stringify` 방법을 사용하여 문자열로 변환됩니다.
-	- Axios는 서버에서 반환된 데이터를 자동으로 변환하지만, `fetch()`를 사용하면 `response.json` 메서드를 호출하여 데이터를 자바스크립트 객체로 파싱해야 합니다.
-	- Axios를 사용하면 서버가 제공하는 데이터 응답에 data 객체 내에서 접근할 수 있으며, `fetch()` 메소드의 경우 최종 데이터는 어떤 변수로든 명명할 수 있습니다.
 
 # 이전 버전과의 호환성
 
