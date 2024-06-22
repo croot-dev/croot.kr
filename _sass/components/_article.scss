@@ -74,6 +74,9 @@
         margin-bottom: .5em;
     }
 
+    h1 {
+        @include fs--heading-1;
+    }
     h2 {
         @include fs--heading-2;
     }

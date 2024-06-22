@@ -16,7 +16,7 @@
 
 // Font families
 @mixin ff--sans-serif($font-weight: normal) {
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+    font-family: 'Apple SD Gothic Neo', 'Apple Gothic', 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
     font-weight: $font-weight;
 }
 
@@ -53,13 +53,13 @@
     margin-top: 1.5em;
     margin-bottom: 0.5em;
     line-height: 1.5;
-    font-size: 1.5rem; // 20px
+    font-size: 1.8rem; // 20px
     font-weight: 600;
 }
 
 @mixin fs--heading-4 {
-    line-height: 1.6;
-    font-size: 1.8rem; // 18px
+    line-height: 1.5;
+    font-size: 1.6rem; // 18px
 }
 
 @mixin fs--body {
