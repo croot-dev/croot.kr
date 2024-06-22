@@ -4,7 +4,7 @@ const dayjs = require("dayjs");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
-const { calloutToMarkdown, embedToMarkdown } = require("./notionUtils");
+const { getColorset, calloutToMarkdown, embedToMarkdown } = require("./notionUtils");
 
 // 노션 데이터베이스 속성명
 const PROPERTY = {
@@ -31,11 +31,10 @@ fs.mkdirSync(rootDir, { recursive: true });
 (async () => {
 
   const databaseId = process.env.DATABASE_ID;
-  // TODO has_more
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: PROPERTY.PUBLISH,
+      property: PROPERTY.TEST,
       checkbox: {
         equals: true,
       },
@@ -46,7 +45,7 @@ fs.mkdirSync(rootDir, { recursive: true });
     const createdDate = dayjs(created_time).format("YYYY-MM-DD");
     const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
 
-        // title
+    // title
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
     const title = tempTitle.length > 0? tempTitle[0]?.["plain_text"] : id;
 
@@ -55,7 +54,11 @@ fs.mkdirSync(rootDir, { recursive: true });
 
     // tags
     const tagList = properties?.[PROPERTY.TAGS]?.["multi_select"] || [];
-    const tags = tagList.map((tag) => `${tag['name']}`);
+    
+    const tags = tagList.map((tag) => {
+      const color = getColorset(tag['color']);
+      return `${tag['name']}:${color.background}:${color.font}`
+    });
 
     // frontmatter
     const frontmatter = `---

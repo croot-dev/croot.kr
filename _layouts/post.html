@@ -17,8 +17,9 @@ layout: page
         <tr>
           <th>태그</th><td>
             <ul class="c-tags">
-              {% for tag in page.tags %}
-              <li class="c-tag">{{ tag }}</li>
+              {% for tagObj in page.tags %}
+              {% assign tag = tagObj | split: ":" %}
+              <li class="c-tag" style="background:{{tag[1]}};color:{{tag[2]}}">{{ tag[0] }}</li>
               {% endfor %}
             </ul>
           </td>

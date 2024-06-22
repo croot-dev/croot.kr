@@ -43,6 +43,50 @@ function iconParser(block) {
 };
 
 module.exports = {
+  getColorset: function (colorType) {
+    switch(colorType) {
+      case 'gray': return {
+        font: 'rgb(50 48 44)',
+        background: 'rgb(227 226 224)'
+      };
+      case 'brown': return {
+        font: 'rgb(68 42 30)',
+        background: 'rgb(238 224 218)'
+      };
+      case 'orange': return {
+        font: 'rgb(73 41 14)',
+        background: 'rgb(250 222 201)'
+      };
+      case 'yellow': return {
+        font: 'rgb(64 44 27)',
+        background: 'rgb(253 236 200)'
+      };
+      case 'green': return {
+        font: 'rgb(28 56 41)',
+        background: 'rgb(219 237 219)'
+      };
+      case 'blue': return {
+        font: 'rgb(24 51 71)',
+        background: 'rgb(211 229 239)'
+      };
+      case 'purple': return {
+        font: 'rgb(65 36 84)',
+        background: 'rgb(232 222 238)'
+      };
+      case 'pink': return {
+        font: 'rgb(76 35 55)',
+        background: 'rgb(245 224 233)'
+      };
+      case 'red': return {
+        font: 'rgb(93 23 21)',
+        background: 'rgb(255 226 221)'
+      };
+      default: return {
+        font: 'rgb(50 48 44)',
+        background: 'rgba(227 226 224 0.5)'
+      };
+    }
+  },
   calloutToMarkdown: async function (block) {
     const { callout } = block;
     return `<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
