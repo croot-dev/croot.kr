@@ -4,6 +4,7 @@ const dayjs = require("dayjs");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
+const { calloutToMarkdown, embedToMarkdown } = require("./notionUtils");
 
 // 노션 데이터베이스 속성명
 const PROPERTY = {
@@ -11,7 +12,7 @@ const PROPERTY = {
   TITLE: '게시물', // 타입: 제목(plain_text)
   CATEGORY: '카테고리',
   TAGS: '태그', // 타입: 다중선택(multi_select)
-  
+  TEST: '테스트'
 }
 const DEFAULT_CATEGORY_NAME = '기타'; // 카테고리 없을 시 기본으로 적용할 카테고리 명
 
@@ -70,14 +71,8 @@ tags: [${tags.join(',')}]
     
     // passing notion client to the option
     const n2m = new NotionToMarkdown({ notionClient: notion });
-    n2m.setCustomTransformer("embed", async (block) => {
-      const { embed } = block;
-      if (!embed?.url) return "";
-      return `<figure>
-      <iframe src="${embed?.url}"></iframe>
-      <figcaption>${await n2m.blockToMarkdown(embed?.caption)}</figcaption>
-    </figure>`;
-    });
+    n2m.setCustomTransformer("callout", calloutToMarkdown);
+    n2m.setCustomTransformer("embed", embedToMarkdown);
     const blocks = await n2m.pageToMarkdown(id);
     const markdown = n2m.toMarkdownString(blocks)["parent"];
     const fileTitle = `${createdDate}-${title.replaceAll(" ", "-")}.md`;
