@@ -31,7 +31,10 @@ tags: [Notion,Github Pages]
 		**`Generate New Token(Classic)`** 선택 후 **`repo`**, **`workflow`**, **`admin:repo_hook`** 세가지를 체크하여 토큰 생성.
 
 
-	> 💡 나는 로컬에서 테스트하기 위해 `.env.local` 에다가 저장했다.
+	<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+	<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+	<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">나는 로컬에서 테스트하기 위해 `.env.local` 에다가 저장했다.</div>
+	</div>
 
 
 	```yaml
@@ -45,7 +48,10 @@ tags: [Notion,Github Pages]
 ## 환경 설치
 
 
-> 💡 아래 설치에서는 [homebrew](https://brew.sh/)를 이용한다.
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">아래 설치에서는 [homebrew](https://brew.sh/)를 이용한다.</div>
+</div>
 
 1. [**`rbenv`**](https://github.com/rbenv/rbenv), [**`nvm`**](https://github.com/nvm-sh/nvm) 설치
 
@@ -54,8 +60,10 @@ tags: [Notion,Github Pages]
 	```
 
 
-	> 💡 **`rbenv`** : Ruby 버전을 관리하기 위한 패키지  
-	> **`nvm`** : Node 버전을 관리하기 위한 패키지
+	<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+	<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+	<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">`**rbenv**` : Ruby 버전을 관리하기 위한 패키지<br />`**nvm**` : Node 버전을 관리하기 위한 패키지</div>
+	</div>
 
 2. `Node 18` 설치
 
@@ -74,7 +82,10 @@ tags: [Notion,Github Pages]
 	```
 
 
-	> 💡 **`rbenv`**는 여러 루비 버전을 관리하기 위한 패키지이다.
+	<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+	<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+	<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">`**rbenv**`는 여러 루비 버전을 관리하기 위한 패키지이다.</div>
+	</div>
 
 4. **`bundler`**(루비 패키지 관리 프로그램) 설치
 
@@ -87,7 +98,10 @@ tags: [Notion,Github Pages]
 ## 설정파일
 
 
-> 💡 파일 경로는 프로젝트 루트 경로를 최상단으로 정의하여 작성함.
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">파일 경로는 프로젝트 루트 경로를 최상단으로 정의하여 작성함.</div>
+</div>
 
 1. **`package.json`** 생성
 
@@ -461,7 +475,10 @@ yarn serve
 	```
 
 
-	> 💡 로컬에서 HTML 파일을 열어서 버튼을 누르면 github action이 실행된다.
+	<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+	<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+	<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">로컬에서 HTML 파일을 열어서 버튼을 누르면 github action이 실행된다.</div>
+	</div>
 
 
 ## 확인

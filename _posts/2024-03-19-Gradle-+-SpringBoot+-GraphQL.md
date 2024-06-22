@@ -8,7 +8,10 @@ tags: [SpringBoot,Gradle,VSCode,MariaDB,Java,GraphQL]
 ---
 
 
-> 💡 전체 소스 코드는 [여기](https://github.com/croot-dev/springboot-graphql/tree/notion/6c50e956396b41449b42a8e134d97c4e)를 참고 해주세요.
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">전체 소스 코드는 [여기](https://github.com/croot-dev/springboot-graphql/tree/notion/6c50e956396b41449b42a8e134d97c4e)를 참고 해주세요.</div>
+</div>
 
 
 ## 프로젝트 환경

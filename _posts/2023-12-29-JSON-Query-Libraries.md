@@ -32,11 +32,10 @@ tags: [JSON,jmespath,jsonpath-plus,json-query,jsonpath,JSONStream,oboe]
 하지만 4년 전에 작성한 것으로 각 라이브러리 버전이 낮아 최신버전으로 업데이트 후 비교해보았다.
 
 
-> 💡 전체 성능 비교 코드는 아래 Github에서 확인 가능합니다.  
-> [🔗 JSON Query Libraries 성능 비교](https://github.com/croot-dev/json-querying-performance-testing)
-
-
-	[🔗 JSON Query Libraries 성능 비교](https://github.com/croot-dev/json-querying-performance-testing)
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">전체 성능 비교 코드는 아래 Github에서 확인 가능합니다.</div>
+</div>
 
 
 > 성능 테스트는 각 라이브러리에 대하여 아래와 같이 세가지 쿼리를 실행합니다.

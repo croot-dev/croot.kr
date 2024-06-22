@@ -50,7 +50,10 @@ tags: [Architecture]
 ![0](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/0.png)_Untitled.png_
 
 
-> 💡 현업은 주로 3번_(긴급하지만 중요하지 않은 일)_을 1번_(긴급하고 중요한 일)_으로 착각하는 실수를 저지른다. 
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">현업은 주로 3번_(긴급하지만 중요하지 않은 일)_을 1번_(긴급하고 중요한 일)_으로 착각하는 실수를 저지른다. </div>
+</div>
 
 
 ## 패러다임과 아키텍처 관심사
@@ -101,7 +104,10 @@ SOLID 설계 원칙을 기반함.
 가변성과 불변성의 접점, 관리
 
 
-> 💡 소프트웨어는 순차, 분기, 반복, 참조 로 구성되며 이 핵심은 변하지 않는다.
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">소프트웨어는 순차, 분기, 반복, 참조 로 구성되며 이 핵심은 변하지 않는다.</div>
+</div>
 
 
 ## SOLID 설계 원칙
@@ -185,7 +191,10 @@ ISP의 포괄적인 버전
 ![1](/assets/img/2023-12-27-Clean-Archtecture-서적-정리.md/1.png)_Untitled.png_
 
 
-> 💡 프로젝트는 일반적으로 삼각형 오른쪽(CCP)에서 시작해서 다른 프로젝트가 시작되면 왼쪽(REP)으로 이동해간다.
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">프로젝트는 일반적으로 삼각형 오른쪽(CCP)에서 시작해서 다른 프로젝트가 시작되면 왼쪽(REP)으로 이동해간다.</div>
+</div>
 
 
 ## 컴포넌트 결합
@@ -255,8 +264,10 @@ ISP의 포괄적인 버전
 	> - **Zone of Uselessness :** 추상적이지만 의존이 없는 컴포넌트.
 
 
-	> 💡 주계열(Main Sequence)에 가깝게 위치하는 컴포넌트가 가장 이상적이며,  
-	> 주계열과의 거리를 계산하여 편차가 높은 컴포넌트는 재검토 및 재구성이 필요하다.
+	<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+	<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+	<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">주계열(Main Sequence)에 가깝게 위치하는 컴포넌트가 가장 이상적이며,<br />주계열과의 거리를 계산하여 편차가 높은 컴포넌트는 재검토 및 재구성이 필요하다.</div>
+	</div>
 
 
 ## 아키텍처
@@ -274,7 +285,10 @@ ISP의 포괄적인 버전
 - **운영** : 요구사항 변경에 대응에 유연하다.
 - 개발 : 컨웨이 법칙
 
-	> 💡 Conway’s law : 프로젝트 조직은 조직의 의사소통 구조와 동일한 시스템 설계를 만든다.
+	<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+	<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+	<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">Conway’s law : 프로젝트 조직은 조직의 의사소통 구조와 동일한 시스템 설계를 만든다.</div>
+	</div>
 
 - 배포 : 즉시배포가 목표이며 UseCase를 유연하게 교체, 변경 할 수 있어야한다.
 
