@@ -8,7 +8,10 @@ tags: [commonjs,es modules,cjs,mjs,ESM]
 ---
 
 
-> 💡 "CJS"와 "MJS"는 각각 CommonJS와 ECMAScript Modules의 약어입니다. 이 두 모듈 시스템은 JavaScript에서 모듈을 정의하고 가져오는 방식을 다르게 다룹니다.
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">"CJS"와 "MJS"는 각각 CommonJS와 ECMAScript Modules의 약어입니다. 이 두 모듈 시스템은 JavaScript에서 모듈을 정의하고 가져오는 방식을 다르게 다룹니다.</div>
+</div>
 
 
 ## 목차

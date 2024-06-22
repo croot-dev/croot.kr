@@ -2,7 +2,7 @@
 layout: post
 title: "[번역] Axios와 fetch(): HTTP 요청을 할 때 어떤 것이 가장 좋을까요?"
 created: 2024-06-12
-edited: 2024-06-12
+edited: 2024-06-22
 category: [기술]
 tags: [axios,fetch,api]
 ---
