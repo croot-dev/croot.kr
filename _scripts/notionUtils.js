@@ -8,19 +8,19 @@ function richTextParser(block) {
     console.log(parsed);
 
     if (italic) {
-      parsed = `_${parsed}_`;
+      parsed = `<i>${parsed}</i>`;
     }
     if (bold) {
-      parsed = `**${parsed}**`;
+      parsed = `<strong>${parsed}</strong>`;
     }
     if (code) {
-      parsed = `\`${parsed}\``;
+      parsed = `<code class="language-plaintext highlighter-rouge">${parsed}</code>`;
     }
     if (strikethrough) {
-      parsed = `~~${parsed}~~`;
+      parsed = `<s>${parsed}</s>`;
     }
     if (path) {
-      parsed = `[${parsed}](${path})`;
+      parsed = `<a href="${path}" target="_blank">${parsed}</a>`;
     }
 
     return `${acc}${parsed}`;
@@ -91,7 +91,7 @@ module.exports = {
     const { callout } = block;
     return `<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
 ${iconParser(callout)}
-<div style="display:flex;flex-direction:column;min-width:0px;margin-left:8px;width:100%;">${await richTextParser(callout)}</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">${await richTextParser(callout)}</div>
 </div>`;
   },
   embedToMarkdown: async function (block) {
