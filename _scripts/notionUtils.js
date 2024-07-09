@@ -5,7 +5,6 @@ function richTextParser(block) {
     const url = href && new URL(href);
     let path = href;
     let parsed = text.replace(/\n/g, '<br />');
-    console.log(parsed);
 
     if (italic) {
       parsed = `<i>${parsed}</i>`;

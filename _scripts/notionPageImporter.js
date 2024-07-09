@@ -34,7 +34,7 @@ fs.mkdirSync(rootDir, { recursive: true });
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: PROPERTY.TEST,
+      property: PROPERTY.PUBLISH,
       checkbox: {
         equals: true,
       },
