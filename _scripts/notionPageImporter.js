@@ -45,6 +45,11 @@ fs.mkdirSync(rootDir, { recursive: true });
     const createdDate = dayjs(created_time).format("YYYY-MM-DD");
     const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
 
+    // 2025년도 조건 확인
+    if (!updatedDate.startsWith("2025")) {
+      continue;
+    }
+
     // title
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
     const title = tempTitle.length > 0? tempTitle[0]?.["plain_text"] : id;
