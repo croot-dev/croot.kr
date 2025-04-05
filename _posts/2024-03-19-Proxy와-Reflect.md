@@ -2,7 +2,7 @@
 layout: post
 title: "Proxy와 Reflect"
 created: 2024-03-19
-edited: 2024-08-03
+edited: 2025-03-31
 category: [기술]
 tags: [ES6:rgb(219 237 219):rgb(28 56 41),Javascript:rgb(232 222 238):rgb(65 36 84)]
 ---
@@ -112,9 +112,11 @@ console.log(docCookies.myCookie1); // 변경된 쿠키 값 가져오기
 ```
 
 
-### ⚠️주의
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;"></div>
+</div>
 
-- `get` trap 호출 시 this 는 `Proxy` 객체를 나타낸다.
 
 ## Reflect
 
@@ -166,6 +168,38 @@ Reflect.preventExtensions(target)
 Reflect.ownKeys(target)
 // target 의 모든 속성 키 배열을 반환
 ```
+
+
+### 예시
+
+
+```javascript
+const target = { name: 'Charlie' };
+
+const proxy = new Proxy(target, {
+  get(obj, prop) {
+    console.log(`Accessing ${prop}`);
+    return Reflect.get(obj, prop); // 안전하게 원본 동작 수행
+  },
+  set(obj, prop, value) {
+    console.log(`Setting ${prop} to ${value}`);
+    return Reflect.set(obj, prop, value); // 원래 동작 보존
+  }
+});
+
+console.log(proxy.name); // Accessing name → 'Charlie'
+proxy.age = 30;          // Setting age to 30
+
+```
+
+
+### Meta programming
+
+
+프로그램이 자신이나 다른 프로그램을 수정할 수 있게 하는 프로그래밍 기법
+
+
+코드의 유연성과 재사용성을 향상
 
 
 ## REFS.
