@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
     
       - name: Clean Directory
         run: |
@@ -32,9 +32,9 @@ jobs:
           rm -rf _site
           rm -rf _posts/*
       
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "17"
+          node-version: "20"
 
       - run: npm install
 
@@ -87,7 +87,7 @@ jobs:
           bundle exec htmlproofer _site --disable-external --checks --allow_hash_href
 
       - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: "_site"
           name: github-pages
