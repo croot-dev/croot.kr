@@ -7,43 +7,6 @@ permalink: /about/
 <style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
 h1,
 h2,
 h3 {
@@ -688,8 +651,8 @@ blockquote {
 	
 </style>
 
-<article id="6da1aae1-8eb9-4626-9588-2fdc7f340fd1" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📜</span></div><h1 class="page-title">Resume</h1><p class="page-description"></p></header><div class="page-body"><p id="2a8378b5-a87a-42e4-b9a6-48b5d9b69470" class="">
-</p><div id="e973115e-3c73-4133-a49a-366961813ebd" class="column-list"><div id="69244a5d-31c8-47eb-bc75-6b3e356fa7f1" style="width:31.25%" class="column"><figure id="046c31ec-749e-40cf-a0fc-ce91ef71639f" class="image"><a href="/assets/about/Mmt-Hardy.png"><img style="width:1266px" src="/assets/about/Mmt-Hardy.png"/></a></figure></div><div id="0d260aec-8bd9-46ff-810c-026141512898" style="width:87.5%" class="column"><h2 id="4a39e173-8aac-4c1b-ade7-3e66dde07d07" class="">Choi Geunho</h2><p id="0d175a40-53c3-4504-a883-52692d32bc81" class="">FrontEnd Developer</p><div id="a929407a-df8a-4ae6-b07d-8506b306d990" class="column-list"><div id="dc72c623-7ee6-4aba-b5a4-2368838f50a5" style="width:100%" class="column"><p id="7e11cb18-2f25-46a7-a4b7-3748c007d321" class=""><mark class="highlight-gray">🏠  고양시 일산</mark></p><p id="1f3d6b17-9dfd-44a7-956d-cb9ce3ea7024" class=""><strong>📧  </strong><a href="mailto:croot.dev@gmail.com">croot.dev@gmail.com</a></p><p id="a2f6e891-2825-427b-a75f-932118402699" class=""><strong>📱   </strong><mark class="highlight-gray">010-4620-2930</mark></p></div><div id="685cf30e-37cd-40ec-b376-51921b6e413d" style="width:100%" class="column"><p id="2076063e-6590-803c-a602-d25036c42ecd" class="">🌐  <a href="https://croot.kr">croot.kr</a></p><p id="2076063e-6590-808b-8555-ef17440c6353" class=""><img alt="favicon" src="/assets/about/favicon.webp" style="width:1em;height:1em"/> <a href="https://github.com/croot-dev">@croot-dev</a></p><p id="2076063e-6590-80b0-ab8f-d8e1593a6339" class=""><img alt="notion-logo" src="/assets/about/notion-logo.webp" style="width:1em;height:1em"/> <a href="https://www.notion.so/976a6ab5f89447ccb04e0ead815fa672?pvs=21">@croot</a></p><p id="2076063e-6590-80fe-b588-fae6134166cc" class="">
+<article id="6da1aae1-8eb9-4626-9588-2fdc7f340fd1" class="page sans"><div class="page-body"><p id="2a8378b5-a87a-42e4-b9a6-48b5d9b69470" class="">
+</p><div id="e973115e-3c73-4133-a49a-366961813ebd" class="column-list"><div id="69244a5d-31c8-47eb-bc75-6b3e356fa7f1" style="width:31.25%" class="column"><figure id="046c31ec-749e-40cf-a0fc-ce91ef71639f" class="image"><a href="/assets/about/Mmt-Hardy.png"><img style="width:1266px" src="/assets/about/Mmt-Hardy.png"/></a></figure></div><div id="0d260aec-8bd9-46ff-810c-026141512898" style="width:87.5%" class="column"><h2 id="4a39e173-8aac-4c1b-ade7-3e66dde07d07" class="">Choi Geunho</h2><p id="0d175a40-53c3-4504-a883-52692d32bc81" class="">FrontEnd Developer</p><div id="a929407a-df8a-4ae6-b07d-8506b306d990" class="column-list"><div id="dc72c623-7ee6-4aba-b5a4-2368838f50a5" style="width:100%" class="column"><p id="7e11cb18-2f25-46a7-a4b7-3748c007d321" class=""><mark class="highlight-gray">🏠  고양시 일산</mark></p><p id="1f3d6b17-9dfd-44a7-956d-cb9ce3ea7024" class=""><strong>📧  </strong><a href="mailto:croot.dev@gmail.com">croot.dev@gmail.com</a></p><p id="a2f6e891-2825-427b-a75f-932118402699" class=""><strong>📱   </strong><mark class="highlight-gray">010-4620-2930</mark></p></div><div id="685cf30e-37cd-40ec-b376-51921b6e413d" style="width:100%" class="column"><p id="2076063e-6590-803c-a602-d25036c42ecd" class="">🌐  <a href="https://croot.kr">https://croot.kr</a></p><p id="2076063e-6590-808b-8555-ef17440c6353" class=""><img alt="github" src="/assets/about/github.webp" style="width:1em;height:1em"/> <a href="https://github.com/croot-dev">@croot-dev</a></p><p id="2076063e-6590-80b0-ab8f-d8e1593a6339" class=""><img alt="notion-logo" src="/assets/about/notion-logo.webp" style="width:1em;height:1em"/> <a href="https://www.notion.so/976a6ab5f89447ccb04e0ead815fa672?pvs=21">@croot</a></p><p id="2076063e-6590-80fe-b588-fae6134166cc" class="">
 </p></div></div></div></div><h2 id="12d7eb09-c6ec-40a5-bc2d-a24a49074d92" class="">Profile Summary</h2><p id="2076063e-6590-80be-89bc-e3486865041f" class="">
 </p><p id="2076063e-6590-8002-8065-d4e1c71a7fec" class="">10년 이상의 프론트엔드 경력을 바탕으로, Vue/React 기반의 공통 컴포넌트와 UI 아키텍처를 설계해왔습니다.</p><p id="2076063e-6590-8048-b1a9-eaf6c53e21f9" class="">대규모 서비스에서 <strong>디자인 시스템 구축</strong>, <strong>모듈화된 UI 구조 설계</strong>, <strong>성과 지표 기반의 성능 최적화 </strong>를 수행했으며,</p><p id="2076063e-6590-800b-9697-fe26bd26e915" class="">클린 코드와 유지보수성을 중시하여 코드 품질 관리, 테스트 자동화, Lint 환경 구축 등 팀 개발 문화를 함께 개선해왔습니다.</p><p id="2076063e-6590-8021-8a95-c8167f84d528" class=""><strong>기획–디자인–개발의 협업은 물론, 기술적 의사결정과 장기 유지보수 전략수립</strong>까지 <strong>UI 전반에 대한 주도적 리딩 경험 </strong>을 갖고 있습니다.</p><p id="2076063e-6590-80d3-abb5-e94cff094302" class="">
 </p><hr id="846db37c-0554-4211-83bc-92bcfedf1233"/><p id="2076063e-6590-8072-ba53-fc33d4b31f1a" class="">

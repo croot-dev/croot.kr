@@ -40,13 +40,15 @@ fs.mkdirSync(rootDir, { recursive: true });
       },
     },
   });
+  const today = new Date()
   for (const { id, properties, created_time, last_edited_time } of response.results) {
     // date
     const createdDate = dayjs(created_time).format("YYYY-MM-DD");
     const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
 
-    // 2025년도 조건 확인
-    if (!updatedDate.startsWith("2025")) {
+    // 올해 연도 조건 확인
+
+    if (!updatedDate.startsWith(today.getFullYear())) {
       continue;
     }
 
