@@ -2,7 +2,7 @@
 layout: post
 title: "Scaffolding 시스템 만들어보자 - 1"
 created: 2025-04-06
-edited: 2025-04-06
+edited: 2025-06-20
 category: [기술]
 tags: [Architecture:rgb(232 222 238):rgb(65 36 84),config:rgb(219 237 219):rgb(28 56 41)]
 ---
