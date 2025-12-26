@@ -33,6 +33,7 @@ fs.mkdirSync(rootDir, { recursive: true });
   const databaseId = process.env.DATABASE_ID;
   const response = await notion.databases.query({
     database_id: databaseId,
+    page_size: 30,
     filter: {
       property: PROPERTY.PUBLISH,
       checkbox: {
@@ -46,11 +47,10 @@ fs.mkdirSync(rootDir, { recursive: true });
     const createdDate = dayjs(created_time).format("YYYY-MM-DD");
     const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
 
-    // 올해 연도 조건 확인
-
-    if (!updatedDate.startsWith(today.getFullYear())) {
-      continue;
-    }
+    // // 올해 연도 조건 확인
+    // if (!updatedDate.startsWith(today.getFullYear())) {
+    //   continue;
+    // }
 
     // title
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
