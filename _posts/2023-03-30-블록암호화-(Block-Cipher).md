@@ -2,7 +2,7 @@
 layout: post
 title: "블록암호화 (Block Cipher)"
 created: 2023-03-30
-edited: 2025-12-31
+edited: 2025-12-30
 category: [기술]
 tags: [Security:rgb(253 236 200):rgb(64 44 27)]
 notion_id: a2812670-90e1-4fe2-89ad-71f8d8da7132

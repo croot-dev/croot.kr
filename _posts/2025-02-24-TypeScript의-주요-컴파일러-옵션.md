@@ -2,7 +2,7 @@
 layout: post
 title: "TypeScript의 주요 컴파일러 옵션"
 created: 2025-02-24
-edited: 2025-03-21
+edited: 2025-03-20
 category: [기술]
 tags: []
 notion_id: 1a46063e-6590-802c-a0d3-cd74f7247aba
