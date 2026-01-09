@@ -33,7 +33,7 @@ fs.mkdirSync(rootDir, { recursive: true });
   const databaseId = process.env.DATABASE_ID;
   const response = await notion.databases.query({
     database_id: databaseId,
-    page_size: 30,
+    page_size: 100,
     filter: {
       property: PROPERTY.PUBLISH,
       checkbox: {
@@ -41,20 +41,23 @@ fs.mkdirSync(rootDir, { recursive: true });
       },
     },
   });
-  const today = new Date()
+  const today = dayjs();
+  const oneYearAgo = today.subtract(1, 'year');
+
   for (const { id, properties, created_time, last_edited_time } of response.results) {
     // date
     const createdDate = dayjs(created_time).format("YYYY-MM-DD");
     const updatedDate = dayjs(last_edited_time).format("YYYY-MM-DD");
 
-    // // 올해 연도 조건 확인
-    // if (!updatedDate.startsWith(today.getFullYear())) {
-    //   continue;
-    // }
-
-    // title
+    // title (먼저 가져와서 로그에 사용)
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
     const title = tempTitle.length > 0? tempTitle[0]?.["plain_text"] : id;
+
+    // 1년 이내 업데이트된 포스트만 처리
+    if (dayjs(last_edited_time).isBefore(oneYearAgo)) {
+      console.log(`⏭️  Skipping old post: "${title}" (last updated: ${updatedDate})`);
+      continue;
+    }
 
     // category
     const category = properties?.[PROPERTY.CATEGORY]?.["select"]?.name || DEFAULT_CATEGORY_NAME;
@@ -75,6 +78,7 @@ created: ${createdDate}
 edited: ${updatedDate}
 category: [${category}]
 tags: [${tags.join(',')}]
+notion_id: ${id}
 ---
 
 `;
@@ -115,9 +119,10 @@ tags: [${tags.join(',')}]
       });
 
     // Write file
-    fs.writeFile(path.join(rootDir, fileTitle), frontmatter + edited_markdown, (err) => {
+    const filePath = path.join(rootDir, fileTitle);
+    fs.writeFile(filePath, frontmatter + edited_markdown, (err) => {
       if (err) {
-        console.log(err);
+        console.log(`❌ Error writing "${title}":`, err);
       }
     });
   }

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home - page 9 - Croot Blog</title>
+  <meta name="description" content="private blog site.">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/page9/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+
+<section class="index-section">
+  <dl class="document">
+    <dt class="document__title">IT 인사이트</dt>
+    <dd class="document__desc"><a href="https://www.etnews.com/" target="_blank" rel="noopener noreferrer">전자신문</a></dd>
+    <dd class="document__desc"><a href="https://news.hada.io/" target="_blank" rel="noopener noreferrer">GeekNews</a></dd>
+    <dd class="document__desc"><a href="https://www.comworld.co.kr/news/articleList.html?sc_section_code=S1N1&view_type=sm" target="_blank" rel="noopener noreferrer">컴퓨터월드 커버스토리</a></dd>
+    <dd class="document__desc"><a href="https://2e.co.kr/news/articleList.html?sc_section_code=S1N1&view_type=sm" target="_blank" rel="noopener noreferrer">투이컨설팅</a></dd>
+  </dl>
+  <dl class="document">
+    <dt class="document__title">Trends</dt>
+    <dd class="document__desc"><a href="https://npmtrends.com/" target="_blank" rel="noopener noreferrer">NPM Trends</a> : NPM 패키지 다운로드 비교</dd>
+    <dd class="document__desc"><a href="https://trends.google.com/trends/" target="_blank" rel="noopener noreferrer">Google Trends</a> : 구글 검색 트렌드</dd>
+    <dd class="document__desc"><a href="https://github.com/hibuz/dev-conf-replay" target="_blank" rel="noopener noreferrer">국내 IT 세미나 및 개발자 컨퍼런스</a> : 국내 IT 세미나 및 개발자 컨퍼런스</dd>
+    <dd class="document__desc"><a href="https://gs.statcounter.com/" target="_blank" rel="noopener noreferrer">Statcounter Global Stats</a> : Browser, OS, Search Engine including Mobile Usage Share</dd>
+  </dl>
+  <dl class="document">
+    <dt class="document__title">Tools</dt>
+    <dd class="document__desc"><a href="https://roadmap.sh/" target="_blank" rel="noopener noreferrer">Developer Roadmaps</a> : 학습을 안내하는 데 도움이 되는 로드맵을 제공</dd>
+    <dd class="document__desc"><a href="https://www.photopea.com/" target="_blank" rel="noopener noreferrer">Photopea</a> : 웹 기반 이미지 편집기</dd>
+    <dd class="document__desc"><a href="https://codebeautify.org/" target="_blank" rel="noopener noreferrer">Ray</a> : 소스코드 스크린샷 생성기능 제공</dd>
+    <dd class="document__desc"><a href="https://color.adobe.com/ko/create/color-wheel" target="_blank" rel="noopener noreferrer">Adobe color</a> : 어도비 색상 팔레트</dd>
+    
+  </dl>
+</section>
+
+<div style="display:flex;flex-direction:row;gap:10px;justify-content:flex-end;padding-bottom:1em;">
+  <input id="tokenInput" />
+  <button id="updateButton">갱신</button>
+  <div id="updateMessage"></div>
+</div>
+
+
+<script>
+  const updateButton = document.getElementById("updateButton")
+  updateButton.addEventListener("click", function() {
+    var tokenInput = document.getElementById("tokenInput");
+    if (!tokenInput.value) {
+      return;
+    }
+    var messageElement = document.getElementById("updateMessage");
+    messageElement.textContent = "요청 전송 중...";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.github.com/repos/croot-dev/croot-dev.github.io/dispatches", true);
+    xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
+    xhr.setRequestHeader("Authorization", "Bearer " + tokenInput.value);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function() {
+      if (xhr.status === 204) {
+        messageElement.textContent = "요청이 성공적으로 전송되었습니다.";
+      } else {
+        messageElement.textContent = `요청 전송에 실패했습니다. (${xhr.status})`;
+      }
+    };
+
+    xhr.onerror = function() {
+      messageElement.textContent = "요청 전송 중 알 수 없는 오류가 발생했습니다.";
+    };
+
+    xhr.send(JSON.stringify({"event_type": "RUN_WORKFLOW_DISPATCH"}));
+  });
+</script>
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

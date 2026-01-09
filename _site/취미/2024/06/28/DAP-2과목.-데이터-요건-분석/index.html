@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DAP 2과목. 데이터 요건 분석 - Croot Blog</title>
+  <meta name="description" content="제1장 정보 요구 사항 개요">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EC%B7%A8%EB%AF%B8/2024/06/28/DAP-2%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9A%94%EA%B1%B4-%EB%B6%84%EC%84%9D/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">DAP 2과목. 데이터 요건 분석</h1>
+    <!-- <p class="c-article__time"><time datetime="2024-06-28T00:00:00+09:00" itemprop="datePublished">Jun 28, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 06월 28일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 07월 10일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>취미</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h1 id="제1장-정보-요구-사항-개요">제1장 정보 요구 사항 개요</h1>
+
+<h2 id="제1절-정보-요구-사항">제1절 정보 요구 사항</h2>
+
+<h3 id="1-정의">1. 정의</h3>
+
+<p>사용자가 일상적으로 수행하는 업무의 개선 사항이나 신규 개발 사항으로 시스템을 통해 기능상의 목적을 달성하기 위해 요청하는 내용</p>
+
+<p><strong>요구사항 분류</strong></p>
+
+<ul>
+  <li>비즈니스 요구 사항</li>
+  <li>이해관계자 요구 사항</li>
+  <li>해결책 요구 사항
+    <ul>
+      <li>기능적 요구 사항</li>
+      <li>비기능적 요구 사항</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>프로젝트 실패 원인</strong></p>
+
+<ul>
+  <li>계획과 추정 요인
+    <ul>
+      <li>초기 설정된 원가 및 일정 추정이 개선되지 않음</li>
+      <li>프로젝트 계획이 가이드로써 역할을 하지 못함</li>
+    </ul>
+  </li>
+  <li>실행 요인
+    <ul>
+      <li>범위 변경</li>
+      <li>방법론 적용 실패</li>
+      <li>요구 사항 변경</li>
+      <li>테스트와 검증 실패</li>
+    </ul>
+  </li>
+  <li>인간적 요인
+    <ul>
+      <li>훈련되지 않은 관리자</li>
+      <li>관리 이론이 실무에 적용되지 않음</li>
+      <li>커뮤니케이션 부재</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-정보-요구-사항-생명주기-모형">2. 정보 요구 사항 생명주기 모형</h3>
+
+<p>정보 요구 사항 생명주기 모형은 <u>**요구 사항 개발**</u>과 <u>**요구 사항 관리**</u>로 나누어 진다.</p>
+
+<p><img src="/assets/img/2024-06-28-DAP-2과목.-데이터-요건-분석.md/0.png" alt="0" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>요구 사항 개발
+    <ul>
+      <li>정보 요구 사항 도출/추출</li>
+      <li>정보 요구 사항 분석/정의</li>
+      <li>정보 요구 사항 명세화</li>
+      <li>정보 요구 사항 검증</li>
+    </ul>
+  </li>
+  <li>요구 사항 관리
+    <ul>
+      <li>요구 사항 협상</li>
+      <li>요구 사항 기준선</li>
+      <li>요구 사항 변경관리</li>
+      <li>요구 사항 확인/검증</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-정보-요구-사항-유형">3. 정보 요구 사항 유형</h3>
+
+<p><strong>요구 사항 분류</strong></p>
+
+<ul>
+  <li>기능 요구 사항</li>
+  <li>비기능 요구 사항
+    <ul>
+      <li>성능</li>
+      <li>시스템 장비구성</li>
+      <li>인터페이스</li>
+      <li>데이터</li>
+      <li>테스트</li>
+      <li>보안</li>
+      <li>품질</li>
+      <li>제약사항</li>
+      <li>프로젝트 관리</li>
+      <li>프로젝트 지원</li>
+    </ul>
+  </li>
+  <li>기타 요구 사항
+    <ul>
+      <li>유지관리 수행</li>
+      <li>유지보수 인력</li>
+      <li>컨설팅</li>
+      <li>공사</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>요구사항 유형</strong></p>
+
+<ul>
+  <li>외부 인터페이스
+    <ul>
+      <li>관리 기준 : 중복성, 표준 준수도</li>
+    </ul>
+  </li>
+  <li>기능
+    <ul>
+      <li>관리 기준 : 불가변성, 범용성</li>
+    </ul>
+  </li>
+  <li>성능
+    <ul>
+      <li>관리 기준 : 실현 가능성, 측정 가능성</li>
+    </ul>
+  </li>
+  <li>보안
+    <ul>
+      <li>관리 기준 : 불가변성, 실현 가능성</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제2절-정보-요구-사항-관리">제2절 정보 요구 사항 관리</h2>
+
+<h3 id="1-정의-및-관리-목적">1. 정의 및 관리 목적</h3>
+
+<p>정보 요구 사항을 비롯하여 관련 시스템 전반에 걸친 사용자의 요구를 수집하고 분류하여 반영하는 작업 절차</p>
+
+<p>데이터, 애플리케이션, 비즈니스 등의 요구 사항을 전부 포함하는 통합 관리 프로세스를 정립해야 한다.</p>
+
+<h3 id="2-정보-요구-사항-프로세스">2. 정보 요구 사항 프로세스</h3>
+
+<p><strong>업무 흐름 프로세스</strong></p>
+
+<p><img src="/assets/img/2024-06-28-DAP-2과목.-데이터-요건-분석.md/1.png" alt="1" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>요구 사항 관리
+    <ul>
+      <li>요구 사항 <strong>발송</strong> : <u>정보 요구 사항 정의서</u> 작성 및 전달</li>
+      <li>요구 사항 <strong>수렴</strong> : 접수 확인, 담당자 지정</li>
+      <li>요구 사항 <strong>검토</strong> : 반영 여부 판단</li>
+    </ul>
+  </li>
+  <li>반영 계획 수립
+    <ul>
+      <li><strong>영향도 분석</strong> : 신규 개발 및 변경 여부, 설계서, 데이터베이스 등</li>
+      <li><strong>공식화</strong> : 담당자들과 협의, 규모 / 기간 / 시급성 을 판단하여 결정</li>
+      <li>반영 작업 <strong>계획 수립</strong> : 반영 계획 수립</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>수행 조직 및 수행 업무</strong></p>
+
+<ul>
+  <li><strong>사용자</strong> : 요구 사항 정의, 변경 요청, 미결 사항 의사결정</li>
+  <li><strong>담당자</strong> : 요구 사항 접수, 검토, 처리 방식 결정, 요구 사항 반영, 테스트, 결과 통보</li>
+  <li><strong>데이터 아키텍처 전문가</strong> : 영향도 분석, 표준 준수 여부 체크, 변경 계획 수립</li>
+</ul>
+
+<h1 id="제2장-정보-요구-사항-조사">제2장 정보 요구 사항 조사</h1>
+
+<h2 id="제1절-정보-요구-사항-수집">제1절 정보 요구 사항 수집</h2>
+
+<h3 id="1-정보-요구-사항-수집-형태">1. 정보 요구 사항 수집 형태</h3>
+
+<ul>
+  <li>관련 문서</li>
+  <li>사용자 면담</li>
+  <li>워크숍</li>
+  <li>현행 업무 처리 매뉴얼</li>
+  <li>현행 정보 시스템 관련 산출물</li>
+</ul>
+
+<h3 id="2-관련-문서-수집">2. 관련 문서 수집</h3>
+
+<p><strong>문서 수집 목적</strong></p>
+
+<p>구현 시스템의 대상과 범위를 좀 더 명확하게 정의하고 기업과 업종을 잘 이해하기 위함</p>
+
+<p><strong>문서 수집 자료</strong></p>
+
+<ul>
+  <li>경영 계획 자료</li>
+  <li>정보시스템 자료</li>
+  <li>과거 수행한 컨설팅 보고서</li>
+  <li>전산 처리 업무 매뉴얼</li>
+  <li>현업 부서 업무 자료</li>
+</ul>
+
+<p><strong>문서 수집 원칙</strong></p>
+
+<ul>
+  <li>기존 문서는 변형하지 않고 수집, 정보시스템 자료는 별도의 정리 양식을 이용하여 작성</li>
+  <li>현황 요약표 작성</li>
+  <li>계획 수립 기간 및 문서 관리자 지정</li>
+  <li>문서 분류 방식을 결정하여 일정 장소에 보관</li>
+  <li>문서 보안 관리 및 통제</li>
+</ul>
+
+<h3 id="3-사용자-면담">3. 사용자 면담</h3>
+
+<p>특정 관점에서의 업무 요건이나 업무 절차를 조사하기 위해 실무자와 대면하여 질의응답으로 정보를 수집하는 방법</p>
+
+<p><strong>사용자 면담 종류</strong></p>
+
+<ul>
+  <li>면담 조사 방법
+    <ul>
+      <li>개인 면담(인터뷰) : 많은 시간 소요</li>
+      <li>집단 면담(워크샵) : 공통 관심사 청취, 상호 경계심 주의</li>
+      <li>표준화 면담 : 동일 내용과 순서</li>
+      <li>비표준화 면담 : 상황에 따라 내용과 순서가 변경</li>
+    </ul>
+  </li>
+  <li>면담 조사 방식
+    <ul>
+      <li>피라미드 구조 : 구체적 → 일반적</li>
+      <li>퍼널 구조 : 일반적 → 구체적</li>
+      <li>다이아몬드 구조 : 피라미드 + 퍼널 (보통 피라미드 후 퍼널 진행)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>사용자 면담 진행</strong></p>
+
+<ol>
+  <li>계획 및 준비
+    <ol>
+      <li>주제 선정 : 수행 대상 작업과 대상자의 책임 수준에 따라 결정</li>
+      <li>팀 구성
+        <ul>
+          <li>면담자 : 면담 진행 및 질문</li>
+          <li>기록자 : 내용 기록, 종료 후 내용을 한번 더 확인 (면담 대상 업무에 대한 사전 지식 필요)</li>
+          <li>관찰자 : 면담이 주제를 벗어나는 경우, 주의 환기, 보충 질문, 면담 종료 판단</li>
+        </ul>
+      </li>
+      <li>면담 대상자 선정 : 면담 대상자는 관련 업무에 대해 명확하게 이해하는 사람</li>
+      <li>일정 수립</li>
+      <li>준비</li>
+    </ol>
+  </li>
+  <li>면담
+    <ol>
+      <li>시작 : 순서 점검, 역할 확인 등</li>
+      <li>주제 토의</li>
+    </ol>
+  </li>
+  <li>결과 분석</li>
+  <li>피드백 : 면담 대상자 확인 필요</li>
+</ol>
+
+<p><strong>면담 수행 시 고려 사항</strong></p>
+
+<ul>
+  <li>면담 시간 및 범위 준수</li>
+  <li>비밀 보장</li>
+  <li>기대 수준 설정</li>
+  <li>적절한 대상자 선정</li>
+  <li>응답 유도</li>
+  <li>문서화</li>
+  <li>선입견 배제</li>
+</ul>
+
+<h3 id="4-워크숍">4. 워크숍</h3>
+
+<p><strong>워크숍 개요 및 목적</strong></p>
+
+<p>어떠한 목적을 달성하기 위해 전문 진행자의 진행 아래 주요 구성원들이 함께 참여하는 회의</p>
+
+<p>다양한 정보 원천으로부터 빠른 추출이나 공유가 필요하거나, 토론 이상을 요구 시 사용된다</p>
+
+<p><strong>워크숍 준비</strong></p>
+
+<ul>
+  <li>과제 선정 및 계획 수립</li>
+  <li>대상자 선정 및 사전 교육</li>
+  <li>킥오프 모임 수행</li>
+  <li>자료 준비</li>
+  <li>장소 선정 및 물품 준비</li>
+  <li>기간 선정 프로그램 준비</li>
+</ul>
+
+<p><strong>워크숍 수행</strong></p>
+
+<ol>
+  <li>개시 : 인사, 공지사항, 일정 확인</li>
+  <li>수행 준비 : 목적 및 접근 방법 설명</li>
+  <li>수행</li>
+  <li>종료 : 진행사항 요약, 참여자 검토</li>
+</ol>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;"> 프로젝트 관리자와 현업 책임자는 진행자가 되어서는 안된다.</div>
+</div>
+
+<h3 id="5-현행-업무-조사서">5. 현행 업무 조사서</h3>
+
+<p>전체 부서에 대하여 동일한 기준으로 조사하는 것을 원칙으로 한다.</p>
+
+<p>업무 조사서의 양식은 단순하고 이해하기 쉬어야한다.</p>
+
+<h3 id="6-현행-프로그램데이터-관련-문서">6. 현행 프로그램/데이터 관련 문서</h3>
+
+<p>향후 사용자 요구 사항을 좀 더 세부적으로 진행하기 위한 사전 단계로 반영되어야 할 현행 시스템 업무 요건을 빠짐없이 파악하기 위한 작업</p>
+
+<h3 id="7-관찰">7. 관찰</h3>
+
+<p>대상의 자료를 수집하는 귀납적 방법으로 피관찰자의 행동이나 태도를 유심히 살펴보는 행위</p>
+
+<p>일반적으로 문서로 업무 파악 후, 일정기간 동안 고객의 업무를 옆에서 관찰하고 요건을 도출</p>
+
+<h3 id="8-브레인스토밍">8. 브레인스토밍</h3>
+
+<p><strong>브레인스토밍 개요 및 목적</strong></p>
+
+<p>창의적인 아이디어를 생산하기 위한 학습도구이자 회의기법으로 여러명으로부터 정보를 얻고자 할 때 사용할 수 있는 효과적인 방법</p>
+
+<p><strong>브레인스토밍 4가지 기본 원칙</strong></p>
+
+<ul>
+  <li>양에 포커스를 맞추기</li>
+  <li>비판, 비난 자제</li>
+  <li>특이한 아이디어 환영</li>
+  <li>아이디어 조합 및 개선</li>
+</ul>
+
+<p><strong>진행방법</strong></p>
+
+<p>모두가 거리낌 없이 적극적으로 참여하는 것이 중요</p>
+
+<ul>
+  <li>사용목적, 특징, 원칙, 진행방법을 설명</li>
+  <li>제한시간 설정</li>
+  <li>남의 아이디어를 참고하여 더 참신한 아이디어 도출</li>
+</ul>
+
+<h3 id="9-프로토타이핑">9. 프로토타이핑</h3>
+
+<p>시스템의 모형(Prototype)을 간단히 만들어 보여주고 직접 사용하게하여 요구사항을 끌어내어 재구축하는 과정을 반복하여 시스템을 개선하는 방식</p>
+
+<ol>
+  <li><strong>분석</strong> : 기본적인 사용자 요구 사항 분석</li>
+  <li><strong>개발</strong> : 언어 또는 CASE 도구 이용하여 개발</li>
+  <li><strong>확인</strong> : 요구사항 이행 확인 및 추가 제안</li>
+  <li><strong>개선</strong> : 프로토타입 수정 및 보완</li>
+</ol>
+
+<h2 id="제2절-정보-요구-사항-정리">제2절 정보 요구 사항 정리</h2>
+
+<h3 id="1-정보-요구-사항-정리">1. 정보 요구 사항 정리</h3>
+
+<p><strong>사용자 면담 정리</strong></p>
+
+<p>사용자 면담 시 제공된 자료의 샘플이나 관련 문서를 체계적으로 정리 기록</p>
+
+<p><strong>업무 조사서 정리</strong></p>
+
+<ul>
+  <li>수행 중인 프로세스 목록</li>
+  <li>프로세스 업무 흐름</li>
+  <li>타부서 / 외부 기관 받은 문서</li>
+  <li>사용 중 시스템 정보</li>
+</ul>
+
+<p><strong>워크숍 정리</strong></p>
+
+<p>명백하고 간결한 문장으로 정리하여 사후 대처하도록 한다.</p>
+
+<ul>
+  <li>목적</li>
+  <li>진행 내용</li>
+  <li>해결 과제 상태</li>
+  <li>기타 특이사항</li>
+</ul>
+
+<h3 id="2-정보-요구-우선순위-분석">2. 정보 요구 우선순위 분석</h3>
+
+<p><strong>화폐가치 산출 방법</strong></p>
+
+<ol>
+  <li>요구사항 나열</li>
+  <li>기업차원 중요성, 시스템 중요성, 상호관련성 점수 부여</li>
+  <li>기업차원 중요성 <strong>×</strong> 시스템 중요성 <strong>×</strong> 상호관련성 값의 백분율 산정</li>
+  <li>비율에 따른 가치 측정하여 우선순위 비교</li>
+</ol>
+
+<p><strong>상대적 중요도 산정 방법</strong></p>
+
+<ol>
+  <li>업무 기여도, 상호 관련성, 현재 적용 수준 점수 부여</li>
+  <li>가중치 결정</li>
+  <li>가중 평균으로 중요도 평가</li>
+</ol>
+
+<h2 id="제3절-정보-요구-사항-통합">제3절 정보 요구 사항 통합</h2>
+
+<h3 id="1-정보-요구-사항-목록-검토">1. 정보 요구 사항 목록 검토</h3>
+
+<p>전사 관점에서 동일 요구사항을 도출하기 위해 별도의 양식으로 취합 조정하여 중복 도출 여부 검토한다.</p>
+
+<h3 id="2-정보-요구-사항-목록-통합분할">2. 정보 요구 사항 목록 통합/분할</h3>
+
+<p>동일 부서 내 중복 검토 후 타 부서 중복 검토를 진행한다.</p>
+
+<h1 id="제3장-정보-요구-사항-분석">제3장 정보 요구 사항 분석</h1>
+
+<h2 id="제1절-분석-대상-정의">제1절 분석 대상 정의</h2>
+
+<p>사용자의 정보 요구 사항을 구체화, 상세화 하여 작업의 효율성을 높이고자 한다.</p>
+
+<h3 id="1-현행-업무-분석-대상-정의">1. 현행 업무 분석 대상 정의</h3>
+
+<p><strong>분석 대상 자료</strong></p>
+
+<ul>
+  <li>현행 업무 흐름도</li>
+  <li>현행 업무 설명서</li>
+  <li>현행 업무 분장 기술서</li>
+</ul>
+
+<p><strong>분석 대상 업무 영역 선정</strong></p>
+
+<p>수집된 요구 사항을 바탕으로 현행의 업무 흐름 및 관련 데이터를 파악하여 분류 기준에 따라 분석 대상 현행 업무 목록을 작성한다.</p>
+
+<h3 id="2-현행-시스템-분석-대상-정의">2. 현행 시스템 분석 대상 정의</h3>
+
+<p><strong>분석 대상 현행 시스템 선정</strong></p>
+
+<p>업무 분석 프로젝트 수행 범위를 파악하여 <u>업무 영역/현행 시스템 매트릭스를 작성</u>하여 시스템 선정을 한다.</p>
+
+<p><strong>분석 대상 현행 시스템 관련 자료</strong></p>
+
+<ul>
+  <li>대상
+    <ul>
+      <li>현행 시스템 구성도</li>
+      <li>현행 시스템 분석/설계/개발 보고서</li>
+      <li>현행 시스템 테이블 목록 및 정의서</li>
+      <li>프로그램 목록</li>
+      <li>사용자 및 운영자 지침서</li>
+      <li>시스템 지원 및 유지 보수 이력</li>
+      <li>시스템 개선 요구 사항</li>
+    </ul>
+  </li>
+  <li>평가 기준
+    <ul>
+      <li>유용성 : 활용 가능 여부</li>
+      <li>완전성 : 누락 부분 유무 여부</li>
+      <li>정확성 : 현재 시스템 일치 여부</li>
+      <li>유효성 : 최신 내용 반영 여부</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>추가적인 분석 대상</strong></p>
+
+<p>업무 요건 혹은 업무 규칙을 상세하게 분석하기 위하여 <u>**사용자 뷰도 포함**</u>한다.</p>
+
+<p>ex) 화면/수작업파일/수작업양식/보고서 등</p>
+
+<h2 id="제2절-정보-요구-사항-상세화">제2절 정보 요구 사항 상세화</h2>
+
+<h3 id="1-프로세스-관점의-정보-요구-사항-상세화">1. 프로세스 관점의 정보 요구 사항 상세화</h3>
+
+<p>프로세스는 시작 시점과 종료 시점이 명확하고 실행 횟수를 셀 수 있는 업무 활동을 의미이며</p>
+
+<p>입력과 출력이 있으며, 입력을 출력으로 바꾸는 변환 과정을 포함한다.</p>
+
+<p>프로세스가 더이상 분해되지 않는 최소 단위를 기본 프로세스라 부른다.</p>
+
+<p><strong>수행 절차 및 작업 내용</strong></p>
+
+<ul>
+  <li>프로세스 분해/상세화
+    <ul>
+      <li>하향식 프로세스 분해</li>
+      <li>프로세스 계층도, 프로세스 정의서 작성</li>
+    </ul>
+  </li>
+  <li>정보 항목 도출 및 표준화
+    <ul>
+      <li>기본 프로세스 별 정보 항목 정리</li>
+      <li>정보 항목 목록 정리</li>
+    </ul>
+  </li>
+  <li>표준화 과정
+    <ul>
+      <li>프로세스 별 관리 정보 항목 분류</li>
+      <li>통합성/분리성 여부 검토 후 최종 정보 항목 목록 정의</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>수행 작업 지침</strong></p>
+
+<ul>
+  <li>프로세스 분해/상세화
+    <ul>
+      <li>분해
+        <ul>
+          <li>단위 업무 기능 부터 점진적 수행</li>
+        </ul>
+      </li>
+      <li>분해 깊이
+        <ul>
+          <li>3차 수준까지 분해</li>
+          <li>중요한 조회 프로세스는 필요에 따라 명명 규칙을 달리하여 도출</li>
+        </ul>
+      </li>
+      <li>프로세스 명칭
+        <ul>
+          <li>명명 규칙 준수</li>
+          <li>업무 용어 사용</li>
+        </ul>
+      </li>
+      <li>프로세스 계층도
+        <ul>
+          <li>모듈성 확보 → 복잡도와 모호성 감소 → 분석 집중력 향상 → 유지보수 용이</li>
+          <li>업무를 구체적으로 이해할 수 있는 수준으로 상세하게 작성</li>
+          <li>재검토하여 조정</li>
+          <li>기본 프로세스까지 도출</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>정보 항목 도출 및 표준화
+    <ul>
+      <li>CRUD 기능을 구분하여 기술</li>
+      <li>명명 규칙을 준수하되 업무 용어를 그대로 사용하여 명사형으로 기술</li>
+    </ul>
+  </li>
+  <li>정보 항목별 통합성 검증
+    <ul>
+      <li>정보 유형별 및 정보 항목별로 전사 관점에서 검토</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-객체지향-관점의-정보-요구-사항-상세화">2. 객체지향 관점의 정보 요구 사항 상세화</h3>
+
+<p>객체지향 방법론에서는 유스케이스 당이어그램을 중심으로 정보시스템의 기능적 정보 요구 사항을 정의</p>
+
+<p><strong>유스케이스 다이어그램</strong></p>
+
+<p><img src="/assets/img/2024-06-28-DAP-2과목.-데이터-요건-분석.md/2.png" alt="2" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>액터(Actor) : 정보 서비스를 받는 객체</li>
+  <li>유스케이스(Usecase) : 액터 별로 시스템에서 제공해야 하는 기능</li>
+  <li>관계
+    <ul>
+      <li>확장(Extend) : 유스케이스의 행동을 추가함에 따라 나타나는 관계</li>
+      <li>포함(Include) : 유스케이스를 사용함을 나타내는 관계</li>
+      <li>Communicates : Actor가 유스케이스에 참가함을 나타내는 관계</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>유스케이스 상세화</strong></p>
+
+<p>유스케이스 사건 흐름을 구조화하는 작업으로 모든 선택 또는 대안 흐름을 기술</p>
+
+<p>특별 정보 요구 사항을 정의하고 비기능적 정보 요구 사항으로 기술</p>
+
+<ul>
+  <li>유스케이스 개략 설명</li>
+  <li>사건 흐름</li>
+  <li>사전, 사후 조건</li>
+  <li>비기능적 정보 요구 사항</li>
+  <li>대안 흐름</li>
+  <li>예외 처리 사항</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;"><strong>특별 정보 요구 사항</strong> : 유스케이스에 관련이 있지만 사건 흐름에는 고려되지 않는 정보 요구 사항</div>
+</div>
+
+<p><strong>클래스 다이어그램 작성</strong></p>
+
+<ol>
+  <li>엔티티 클래스 도출</li>
+  <li>관계 도출 및 클래스 도출</li>
+  <li>속성 정의</li>
+</ol>
+
+<h2 id="제3절-정보-요구-사항-확인">제3절 정보 요구 사항 확인</h2>
+
+<h3 id="1-수행-절차">1. 수행 절차</h3>
+
+<ul>
+  <li>분석 결과 산출물 재검토 기준 정의 및 재검토 계획 수립</li>
+  <li>다양한 측면(완전성, 정확성, 일관성, 안정성 등)에서 재검토 실시</li>
+  <li>반영 시 추가 반영 여부 확인, 미반영 시 사유 타당성 검토</li>
+</ul>
+
+<h3 id="2-수행-작업-내용">2. 수행 작업 내용</h3>
+
+<ul>
+  <li>재검토 계획 수립
+    <ul>
+      <li>분석 결과 및 산출물 확인</li>
+    </ul>
+  </li>
+  <li>재검토 실시
+    <ul>
+      <li>재검토 계획서 작성</li>
+      <li>재검토 대상 산출물 준비 및 담당자별 역할 분담</li>
+      <li>재검토 대상의 업무 영역별 재검토</li>
+    </ul>
+  </li>
+  <li>보완 결과 확인
+    <ul>
+      <li>업무 영역별 산출물 보완</li>
+      <li>반영 여부 확인 및 미반영 사유 검토</li>
+      <li>정보 요구 사항 정의서 안정성 분석</li>
+      <li>보완 목록 수정</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-수행-작업-지침">3. 수행 작업 지침</h3>
+
+<p><strong>재검토 계획 수립</strong></p>
+
+<ul>
+  <li>재검토 대상 : 정보 요구사항 정의서, 정보 항목 목록, 유스케이스 정의서, 클래스 다이어그램 등</li>
+  <li>재검토 기준
+    <ul>
+      <li>완전성 : 누락 없이 정의 되었는지 확인</li>
+      <li>정확성 : 요구사항이 정확히 표현되었는지 확인</li>
+      <li>일관성 : 표준화 준수 여부</li>
+      <li>안정성 : 추가 변경에 따른 영향도 파악</li>
+    </ul>
+  </li>
+  <li>계획서 포함 내용
+    <ul>
+      <li>개요 및 목적</li>
+      <li>일자, 장소 및 시간 계획</li>
+      <li>참석 대상 및 업무</li>
+      <li>참석 대상 별 세부 시간 계획</li>
+      <li>준비물 및 산출물</li>
+      <li>지적 사항 반영 계획 수립</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>재검토 실시</strong></p>
+
+<ul>
+  <li>대상 산출물 준비 및 배포</li>
+  <li>재검토 준비를 수행하며, 담당자별로 역할을 충분히 주지</li>
+  <li>재검토 대상 산출물 예습</li>
+  <li>진행 이슈는 목록으로 정리하여 일정 준수</li>
+  <li>통합성 검증 목적으로 업무 영역 담당자가 참여</li>
+  <li>진행자는 세션별 적절한 시간 배분 및 조정 역할</li>
+</ul>
+
+<p><strong>보완 결과 확인</strong></p>
+
+<ul>
+  <li>정보 요구사항 정의서 준비 및 배포 (재검토 결과, 보완 목록, 보완 사항 포함)</li>
+  <li>정보 요구사항 정의서 반영 여부 확인</li>
+</ul>
+
+<h3 id="4-수행-시-고려-사항">4. 수행 시 고려 사항</h3>
+
+<ul>
+  <li>일관성 있는 기준 및 명확한 일정 수립으로 참여자 공감대 형성 중요</li>
+  <li>재검토는 두 번 이상 진행하되 재검토 기준을 명확히 하여 수행</li>
+  <li>세션 진행 효율성 감안하여 적정한 참여 대상 선정</li>
+</ul>
+
+<h1 id="제4장-정보-요구-사항-명세화">제4장 정보 요구 사항 명세화</h1>
+
+<h2 id="제1절-정보-요구-사항-명세-정의">제1절 정보 요구 사항 명세 정의</h2>
+
+<h3 id="1-정보-요구-사항-명세-정의">1. 정보 요구 사항 명세 정의</h3>
+
+<ul>
+  <li>요구 분석 과정 최종 산출물로 사용자와 개발자를 연결</li>
+  <li>설계 및 구현에서 참조해야할 전반적인 사항을 포함</li>
+  <li>사용자와 개발자 간의 계약서</li>
+</ul>
+
+<h3 id="2-요구-분석-명세서-작성-시-주의-사항">2. 요구 분석 명세서 작성 시 주의 사항</h3>
+
+<ul>
+  <li>사용자가 쉽게 읽고 이해할 수 있도록 작성</li>
+  <li>개발자가 설계와 코딩에 효과적으로사용할 수 있도록 작성</li>
+  <li>비기능적 요구를 명확히 작성</li>
+  <li>테스트 기준 용도로 사용하도록 정량적으로 작성</li>
+  <li>품질에 대한 우선순위 명시</li>
+</ul>
+
+<h2 id="제2절-정보-요구-사항-명세-상세화">제2절 정보 요구 사항 명세 상세화</h2>
+
+<h3 id="1-요구-사항-상세내역-작성">1. 요구 사항 상세내역 작성</h3>
+
+<p>사업의 요구 사항을 지속적이고 효과적으로 관리하기 위해 표준화된 서식에 맞충어 요구 사항 상세 내역을 작성한다.</p>
+
+<ul>
+  <li><strong>고유번호</strong> : 추적관리를 위한 고유 번호 부여</li>
+  <li><strong>요구사항 명칭</strong> : 세분화 수준에서 명확한 명칭을 작성</li>
+  <li><strong>요구사항 분류</strong> : 상세 요구 사항 분류 기준에 따라 분류</li>
+  <li><strong>요구사항 상세설명</strong> : 기능 구현과 요구 사항 수행 방법을 상세하게 작성</li>
+  <li><strong>산출정보</strong> : 제출되어야 하는 산출물을 작성</li>
+  <li><strong>관련 요구사항</strong> : 정의된 요구사항과 관련 있는 요구사항 기술</li>
+  <li><strong>요구사항 출처 :</strong> 변경 발생 시 의사결정을 받기 위함</li>
+</ul>
+
+<h3 id="2-요구-사항-상세내역-작성-시-고려사항">2. 요구 사항 상세내역 작성 시 고려사항</h3>
+
+<ul>
+  <li>데이터 자료명, 자료내용, 자료크기, 건수/주기, 보존기한, 예상 자료량, 자료형태, 자료위치 등 파악</li>
+  <li>지적재산권 및 보안 관련 부분은 구축 가능 여부 확인하고 제약사항 파악 필요</li>
+  <li>데이터 요구사항과 기능 요구사항 간 추적관리가 되어야 한다</li>
+</ul>
+
+<h1 id="제5장-정보-요구-사항-검증-및-변경-관리">제5장 정보 요구 사항 검증 및 변경 관리</h1>
+
+<h2 id="제1절-정보-요구-사항-검증-정의">제1절 정보 요구 사항 검증 정의</h2>
+
+<p>요구사항 명세서에 사용자의 요구가 올바르게 기술되었는지에 대해 검토하고 베이스라인으로 설정하는 활동</p>
+
+<p><u>요구사항 명세서 검토</u>, <u>용어 검증</u>, <u>베이스라인</u> 설정 등을 하는 활동</p>
+
+<p><strong>요구사항 검증 활동</strong></p>
+
+<ul>
+  <li>요구사항 명세서 검토</li>
+  <li>요구사항 용어 검증</li>
+  <li>용어 일관성, 표준성, 이해용이성 검증</li>
+  <li>요구사항 베이스라인 설정</li>
+</ul>
+
+<h2 id="제2절-정보-요구-사항-상관분석-기법">제2절 정보 요구 사항 상관분석 기법</h2>
+
+<p>도출된 정보 요구사항을 매트릭스 분석 기법을 활용하여 다른 영역과 비교 분석하여 안정적이고 확장 가능한 데이터 모델 설계를 가능하게 한다.</p>
+
+<h3 id="1-주체별-분류">1. 주체별 분류</h3>
+
+<p><strong>요구 사항 분석가 수행</strong></p>
+
+<ul>
+  <li>자체 분석으로 인한 객관성 저하 문제</li>
+  <li>높은 이해도로 정확한 업무 분석 가능성</li>
+</ul>
+
+<p><strong>품질보증 팀 수행</strong></p>
+
+<ul>
+  <li>낮은 이해도 but 상관분석 작업의 수행으로 높일 수 있음</li>
+  <li>전체적인 인터페이스 검증에 용이</li>
+</ul>
+
+<p><strong>외부 감리 수행</strong></p>
+
+<ul>
+  <li>업무 파악의 한계있지만 제3자 시각 검토 가능</li>
+  <li>상관분석 객관성 극대화</li>
+</ul>
+
+<h3 id="2-정보-요구--애플리케이션-상관분석">2. 정보 요구 <strong>·</strong> 애플리케이션 상관분석</h3>
+
+<p>상호 일관성 확보하며 품질 수준을 향상 시킬 수 있으며 누락 혹은 중복된 정보 요구 사항 점검 가능</p>
+
+<ul>
+  <li>정보 항목, 기본 프로세스 매트릭스 작성</li>
+  <li>기본 프로세스 액션(CRUD) 빠짐없이 정의</li>
+  <li>정보 항목과 기본 프로세스가 모두 누락된 경우 분석 불가</li>
+</ul>
+
+<h3 id="3-정보-요구--업무-기능-상관분석">3. 정보 요구 <strong>·</strong> 업무 기능 상관분석</h3>
+
+<p>정보 요구사항과 업무 기능의 상호 일관성 확보, 품질 향상, 누락 및 중복 정보 요구사항 점검 가능</p>
+
+<ul>
+  <li>최하위 수준 전사 업무기능 도출 후 매트릭스 열에 배치</li>
+  <li>정보 항목을 매트릭스 행에 배치</li>
+  <li>상호작용 정의
+    <ul>
+      <li>정보 항목의 생성, 수정, 삭제 → C (Create/Change)</li>
+      <li>정보 항목 검색 → U (Use)</li>
+      <li>관련 없는 경우 → 빈칸</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="4-정보-요구--조직-기능-상관분석">4. 정보 요구 <strong>·</strong> 조직 기능 상관분석</h3>
+
+<p>향후 정보 항목에 대한 오너십을 할당하여 관리함으로 데이터를 효율적 관리 가능</p>
+
+<ul>
+  <li>조직도 순서대로 조직 단위명 입력
+    <ul>
+      <li>다수의 소재지 존재 시 소재지 타입에 따라 클러스터링</li>
+    </ul>
+  </li>
+  <li>정보 항목을 매트릭스 행에 배치</li>
+  <li>상호작용 정의
+    <ul>
+      <li>정보 항목의 생성, 수정, 삭제 → C (Create/Change)</li>
+      <li>정보 항목 검색 → U (Use)</li>
+      <li>관련 없는 경우 → 빈칸</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제3절-추가-및-삭제-정보-요구-사항-도출">제3절 추가 및 삭제 정보 요구 사항 도출</h2>
+
+<h3 id="1-정보-요구--애플리케이션-상관분석">1. 정보 요구 <strong>· 애플리케이션 상관분석</strong></h3>
+
+<p><strong>애플리케이션 충족도 분석 매트릭스</strong></p>
+
+<p>점검 기준</p>
+
+<ul>
+  <li>정보 항목을 생성하는 기본 프로세스가 존재</li>
+  <li>정보 항목의 상태를 종료시키는 기본 프로세스 존재</li>
+  <li>생성된 정보 항목은 조회, 수정, 삭제 액션 발생 필수</li>
+  <li>하나의 정보 항목의 기본 프로세스는 7개를 초과하지 않아야 함</li>
+</ul>
+
+<p><strong>매트릭스 분석</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>점검 내용</th>
+      <th>분석 결과</th>
+      <th>조치 사항</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>기본 프로세스가 사용하는 정보 항목 없음</td>
+      <td>정보항목 누락</td>
+      <td>정보항목 도출</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>필요없음</td>
+      <td>삭제</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>업무 영역 불일치</td>
+      <td>업무 영역 이동</td>
+    </tr>
+    <tr>
+      <td>정보 항목을 7개 이상 기본 프로세스에서 이용</td>
+      <td>거대한 정보 항목</td>
+      <td>정보 항목 세분화</td>
+    </tr>
+    <tr>
+      <td>정보 항목 생성 기본 프로세스 미존재</td>
+      <td>정보 항목 필요 없음</td>
+      <td>정보 항목 삭제</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>업무 영역 불일치</td>
+      <td>업무 영역 이동</td>
+    </tr>
+    <tr>
+      <td>동일 정보 항목 생성 프로세스 2개 이상 존재</td>
+      <td>기본 프로세스 중복</td>
+      <td>기본 프로세스 합성</td>
+    </tr>
+    <tr>
+      <td>삭제 기본 프로세스 미존재</td>
+      <td>기본 프로세스 누락</td>
+      <td>기본 프로세스 도출</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>삭제 업무 미존재</td>
+      <td>필요 확인</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>업무 영역 불일치</td>
+      <td>업무 영역 이동</td>
+    </tr>
+    <tr>
+      <td>동일 정보 항목 삭제 프로세스 2개 이상 존재</td>
+      <td>기본 프로세스 중복</td>
+      <td>기본 프로세스 합성</td>
+    </tr>
+    <tr>
+      <td>정보 항목 생성은 있지만 사용 안됨</td>
+      <td>기본 프로세스 누락</td>
+      <td>기본 프로세스 도출</td>
+    </tr>
+    <tr>
+      <td>정보 항목 조회만 하는 기본 프로세스</td>
+      <td>기본 프로세스 아님</td>
+      <td>모듈 검토</td>
+    </tr>
+    <tr>
+      <td>여러 액션 수행하는 기본 프로세스</td>
+      <td>거대한 기본 프로세스</td>
+      <td>프로세스 분해</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="2-정보-요구--업무-기능-상관분석">2. 정보 요구 <strong>· 업무 기능 상관분석</strong></h3>
+
+<ul>
+  <li>매트릭스 분석
+    <ul>
+      <li>Mapping 연관 확인</li>
+      <li>각 정보 항목 1개 이상의 C(create) 존재</li>
+      <li>각 정보 항목 1개 이상의 U(use) 존재</li>
+    </ul>
+  </li>
+  <li>정보 항목과 연관성 없는 업무 기능 → 적절성 및 재파악 후 매트릭스 보완</li>
+  <li>정보 항목과 매핑 없는 업무 기능 → 정보 요구사항 추가 필요 확인 후 신규로 추가</li>
+</ul>
+
+<h3 id="3-정보-요구--조직-기능-상관분석">3. 정보 요구 <strong>· 조직 기능 상관분석</strong></h3>
+
+<ul>
+  <li>매트릭스 분석
+    <ul>
+      <li>Mapping 연관 확인</li>
+      <li>각 정보 항목 1개 이상의 C(create) 존재</li>
+      <li>각 정보 항목 1개 이상의 U(use) 존재</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제4절-정보-요구-사항-변경-관리">제4절 정보 요구 사항 변경 관리</h2>
+
+<p>프로젝트 진행과정에서 발생하는 요구사항 변경에 대하여 일치성과 무결성을 제공하기 위해 변경 제어와 추적 등의 활동을 수행</p>
+
+<p>요구사항 변경관리 활동은 <u>**변경 제어**</u>, <u>**추적 제어**</u>, <u>**버전 제어**</u> 로 구성된다.</p>
+
+<h3 id="1-요구-사항-추적">1. 요구 사항 추적</h3>
+
+<p><u>**요구 사항 추적 매트릭스**</u>를 이용하여 관리되며 요구 사항을 기능/비기능 항목으로 정의하고 구현을 확인 가능</p>
+
+<h3 id="2-요구-사항-변경요청">2. 요구 사항 변경요청</h3>
+
+<p><u>**요구 사항 변경요청서**</u> 작성을 통해 변경하는 것이 원칙</p>
+
+<p><strong>요구사항 변경 원인</strong></p>
+
+<ul>
+  <li>요구 사항 오류, 충돌, 불일치</li>
+  <li>기술, 시간, 비용 문제</li>
+  <li>우선순위 변경</li>
+  <li>외부 환경(법제도, 경제상황 등) 및 비즈니스 측면 변화</li>
+  <li>기술 발전에 따른 변경</li>
+</ul>
+
+<p><strong>요구사항 변경 요청서 항목</strong></p>
+
+<ul>
+  <li>변경요청 번호</li>
+  <li>변경 제목</li>
+  <li>변경 내용</li>
+  <li>변경처리 기한</li>
+  <li>변경요청 유형</li>
+</ul>
+
+<p><strong>요구사항 변경 유형</strong></p>
+
+<ul>
+  <li>UI : 신규개발 or 변경</li>
+  <li>데이터베이스 : UI 변경에 따른 수정</li>
+  <li>타 시스템 인터페이스 : 새로운 인터페이스 추가</li>
+  <li>문서 산출물 : 신규 정의된 문서 생성 or 수정</li>
+  <li>기타 : HW, SW, 기술자 추가 등</li>
+</ul>
+
+<h3 id="3-변경-영향분석">3. 변경 영향분석</h3>
+
+<p>변경 요청이 업무범위, 일정, 예산 등에 어느정도 파급효과를 나타낼 지 추정하기 위해 진행</p>
+
+<p><strong>영향분석 대상</strong></p>
+
+<ul>
+  <li>일정</li>
+  <li>예산</li>
+  <li>위험</li>
+  <li>심각도</li>
+  <li>해결 방안</li>
+</ul>
+
+<h3 id="4-변경-승인--기각">4. 변경 승인 <strong>·</strong> 기각</h3>
+
+<p>영향 평가결과에 따라 <u>**변경통제위원회(CCB)**</u>가 수용여부를 결정하며 결정이 되지 않으면 <u>**상위 의사결정위원회**</u> 로 넘어간다.</p>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Jun 26, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/06/26/DAP-1%EA%B3%BC%EB%AA%A9.-%EC%A0%84%EC%82%AC%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%9D%B4%ED%95%B4/">&laquo; DAP 1과목. 전사아키텍처 이해</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Jul 9, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/07/09/DAP-3%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%A4%80%ED%99%94/">DAP 3과목. 데이터 표준화 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADsP 2과목.  - Croot Blog</title>
+  <meta name="description" content="2. 데이터 분석 기획의 이해">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EC%B7%A8%EB%AF%B8/2024/01/24/ADsP-2%EA%B3%BC%EB%AA%A9">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">ADsP 2과목. </h1>
+    <!-- <p class="c-article__time"><time datetime="2024-01-24T00:00:00+09:00" itemprop="datePublished">Jan 24, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 01월 24일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 05월 10일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>취미</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h1 id="2-데이터-분석-기획의-이해">2. 데이터 분석 기획의 이해</h1>
+
+<h2 id="21-분석-기획"><strong>2.1. 분석 기획</strong></h2>
+
+<h3 id="분석-기획-정의">분석 기획 정의</h3>
+
+<ul>
+  <li>분석을 수행 할 과제의 정의 및 의도한 결과를 도출하기 위한 관리 방안을 계획하는 작업</li>
+  <li>분석 목표를 달성하기 위하여 어떤 분석 방식을 수행 할 지 일련의 계획을 수립하는 활동</li>
+</ul>
+
+<h3 id="분석-기획-특징">분석 기획 특징</h3>
+
+<ul>
+  <li>분석 지식, 분석 기술, 비즈니스 이해, 전문성, 시각</li>
+</ul>
+
+<h3 id="분석-주제-방대한-최통발솔">분석 주제 (방대한 최통발솔)</h3>
+
+<p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/0.png" alt="0" /><em>Untitled.png</em></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>분석 방식</strong></th>
+      <th><strong>분석 대상</strong></th>
+      <th>⇒</th>
+      <th><strong>분석 주제</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Know</td>
+      <td>Know</td>
+      <td>⇒</td>
+      <td><strong>최적화</strong></td>
+    </tr>
+    <tr>
+      <td>Know</td>
+      <td>Unknown</td>
+      <td>⇒</td>
+      <td><strong>통찰력</strong></td>
+    </tr>
+    <tr>
+      <td>Unknown</td>
+      <td>Unknown</td>
+      <td>⇒</td>
+      <td><strong>발견</strong></td>
+    </tr>
+    <tr>
+      <td>Unknown</td>
+      <td>Know</td>
+      <td>⇒</td>
+      <td><strong>솔루션</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="분석-기획-유형">분석 기획 유형</h3>
+
+<ul>
+  <li><strong>과제 중심</strong> : 빠르게 문제 해결을 하는 경우
+    <ul>
+      <li>Speed&amp;Test</li>
+      <li>Quick&amp;Win</li>
+      <li>Problem solving</li>
+    </ul>
+  </li>
+  <li><strong>마스터플랜</strong> : 문제 정의를 위해 정확도를 가지고 지속적인 해결하는 경우
+    <ul>
+      <li>Accuracy&amp;Deploy</li>
+      <li>Long term view</li>
+      <li>Problem Definition</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="분석-기획-고려-사항">분석 기획 고려 사항</h3>
+
+<ul>
+  <li>가용 데이터</li>
+  <li>적절한 활용 방안 및 유즈케이스</li>
+  <li>장애 요소 사전 계획</li>
+</ul>
+
+<h2 id="22-분석방법론">2.2. 분석방법론</h2>
+
+<h3 id="분석방법론-정의"><strong>분석방법론</strong> 정의</h3>
+
+<p>주어진 과제를 해결하기 위해 조직이 수행 해야하는 일련의 절차를 정의하는 전략</p>
+
+<h3 id="구성요소-절방산기도템">구성요소 (절방산기도템)</h3>
+
+<ul>
+  <li>절차 : 작업을 수행하기 위한 절차</li>
+  <li>방법 : 해당 절차를 수행하기 위한 방법</li>
+  <li>산출물 : 작업 종료 후 작성되는 문서</li>
+  <li>기법 : 작업 수행 필요 방식</li>
+  <li>도구 : 작업 수행 필요 도구</li>
+  <li>템플릿 : 문서 작성 참고 양식</li>
+</ul>
+
+<h3 id="문제점-방해요소">문제점, 방해요소</h3>
+
+<ul>
+  <li>고정 관념</li>
+  <li>편향</li>
+  <li>프레이밍 효과</li>
+</ul>
+
+<h3 id="분석-방법론-생성과정">분석 방법론 생성과정</h3>
+
+<p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/1.png" alt="1" /><em>Untitled.png</em></p>
+
+<p>암묵지 (개인) → 형식지 (조직) → 방법론</p>
+
+<h3 id="분석-방법론-모델">분석 방법론 모델</h3>
+
+<ul>
+  <li>업무 특성 별
+    <ul>
+      <li><strong>폭포수</strong> : 단계적, 순차적, 하향식</li>
+      <li><strong>프로토타입</strong> : 사용자 중심, 요구도출, 점진적</li>
+      <li><strong>나선형</strong> : 점증적, 위험요소 사전제거, 복잡도 높음</li>
+      <li>
+        <p><strong>계층적 프로세스</strong> : 단계 → 테스크 → 스텝 구성
+  (스텝 = input → process &amp; tool → output)</p>
+
+        <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/2.png" alt="2" /><em>adcc3e62-3554-4b63-a529-95488e7669ee.png</em></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>전통적</p>
+
+    <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/3.png" alt="3" /><em>Untitled.png</em></p>
+
+    <ul>
+      <li><strong>KDD (knowledge discovery In database)</strong>
+        <ul>
+          <li>정의 : 데이터로 부터 통계적 패턴이나 지식을 찾기 위래 체계적으로 정리한 데이터마이닝 프로세스</li>
+          <li>
+            <p>프로세스 <strong>(선전변마평)</strong></p>
+
+            <p>선택 → 전처리 → 변환 → 마이닝 → 평가</p>
+          </li>
+        </ul>
+      </li>
+      <li><strong>CRISP-DM</strong>
+        <ul>
+          <li>정의 : 비즈니스와 데이터 이해를 기반으로 6단계의 프로세스를 반복하는 계층적 프로세스 모델</li>
+          <li>
+            <p>계층 <strong>(단테프)</strong></p>
+
+            <p>단계, 일반화 테스크, 세분화 테스크, 프로세스 실행</p>
+          </li>
+          <li>
+            <p>프로세스 <strong>(비데준모평전)</strong></p>
+
+            <p>비즈니스 이해 → 데이터 이해 → 준비 → 모델링 → 평가 → 전개</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>빅데이터 분석방법론</strong>
+    <ul>
+      <li>구성
+        <ul>
+          <li>계층 : 단계(Phase), 태스크(Task), 스탭(Step)</li>
+          <li>
+            <p>프로세스 <strong>(기준분시평)</strong></p>
+
+            <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/4.png" alt="4" /><em>Untitled.png</em></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<details>
+<summary>**[Phase 1]** 분석 기획</summary>
+<details>
+<summary>**[Task]** 비즈니스 이해 및 범위 설정</summary>
+- **[Step]** 비즈니스 이해
+- **[Step]** 프로젝트 범위 설정
+
+</details>
+
+<details>
+<summary>**[Task]** 프로젝트 정의 및 계획 수립</summary>
+- **[Step]** 데이터 분석 프로젝트 정의
+- **[Step]** 프로젝트 수행 계획 수립
+
+</details>
+
+<details>
+<summary>**[Task]** 프로젝트 위험 계획 수립</summary>
+- **[Step]** 데이터 분석 위험 식별
+- **[Step]** 위험 대응 계획 수립
+
+</details>
+
+
+</details>
+
+<details>
+<summary>**[Phase 2]** 데이터 준비</summary>
+<details>
+<summary>**[Task]** 필요 데이터 정의</summary>
+- **[Step]** 데이터 정의
+- **[Step]** 데이터 획득 방안 수립
+
+</details>
+
+<details>
+<summary>**[Task]** 데이터 스토어 설계</summary>
+- **[Step]** 정형 데이터 스토어 설계
+- **[Step]** 비정형 데이터 스토어 설계
+
+</details>
+
+<details>
+<summary>**[Task]** 데이터 수집 및 정합성 검정</summary>
+- **[Step]** 데이터 수집 및 저장
+- **[Step]** 데이터 정합성 검정
+
+</details>
+
+
+</details>
+
+<details>
+<summary>**[Phase 3]** 데이터 분석</summary>
+<details>
+<summary>**[Task]** 분석용 데이터 준비</summary>
+- **[Step]** 비즈니스 룰 확인
+- **[Step]** 분석용 데이터셋 준비
+
+</details>
+
+<details>
+<summary>**[Task]** 텍스트 분석</summary>
+- **[Step]** 텍스트 데이터 확인 및 추출
+- **[Step]** 텍스트 데이터 분석
+
+</details>
+
+<details>
+<summary>**[Task]** 탐색적 분석</summary>
+- **[Step]** 탐색적 데이터 분석
+- **[Step]** 데이터 시각화
+
+</details>
+
+<details>
+<summary>**[Task]** 모델링</summary>
+- **[Step]** 데이터 분할
+- **[Step]** 데이터 모델링
+- **[Step]** 모델 적용 및 운영 방안
+
+</details>
+
+<details>
+<summary>**[Task]** 모델 평가 및 검증</summary>
+- **[Step]** 모델 평가
+- **[Step]** 모델 검증
+
+</details>
+
+
+</details>
+
+<details>
+<summary>**[Phase 4]** 시스템 구현</summary>
+<details>
+<summary>**[Task]** 설계 및 구현</summary>
+- **[Step]** 시스템 분석 및 설계
+- **[Step]** 시스템 구현
+
+</details>
+
+<details>
+<summary>**[Task]** 시스템 테스트 및 운영</summary>
+- **[Step]** 시스템 테스트
+- **[Step]** 시스템 운영 계획
+
+</details>
+
+
+</details>
+
+<details>
+<summary>**[Phase 5]** 평가 및 전개</summary>
+<details>
+<summary>**[Task]** 모델 발전 계획</summary>
+- **[Step]** 모델 발전 계획
+
+</details>
+
+<details>
+<summary>**[Task]** 프로젝트 평가 및 복고</summary>
+- **[Step]** 프로젝트 성과 평가
+- **[Step]** 프로젝트 종료
+
+</details>
+
+
+</details>
+
+<h2 id="23-분석-과제-발굴">2.3. <strong>분석 과제 발굴</strong></h2>
+
+<h3 id="분석-과제-탐색-방법">분석 과제 탐색 방법</h3>
+
+<ul>
+  <li>하향식: 분석 대상 아는 경우</li>
+  <li>상향식: 분석 대상 모르는 경우</li>
+</ul>
+
+<h3 id="디자인사고">디자인사고</h3>
+
+<ul>
+  <li>
+    <p>더블 다이아몬드 프로세스 (발정개전)</p>
+
+    <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/5.png" alt="5" /><em>Untitled.png</em></p>
+
+    <p>발견(Discover) ⇒ 정의(Define) ⇒ 개발(Develop) ⇒ 전개(Deliver)</p>
+  </li>
+  <li>
+    <p>d.school (공정아프테)</p>
+
+    <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/6.png" alt="6" /><em>Untitled.png</em></p>
+
+    <p>공감(Empathize) → 문제정의 → 아이디어 도출 → 프로토타입 → 테스트 → 평가</p>
+  </li>
+</ul>
+
+<h3 id="하향식-접근법-탐정해타"><strong>하향식 접근법 (탐정해타)</strong></h3>
+
+<p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/7.png" alt="7" /><em>Untitled.png</em></p>
+
+<ol>
+  <li><strong>문제 탐색</strong>
+    <ul>
+      <li>비즈니스 모델 기반 탐색 <strong>(업제고 규감지)</strong>
+        <ul>
+          <li>문제 발굴 : <strong>업무</strong>, <strong>제품</strong>, <strong>고객</strong> 단위</li>
+          <li>기회 : <strong>규제와 감사, 지원 인프라</strong></li>
+        </ul>
+      </li>
+      <li>분석기회 발굴 범위 확장
+        <ul>
+          <li><strong>거시적</strong> : 사회, 정치,경제, 환경, 기술</li>
+          <li><strong>경쟁자 확대</strong> : 대체제, 경쟁자, 신규진입자</li>
+          <li><strong>시장 수요</strong> : 고객, 채널, 영향자</li>
+          <li><strong>역량</strong> : 내부, 파트너</li>
+        </ul>
+      </li>
+      <li>외부참조모델 기반 문제 탐색
+        <ul>
+          <li>벤치마킹, 브레인스토밍, 분석 유즈케이스</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>문제 정의</strong>
+    <ul>
+      <li>비즈니스 문제를 데이터 문제로 변환하여 정의</li>
+      <li><strong>최종 사용자 관점</strong></li>
+    </ul>
+  </li>
+  <li><strong>해결방안 탐색</strong>
+    <ul>
+      <li>
+        <p>프로세스</p>
+
+        <p>기존 시스템 가능 여부 판단 → 분석 역량 판단</p>
+      </li>
+      <li>
+        <p>해결 방안</p>
+        <ul>
+          <li>기존 유지</li>
+          <li>역량 확보</li>
+          <li>시스템 고도화</li>
+          <li>아웃 소싱</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>타당성 검토</strong>
+    <ul>
+      <li>경제적 타당성 : volume, valocity, variety, value</li>
+      <li>데이터 및 기술적 타당성</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="상향식-접근법"><strong>상향식 접근법</strong></h3>
+
+<ol>
+  <li>디자인싱킹
+    <ul>
+      <li>다이아몬드 프로세스 (발정개전)</li>
+      <li>dschool (공정아프테)</li>
+    </ul>
+  </li>
+  <li>기계 학습
+    <ul>
+      <li>지도 학습 : 머신러닝, 의사결정트리, 인공신경망, 분류분석</li>
+      <li>비지도 학습 : 기술통계, 프로파일링, 군집분석, 주성분분석, 다차원척도</li>
+    </ul>
+  </li>
+  <li>프로토타이핑 (시행착오 해결법)
+    <ul>
+      <li>
+        <p>프로세스</p>
+
+        <p>가설생성 → 디자인 실험 → 테스트 → 인사이트도출 및 가설 검증</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="23-분석-프로젝트-관리방안"><strong>2.3. 분석 프로젝트 관리방안</strong></h2>
+
+<h3 id="특성">특성</h3>
+
+<ul>
+  <li>분석의 정확도 높이는 것 뿐만 아니라 <strong>사용자가 원활</strong>하게 활용할 수 있도록 고려.</li>
+  <li>데이터 영역과 비즈니스 영역의 중간에서 <strong>조정자 역할</strong></li>
+  <li>지속적 모델 개선 관리 방안 수립 필요</li>
+</ul>
+
+<h3 id="고려사항-양복분속정">고려사항 (양복분속정)</h3>
+
+<ul>
+  <li>데이터 양</li>
+  <li>데이터 복잡도</li>
+  <li>분석 복잡도</li>
+  <li>분석 속도</li>
+  <li>정확도 &amp; 정밀도</li>
+</ul>
+
+<h2 id="24-분석-마스터플랜"><strong>2.4. 분석 마스터플랜</strong></h2>
+
+<h3 id="정의">정의</h3>
+
+<p>데이터 <strong>분석</strong> 기획의 특성을 고려하여 기업에서 필요한 데이터 <strong>분석</strong> 과제를 도출 및 우선순위를 결정하고, 단기 및 중/장기로 나누어 계획하는 활동</p>
+
+<p>전사차원에서 식별된 다양한 분석 주제 또는 과제를 대상으로 적용의 우선순위를 선정하고, 이를 실행하기 위한 구체적인 일정계획, 단계적 구현 로드맵, 소요 인력, 예산 등 실행계획을 수립하는 과정</p>
+
+<h3 id="분석-마스터플랜-수립-프레임워크-전비실-업분기">분석 마스터플랜 수립 프레임워크 (전비실 업분기)</h3>
+
+<p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/8.png" alt="8" /><em>Untitled.png</em></p>
+
+<ol>
+  <li>우선순위 선정
+    <ul>
+      <li><strong>전략적 중요도</strong>
+        <ul>
+          <li>시급성</li>
+          <li>난이도</li>
+        </ul>
+      </li>
+      <li><strong>ROI</strong></li>
+      <li><strong>실행 용이성</strong></li>
+    </ul>
+  </li>
+  <li>적용 범위 및 방식 선정
+    <ul>
+      <li><strong>업무내재화 적용 수준</strong></li>
+      <li><strong>분석데이터 적용 수준</strong></li>
+      <li><strong>기술 적용 수준</strong></li>
+    </ul>
+  </li>
+  <li>분석 구현 로드맵 수립</li>
+</ol>
+
+<h3 id="수행과제-우선순위-평가"><strong>수행과제 우선순위 평가</strong></h3>
+
+<ul>
+  <li><strong>일반</strong>
+    <ul>
+      <li>전략적 중요도: <strong>전략적 필요성, 시급성</strong></li>
+      <li>실행 용이성: <strong>투자 용이성, 기술 용이성</strong></li>
+    </ul>
+  </li>
+  <li><strong>빅데이터 특징 기반</strong>
+    <ul>
+      <li>투자비용 요소 : Volume, Variety, Velocity</li>
+      <li>비즈니스 효과 : Value</li>
+    </ul>
+  </li>
+  <li><strong>ROI 활용 기반</strong>
+    <ul>
+      <li>시급성 : 전략적 중요도, KPI</li>
+      <li>난이도 : 데이터 처리 비용, 분석 비용</li>
+    </ul>
+
+    <div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+  <div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+  <div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">ROI는 시급성 → 난이도 판단 순에 비해 포트폴리오는 동시에 고려하여 판단한다.</div>
+  </div>
+  </li>
+  <li>
+    <p><strong>포트폴리오 분석 활용</strong></p>
+
+    <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/9.png" alt="9" /><em>Untitled.png</em></p>
+
+    <ul>
+      <li>시급성 우선 : <strong>III ⇒ IV ⇒ II</strong></li>
+      <li>난이도 우선 :  <strong>III ⇒ I ⇒ II</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="이행계획-수립"><strong>이행계획 수립</strong></h3>
+
+<ol>
+  <li>
+    <p><strong>로드맵 수립</strong></p>
+
+    <p><strong>[1단계]</strong> 분석 체계 도입</p>
+
+    <p><strong>[2단계]</strong> 분석 유효성 검증</p>
+
+    <p><strong>[3단계]</strong> 분석 확산 및 고도화</p>
+  </li>
+  <li>
+    <p>세부 이행계획 수립</p>
+    <ul>
+      <li>
+        <p>폭포수(Waterfall)</p>
+
+        <p>설계 ⇒ 구현 ⇒ 테스트</p>
+      </li>
+      <li>
+        <p>혼합형(Analytics) : 모델링 단계를 반복적 수행</p>
+
+        <p>분석 데이터 수집/확보 ⇒ 분석 데이터 준비 ⇒ 모델링 및 평가 ⇒ 모델링 및 평가 ⇒ (반복)</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="25-분석-거버넌스"><strong>2.5. 분석 거버넌스</strong></h2>
+
+<h3 id="분석-거버넌스-구성요소-조프시데교">분석 거버넌스 구성요소 (조프시데교)</h3>
+
+<ul>
+  <li>분석 조직</li>
+  <li>분석 프로세스</li>
+  <li>분석 관련 시스템</li>
+  <li>데이터</li>
+  <li>분석 교육</li>
+</ul>
+
+<h3 id="분석-수준-진단-프레임워크">분석 수준 진단 프레임워크</h3>
+
+<ul>
+  <li>분석 준비도 <strong>(업인기데문인)</strong>
+    <ul>
+      <li><strong>분석 업무파악</strong></li>
+      <li><strong>분석 인력 및 조직</strong></li>
+      <li><strong>분석 기법</strong></li>
+      <li><strong>분석 데이터</strong></li>
+      <li><strong>분석 문화</strong></li>
+      <li><strong>IT 인프라</strong></li>
+    </ul>
+  </li>
+  <li>분석 성숙도 <strong>(도활확최 비아조)</strong>
+    <ul>
+      <li>모델: CMMI (초기, 관리, 정의, 정량관리, 최적화)</li>
+      <li>단계:
+        <ul>
+          <li><strong>도입 :</strong> 분석을 시작하기 위한 환경과 시스템 구축</li>
+          <li><strong>활용 :</strong>  분석결과를 실업무에 적용</li>
+          <li><strong>확산 :</strong> 전사차원에서 분석을 관리하고 공유</li>
+          <li><strong>최적화 :</strong> 전사차원의 혁신으로 연결시키고 성과를 향상시키는 단계</li>
+        </ul>
+      </li>
+      <li>부문: <strong>비즈니스, 조직 및 역량, IT</strong></li>
+    </ul>
+  </li>
+  <li>
+    <p>진단 결과 <strong>(정확도준)</strong></p>
+
+    <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/10.png" alt="10" /><em>5cd9db5d-91ec-4078-aa78-ad3e77efc4fc.png</em></p>
+  </li>
+</ul>
+
+<h3 id="데이터-거버넌스">데이터 거버넌스</h3>
+
+<ul>
+  <li>정의 : 전사 데이터에 대해 표준화된 관리체계를 수립하고 운영을 위한 프레임워크 및 저장소를 구축하는 활동</li>
+  <li>관리 대상
+    <ul>
+      <li><strong>마스터 데이터</strong></li>
+      <li><strong>데이터 사전</strong></li>
+      <li><strong>메타데이터</strong></li>
+    </ul>
+  </li>
+  <li>구성요소
+    <ul>
+      <li><strong>원칙</strong> : 보안, 품질기준, 변경관리 등</li>
+      <li><strong>조직</strong> : 데이터 관리자, DB관리자, 데이터 아키텍트 등</li>
+      <li><strong>프로세스</strong> : 작업절차, 모니터링 활동, 측정 활동 등</li>
+    </ul>
+  </li>
+  <li>체계 (<strong>표관저활</strong>)
+    <ol>
+      <li><strong>데이터 표준화</strong>
+        <ul>
+          <li><strong>표준용어 설정</strong></li>
+          <li><strong>명명규칙 수립</strong> : CamelCase, snake_case 등</li>
+          <li><strong>메타 데이터 구축</strong></li>
+          <li><strong>데이터 사전 구축</strong></li>
+        </ul>
+      </li>
+      <li><strong>데이터 관리 체계</strong>
+        <ul>
+          <li>메타데이터, 데이터 사전 관리 원칙 수립</li>
+          <li>데이터 생명주기 관리방안 수립</li>
+        </ul>
+      </li>
+      <li><strong>데이터 저장소 관리</strong>
+        <ul>
+          <li>메타데이터, 표준 데이터 저장소 구성</li>
+          <li>사전 영향 평가 수행</li>
+        </ul>
+      </li>
+      <li><strong>표준화 활동</strong>
+        <ul>
+          <li>모니터링</li>
+          <li>지속적 점검 관리 및 교육</li>
+          <li>표준화 개선 활동</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="데이터-조직">데이터 조직</h3>
+
+<ul>
+  <li>목표: 기업의 경쟁력 확보를 위하여 비즈니스 질문과 이에 부합하는 가치를 찾고 비즈니스를 최적화 하는 것.</li>
+  <li>역할: 분석 업무 발굴, 빅데이터에서 인사이트를 찾아 전파하고 실행하는 것.</li>
+  <li>구성
+    <ul>
+      <li>집중형 : 별도 전담 조직, 우선순위 도출 용이, 분석 업무 중복 및 이원화 가능성</li>
+      <li>기능중심 : 업무 부서 소속, 전사 관점 부족, 일부 중복 가능성</li>
+      <li>분산형 : 분석조직 인력을 현업 부서에 배치, 우선순위 도출 용이, 분석 결과 신속 적용</li>
+    </ul>
+  </li>
+  <li>
+    <p>유형</p>
+
+    <p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/11.png" alt="11" /><em>Untitled.png</em></p>
+
+    <ul>
+      <li>집중형 : 조직 내 별도 분석 전담 조직 구성</li>
+      <li>기능 중심 : 각 부서에서 직접 분석</li>
+      <li>분산형 : 분석 조직의 인력을 현업에 배치</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="분석과제-관리-프로세스">분석과제 관리 프로세스</h3>
+
+<p><img src="/assets/img/2024-01-24-ADsP-2과목.-.md/12.png" alt="12" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>과제 발굴
+    <ol>
+      <li>분석 아이디어 발굴</li>
+      <li>분석 과제 후보 제안</li>
+      <li>분석 과제 확정</li>
+    </ol>
+  </li>
+  <li>과제 수행
+    <ol>
+      <li>팀 구성</li>
+      <li>분석 과제 실행</li>
+      <li>분석 과제 진행 관리</li>
+      <li>결과 공유 및 개선</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="분석-교육-및-변화관리">분석 교육 및 변화관리</h3>
+
+<ul>
+  <li>문화 측면 : 모든 구성원이 데이터를 분석, 즉시 활용할 수 있는 문화 정착</li>
+  <li>교육 측면 : 툴 교육이 아닌 분석 역량 확보 및 강화에 초점</li>
+</ul>
+
+<hr />
+
+<p>고객 니즈를 구성하는 4가지 가치 유형</p>
+
+<p>기능적</p>
+
+<p>재무적</p>
+
+<p>무형</p>
+
+<p>감성</p>
+
+<p>감성가치
+즐거움, 자긍심, 자유 등</p>
+
+<p>무형가치
+공유성, 확장성, 접근성 등</p>
+
+<p>분석의 내재화 적용을 위한 고려요소</p>
+
+<ol>
+  <li>어떤 프로세스에 어떤 분석요소를 내재화 할 것인가?</li>
+  <li>분석 알고리즘(로직)을 어떻게 설계할 것인가?</li>
+  <li>분석 결과를 시각적으로 즉시 인지하고 행동할 수 있게 어떻게 구성할 것인가?</li>
+  <li>개인화 된 분석결과를 제공하고, 쉽게 동료에게 전달하여 커뮤니케이션 할 수 있는가?</li>
+  <li>독립된 정보계와는 달리 업무운영 시스템에 내재될 수 있는 융합성을 가지는가?</li>
+  <li>기업 외부에서 접근을 위한 보안과 다양한 플랫폼이 제공되는가?</li>
+  <li>대용량 데이터에 대해 필요한 시점에 적합한 속도로 분석을 제공하는가?</li>
+  <li>기업 내외부에서 산재한 구조화 및 비구조화 된 데이터 소스에 접근할 수 있는가?</li>
+</ol>
+
+<p>비즈니스 모델이란
+▶ ‘기업운영방식의 표현’
+▶ ‘하나의 조직이 가치를 어떻게 만들고, 제공하며, 획득하는지에 대한 근본적 원리의 표현’
+▶ ‘1) 가치제안의 정립, 2) 세분시장의 정의, 3) 가치사슬구조의 정의, 4) 비용구조와 잠재적 이익 추정, 5) 공급자와 고객을 잇는 가치네트워크상에서의 위치 감수, 6) 경쟁전략의 형성’
+▶ ‘기업을 어떻게 경영하느냐를 설명하는 이야기’
+라고 정의할 수 있다.
+비즈니스 모델과 전략을 비교해 볼 때, 가장 큰 차이점은 전략은 자사가 경쟁사보다 잘할 수 있 을지를 설명하는 것이라고 할 수 있다. 경쟁자의 활동들과는 다른 활동들을 수행하거나 유사한 활동들을 다른 방식으로 수행하는 것은 전략에 대한 설명이다.</p>
+
+<p>해설 : 전략 프로파일링 단계를 통해 고객에게 제공할 효용 가치 측면에서 전략 캔버스를 정의하 고, 전략 캔버스의 효용 가치를 실현하기 위해 ERRC 관점에서 실행요소들을 도출하고, 전략 캔버 스와 ERRC 테이블을 기준으로 전략테마와 실행요소간의 관계를 정의할 수 있다.
+고객이 제공받기를 원하는 효용에 대해 자사 및 경쟁서가 제공하고 있는 가치수준을 비교 평가하 고, 경쟁사와 차별화 된 고객 효용 제공을 위한 가치요소를 발굴하여, 미래의 전략 프로파일을 설 정하고 실행요소를 발굴한다.
+전략캔버스를 통해 확인된 전략적 경쟁요소와 ERRC 분석을 통해 도출된 고객 효용 제공을 위한 실행 요소들 간의 연관성을 파악 한 후, ACtivity System Map으로 전략테마와 연관된 실행활동들 을 매핑하여 표현한다.</p>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Jan 24, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/01/24/ADsP-1%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EC%9D%B4%ED%95%B4/">&laquo; ADsP 1과목. 데이터의 이해</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Feb 3, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/02/03/ADsP-3%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D/">ADsP 3과목. 데이터 분석 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

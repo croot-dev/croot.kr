@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[번역] Axios와 fetch(): HTTP 요청을 할 때 어떤 것이 가장 좋을까요? - Croot Blog</title>
+  <meta name="description" content="서론">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2024/06/12/%EB%B2%88%EC%97%AD-Axios%EC%99%80-fetch()-HTTP-%EC%9A%94%EC%B2%AD%EC%9D%84-%ED%95%A0-%EB%95%8C-%EC%96%B4%EB%96%A4-%EA%B2%83%EC%9D%B4-%EA%B0%80%EC%9E%A5-%EC%A2%8B%EC%9D%84%EA%B9%8C%EC%9A%94/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">[번역] Axios와 fetch(): HTTP 요청을 할 때 어떤 것이 가장 좋을까요?</h1>
+    <!-- <p class="c-article__time"><time datetime="2024-06-12T00:00:00+09:00" itemprop="datePublished">Jun 12, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 06월 12일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 08월 03일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h1 id="서론">서론</h1>
+
+<p>최근 포스팅 “<a href="https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/#new_tab">Axios로 전문가처럼 HTTP 요청하는 방법</a>“에서 Axios 라이브러리 사용의 장점에 대해 설명했습니다. 하지만 Axios가 항상 이상적인 솔루션은 아니며 때로는 더 나은 HTTP 요청 옵션이 있다는 점을 인정하는 것이 중요합니다.</p>
+
+<p>의심할 여지 없이 일부 개발자는 사용 편의성 때문에 기본 제공 API보다 Axios를 선호합니다. 그러나 많은 사람들이 그러한 라이브러리의 필요성을 과대평가합니다. fetch() API는 Axios의 주요 기능을 완벽하게 재현할 수 있으며, 모든 최신 브라우저에서 쉽게 사용할 수 있다는 추가적인 장점이 있습니다.</p>
+
+<p>이 글에서는 fetch()와 Axios를 비교하여 서로 다른 작업을 수행하는 데 어떻게 사용할 수 있는지 살펴보겠습니다. 이 글이 끝날 때쯤이면 두 API에 대해 더 잘 이해하실 수 있기를 바랍니다.</p>
+
+<h1 id="기본-syntax">기본 Syntax</h1>
+
+<p>Axios의 고급 기능을 살펴보기 전에 기본 구문을 fetch()와 비교해 보겠습니다.</p>
+
+<p>다음은 Axios를 사용하여 사용자 정의 헤더가 포함된 POST 요청을 URL로 보내는 방법입니다. Axios는 데이터를 JSON으로 자동 변환하므로 사용자가 직접 변환할 필요가 없습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://jsonplaceholder.typicode.com/posts</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">a</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="na">b</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="nx">axios</span>
+  <span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">Accept</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json;charset=UTF-8</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(({</span><span class="nx">data</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Fetch API</span>
+
+<span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://jsonplaceholder.typicode.com/todos</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Accept</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json;charset=UTF-8</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="na">a</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="na">b</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="p">}),</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;"><strong>Notice:</strong></div>
+</div>
+
+<h1 id="이전-버전과의-호환성">이전 버전과의 호환성</h1>
+
+<p>Axios의 주요 포인트 중 하나는 광범위한 브라우저 지원입니다. IE11과 같은 구형 브라우저에서도 문제 없이 Axios를 실행할 수 있습니다. 이는 내부적으로 <code class="language-plaintext highlighter-rouge">XMLHttpRequest</code>를 사용하기 때문입니다.</p>
+
+<p>반면 <code class="language-plaintext highlighter-rouge">Fetch()</code>는 Chrome 42+, Firefox 39+, Edge 14+, Safari 10.3+만 지원합니다(전체 호환성 표는 <a href="https://caniuse.com/">CanIUse.com</a>에서 확인할 수 있습니다).</p>
+
+<p>Axios를 사용하는 유일한 이유가 이전 버전과의 호환성 때문이라면 HTTP 라이브러리가 필요하지 않습니다. 대신 fetch()를 지원하지 않는 웹 브라우저에서 이와 같은 폴리필과 함께 fetch()를 사용하여 유사한 기능을 구현할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">fetch()</code> 폴리필을 사용하려면 다음과 같이 npm 명령을 통해 설치합니다:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>whatwg-fetch <span class="nt">--save</span>
+</code></pre></div></div>
+
+<p>그런 다음 다음과 같이 요청할 수 있습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="dl">'</span><span class="s1">whatwg-fetch</span><span class="dl">'</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(...)</span>
+</code></pre></div></div>
+
+<p>일부 구형 브라우저에서는 프로미스 폴리필이 필요할 수도 있다는 점에 유의하세요.</p>
+
+<h1 id="응답-시간-초과">응답 시간 초과</h1>
+
+<p>Axios에서 시간 제한을 설정하는 것이 간단하다는 점이 일부 개발자가 <code class="language-plaintext highlighter-rouge">fetch()</code> 대신 이 방법을 선호하는 이유 중 하나입니다. Axios에서는 선택적으로 구성 객체의 <code class="language-plaintext highlighter-rouge">timeout</code> 속성을 사용하여 요청이 중단되기 전의 시간(밀리초)을 설정할 수 있습니다.</p>
+
+<p>예시:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">timeout</span><span class="p">:</span> <span class="mi">4000</span><span class="p">,</span>    <span class="c1">// 4 seconds timeout</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">firstName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">David</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">lastName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pollock</span><span class="dl">'</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="cm">/* handle the response */</span><span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">timeout exceeded</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Fetch()</code>는 <code class="language-plaintext highlighter-rouge">AbortController</code> 인터페이스를 통해 유사한 기능을 제공합니다. 하지만 Axios 버전만큼 간단하지는 않습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Fetch API</span>
+
+<span class="kd">const</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AbortController</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">signal</span><span class="p">:</span> <span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="na">firstName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">David</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">lastName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pollock</span><span class="dl">'</span>
+  <span class="p">})</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">timeoutId</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">controller</span><span class="p">.</span><span class="nx">abort</span><span class="p">(),</span> <span class="mi">4000</span><span class="p">);</span>
+
+<span class="nx">promise</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="cm">/* handle the response */</span><span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">timeout exceeded</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h1 id="자동-json-데이터-변환">자동 JSON 데이터 변환</h1>
+
+<p>앞서 살펴본 것처럼 Axios는 요청을 보낼 때 데이터를 자동으로 문자열화합니다(기본 동작을 재정의하고 다른 변환 메커니즘을 정의할 수 있지만). 그러나 fetch()를 사용할 때는 수동으로 수행해야 합니다.</p>
+
+<p>아래 두 가지를 비교해 보세요:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/orgs/axios</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">},</span> <span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Fetch API</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/orgs/axios</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>    <span class="c1">// one extra step</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>데이터의 자동 변환은 좋은 기능이지만, 다시 말하지만 <code class="language-plaintext highlighter-rouge">fetch()</code>로 할 수 없는 것은 아닙니다.</p>
+
+<h1 id="http-인터셉터">HTTP 인터셉터</h1>
+
+<p>Axios의 주요 기능 중 하나는 HTTP 요청을 가로채는 기능입니다. HTTP 인터셉터는 애플리케이션에서 서버로 또는 그 반대로 HTTP 요청을 검사하거나 변경해야 할 때 유용합니다(예: 로깅, 인증 또는 실패한 HTTP 요청 재시도).</p>
+
+<p>인터셉터를 사용하면 각 HTTP 요청에 대해 별도의 코드를 작성할 필요가 없습니다. HTTP 인터셉터는 요청과 응답을 처리하는 방법에 대한 글로벌 전략을 설정하고자 할 때 유용합니다.</p>
+
+<p>Axios에서 요청 인터셉터를 선언하는 방법은 다음과 같습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="nx">axios</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">config</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// log a message before any HTTP request is sent</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Request was sent</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// sent a GET request</span>
+<span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/users/sideshowbarker</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<p>이 코드에서 <code class="language-plaintext highlighter-rouge">axios.interceptors.request.use()</code> 메서드는 HTTP 요청이 전송되기 전에 실행할 코드를 정의하는 데 사용됩니다. 또한 <code class="language-plaintext highlighter-rouge">axios.interceptors.response.use()</code>를 사용하여 서버의 응답을 가로챌 수도 있습니다. 네트워크 오류가 발생했다고 가정할 때 응답 인터셉터를 사용하면 동일한 요청을 인터셉터를 사용하여 다시 시도할 수 있습니다.</p>
+
+<p>기본적으로 <code class="language-plaintext highlighter-rouge">fetch()</code>는 요청을 가로채는 방법을 제공하지 않지만 해결 방법을 찾는 것은 어렵지 않습니다. 다음과 같이 글로벌 <code class="language-plaintext highlighter-rouge">fetch()</code> 메서드를 덮어쓰고 인터셉터를 정의할 수 있습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Fetch API</span>
+
+<span class="nx">fetch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">originalFetch</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(...</span><span class="nx">arguments</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">originalFetch</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Request was sent</span><span class="dl">'</span><span class="p">));</span>
+  <span class="p">};</span>
+<span class="p">})(</span><span class="nx">fetch</span><span class="p">);</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/orgs/axios</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> 
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<h1 id="다운로드-진행상황">다운로드 진행상황</h1>
+
+<p>진행률 표시기는 대용량 자산을 로드할 때, 특히 인터넷 속도가 느린 사용자에게 매우 유용합니다. 이전에는 자바스크립트 프로그래머가 진행률 표시기를 구현하기 위해 <code class="language-plaintext highlighter-rouge">XMLHttpRequest.onprogress</code> 콜백 핸들러를 사용했습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Fetch API</code>에는 진행 중 핸들러가 없습니다. 대신 응답 객체의 본문 속성을 통해 <code class="language-plaintext highlighter-rouge">ReadableStream</code> 인스턴스를 제공합니다.</p>
+
+<p>다음 예시는 이미지 다운로드 중에 사용자에게 즉각적인 피드백을 제공하기 위해 <code class="language-plaintext highlighter-rouge">ReadableStream</code>을 사용하는 방법을 보여줍니다:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- index.html --&gt;</span>
+
+<span class="c">&lt;!-- Wherever you html is --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"progress"</span> <span class="na">src=</span><span class="s">""</span><span class="nt">&gt;</span>progress<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"img"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// script.js</span>
+
+<span class="dl">'</span><span class="s1">use strict</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">progress</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://fetch-progress.anthum.com/30kbps/images/sunrise-baseline.jpg</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="o">+</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="o">+</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusText</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// ensure ReadableStream is supported</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">ReadableStream not yet supported in this browser.</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// store the size of the entity-body, in bytes</span>
+    <span class="kd">const</span> <span class="nx">contentLength</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">content-length</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// ensure contentLength is available</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">contentLength</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Length response header unavailable</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// parse the integer into a base-10 number</span>
+    <span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">contentLength</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">loaded</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>
+      <span class="c1">// create and return a readable stream</span>
+      <span class="k">new</span> <span class="nx">ReadableStream</span><span class="p">({</span>
+        <span class="nx">start</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">const</span> <span class="nx">reader</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getReader</span><span class="p">();</span>
+          <span class="nx">read</span><span class="p">();</span>
+          <span class="kd">function</span> <span class="nx">read</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">reader</span><span class="p">.</span><span class="nx">read</span><span class="p">().</span><span class="nx">then</span><span class="p">(({</span><span class="nx">done</span><span class="p">,</span> <span class="nx">value</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">controller</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+                <span class="k">return</span><span class="p">;</span>
+              <span class="p">}</span>
+              <span class="nx">loaded</span> <span class="o">+=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span>
+              <span class="nx">progress</span><span class="p">({</span><span class="nx">loaded</span><span class="p">,</span> <span class="nx">total</span><span class="p">})</span>
+              <span class="nx">controller</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+              <span class="nx">read</span><span class="p">();</span>
+            <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+              <span class="nx">controller</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+            <span class="p">})</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span>
+    <span class="c1">// construct a blob from the data</span>
+    <span class="nx">response</span><span class="p">.</span><span class="nx">blob</span><span class="p">()</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// insert the downloaded image into the page</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">img</span><span class="dl">'</span><span class="p">).</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="kd">function</span> <span class="nx">progress</span><span class="p">({</span><span class="nx">loaded</span><span class="p">,</span> <span class="nx">total</span><span class="p">})</span> <span class="p">{</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">loaded</span><span class="o">/</span><span class="nx">total</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="dl">'</span><span class="s1">%</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Axios에서 진행률 표시기를 구현하는 것은 더 간단합니다. 특히 Axios 진행률 표시기 모듈을 사용하는 경우 더욱 그렇습니다. 먼저 다음 스타일과 스크립트를 포함해야 합니다:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- the head of your HTML --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span>
+      <span class="na">href=</span><span class="s">"https://cdn.rawgit.com/rikmms/progress-bar-4-axios/0a3acf92/dist/nprogress.css"</span> <span class="nt">/&gt;</span>
+
+<span class="c">&lt;!-- the body of your HTML --&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"img"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">"downloadFile()"</span><span class="nt">&gt;</span>Get Resource<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/axios/dist/axios.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.rawgit.com/rikmms/progress-bar-4-axios/0a3acf92/dist/index.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+// add the following to customize the style
+
+<span class="nt">&lt;style&gt;</span>
+<span class="nf">#nprogress</span> <span class="nc">.bar</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">red</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#nprogress</span> <span class="nc">.peg</span> <span class="p">{</span>
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span> <span class="no">red</span><span class="p">,</span> <span class="m">0</span> <span class="m">0</span> <span class="m">5px</span> <span class="no">red</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#nprogress</span> <span class="nc">.spinner-icon</span> <span class="p">{</span>
+    <span class="nl">border-top-color</span><span class="p">:</span> <span class="no">red</span> <span class="cp">!important</span><span class="p">;</span>
+    <span class="nl">border-left-color</span><span class="p">:</span> <span class="no">red</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div></div>
+
+<p>그런 다음 진행률 표시줄을 다음과 같이 구현할 수 있습니다:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+<span class="nx">loadProgressBar</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nx">downloadFile</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">getRequest</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">https://fetch-progress.anthum.com/30kbps/images/sunrise-baseline.jpg</span><span class="dl">"</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getRequest</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">axios</span>
+    <span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="na">responseType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">blob</span><span class="dl">"</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">FileReader</span><span class="p">();</span>
+      <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">img</span><span class="dl">"</span><span class="p">).</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">src</span><span class="dl">"</span><span class="p">,</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>
+      <span class="p">};</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>이 코드는 <code class="language-plaintext highlighter-rouge">FileReader</code> API를 사용하여 다운로드한 이미지를 비동기적으로 읽습니다. <code class="language-plaintext highlighter-rouge">readAsDataURL</code> 메서드는 이미지의 데이터를 Base64로 인코딩된 문자열로 반환한 다음 <code class="language-plaintext highlighter-rouge">img</code> 태그의 <code class="language-plaintext highlighter-rouge">src</code> 속성에 삽입하여 이미지를 표시합니다.</p>
+
+<h1 id="동시-요청">동시 요청</h1>
+
+<p>여러 요청을 동시에 처리하기 위해 Axios는 <code class="language-plaintext highlighter-rouge">axios.all()</code> 메서드를 제공합니다. 이 메서드에 요청 배열을 전달한 다음 <code class="language-plaintext highlighter-rouge">axios.spread()</code>를 사용하여 응답 배열의 속성을 별도의 변수에 할당하기만 하면 됩니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="nx">axios</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
+  <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/users/iliakan</span><span class="dl">'</span><span class="p">),</span>
+  <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/users/taylorotwell</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">axios</span><span class="p">.</span><span class="nx">spread</span><span class="p">((</span><span class="nx">obj1</span><span class="p">,</span> <span class="nx">obj2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Both requests are now complete</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj1</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">login</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> has </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">obj1</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">public_repos</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> public repos on GitHub</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj2</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">login</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> has </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">obj2</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">public_repos</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> public repos on GitHub</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<p>기본 제공 Promise.all() 메서드를 사용하여 동일한 결과를 얻을 수 있습니다. 모든 가져오기 요청을 Promise.all()에 배열로 전달합니다. 그런 다음 다음과 같이 비동기 함수를 사용하여 응답을 처리합니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Fetch API</span>
+
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
+  <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/users/iliakan</span><span class="dl">'</span><span class="p">),</span>
+  <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.github.com/users/taylorotwell</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="k">async</span><span class="p">([</span><span class="nx">res1</span><span class="p">,</span> <span class="nx">res2</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res1</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res2</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">login</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> has </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">a</span><span class="p">.</span><span class="nx">public_repos</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> public repos on GitHub</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nx">login</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> has </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">b</span><span class="p">.</span><span class="nx">public_repos</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> public repos on GitHub</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h1 id="cors-설정-방법">CORS 설정 방법</h1>
+
+<p>CORS(교차 출처 리소스 공유)는 서버가 자신 이외의 출처에서 리소스를 로드할 수 있도록 허용하기 위해 HTTP에서 사용할 수 있는 메커니즘입니다. 예를 들어 공개되거나 권한이 부여된 외부 API에서 데이터를 가져오려는 경우 CORS가 필요합니다.</p>
+
+<p>서버에서 CORS 메커니즘이 제대로 활성화되어 있지 않으면 다른 서버로부터의 모든 요청은 Axios 또는 <code class="language-plaintext highlighter-rouge">fetch()</code>를 사용했는지 여부에 관계없이 <code class="language-plaintext highlighter-rouge">No Access-Control-Header-Present</code> 오류를 받게 됩니다.</p>
+
+<p>CORS를 올바르게 처리하기 위한 첫 번째 단계는 환경/서버에 따라 서버를 구성하는 것입니다. 서버가 올바르게 구성되면 모든 요청에 대한 응답으로 <code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin</code> 헤더가 자동으로 포함됩니다(자세한 내용은 문서 참조).</p>
+
+<p>Axios와 <code class="language-plaintext highlighter-rouge">fetch()</code> 모두에서 흔히 발생하는 오류는 요청에 <code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin</code>을 추가하는 것인데, 이는 응답 매개변수이며 서버에서 원본에 허용된 액세스 제어를 지정하는 데 사용됩니다.</p>
+
+<p>Axios 요청에 헤더를 추가할 때 주의해야 할 또 다른 측면은 요청이 다르게 처리된다는 것입니다. 브라우저는 실제 요청 전에 프리플라이트 요청을 수행하며 이 프리플라이트 요청은 CORS가 준수되는지, 실제 요청을 보내도 안전한지 확인하는 <code class="language-plaintext highlighter-rouge">OPTIONS</code> 요청입니다.</p>
+
+<h1 id="효과적인-응답-처리">효과적인 응답 처리</h1>
+
+<p>응답 관리는 API를 호출하는 모든 애플리케이션에서 매우 중요한 부분입니다. 이 섹션에서는 오류 코드 가져오기와 응답 데이터 조작이라는 두 가지 측면에 대해 간략하게 살펴보겠습니다.</p>
+
+<p>오류 관리는 Axios와 <code class="language-plaintext highlighter-rouge">fetch()</code>에서 다릅니다. 특히 <code class="language-plaintext highlighter-rouge">fetch()</code>는 HTTP 404 또는 500 상태 코드와 같은 서버 측 오류가 발생할 경우 자동으로 <code class="language-plaintext highlighter-rouge">promise</code>를 거부하지 않습니다. 즉, 일반적으로 이러한 응답이 예외로 간주되는 Axios와 달리 이러한 오류는 <code class="language-plaintext highlighter-rouge">.catch()</code> 블록을 트리거하지 않습니다.</p>
+
+<p>대신 <code class="language-plaintext highlighter-rouge">fetch()</code>는 응답의 ok 상태가 <code class="language-plaintext highlighter-rouge">false</code>로 설정된 상태에서 정상적으로 <code class="language-plaintext highlighter-rouge">promise</code>를 해결합니다. <code class="language-plaintext highlighter-rouge">fetch()</code> 호출은 네트워크 장애 또는 요청이 완료되지 못한 경우에만 실패합니다.</p>
+
+<p>다음 코드에서는 <code class="language-plaintext highlighter-rouge">fetch()</code>에서 오류를 처리하는 방법을 확인할 수 있습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Fetch API</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">res</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Error on the response (5xx, 4xx)</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="mi">400</span><span class="p">:</span> <span class="cm">/* Handle */</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">401</span><span class="p">:</span> <span class="cm">/* Handle */</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">404</span><span class="p">:</span> <span class="cm">/* Handle */</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">500</span><span class="p">:</span> <span class="cm">/* Handle */</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Here the response can be properly handled</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Error on the request (Network error)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>한편, Axios에서는 다음 예시와 같이 적절한 캐치 블록에서 모든 오류를 구분할 수 있습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">);</span>
+  <span class="c1">// Here the response can be properly handled</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Error on the response (5xx, 4xx)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Error on the request (Network error)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>요청에 오류 없이 적절한 응답이 제공되면 두 가지 다른 메커니즘을 사용하여 액세스 가능한 응답 페이로드를 처리할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">fetch()</code>에서 요청/응답 페이로드는 본문 필드에서 액세스할 수 있으며 문자열화되어야 하는 반면, Axios에서는 데이터 필드에 적절한 JavaScript 객체로 존재합니다. 이 차이점은 다음 두 가지 예제에서 확인할 수 있습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// Using Fetch API</span>
+ 
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span> 
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using Axios</span>
+
+<span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">fetch()</code>의 주요 차이점은 <code class="language-plaintext highlighter-rouge">.json()</code> 메서드를 사용한다는 점입니다. 이름과 달리 이 메서드는 JSON을 생성하는 것이 아니라 JSON을 입력으로 받아 파싱하여 JavaScript 객체를 생성합니다.</p>
+
+<h1 id="결론">결론</h1>
+
+<p>Axios는 대부분의 HTTP 통신 요구 사항을 위한 사용하기 쉬운 API를 컴팩트한 패키지로 제공합니다. 하지만 기본 API를 선호하는 경우에도 Axios 기능을 구현하는 데 아무런 제약이 없습니다.</p>
+
+<p>이 글에서 설명한 것처럼 웹 브라우저에서 제공하는 <code class="language-plaintext highlighter-rouge">fetch()</code> 메서드를 사용하여 Axios 라이브러리의 주요 기능을 완벽하게 재현할 수 있습니다. 클라이언트 HTTP API를 로드할 가치가 있는지 여부는 기본 제공 API로 작업하는 데 익숙한지 여부에 따라 달라집니다.</p>
+
+<h1 id="refs">Refs.</h1>
+
+<p><a href="https://blog.logrocket.com/axios-vs-fetch-best-http-requests/">https://blog.logrocket.com/axios-vs-fetch-best-http-requests/</a></p>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> May 28, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2024/05/28/UDL(Unified-Design-for-Learning)-%EA%B4%80%EB%A0%A8/">&laquo; UDL(Unified Design for Learning) 관련</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Jun 26, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/06/26/DAP-1%EA%B3%BC%EB%AA%A9.-%EC%A0%84%EC%82%AC%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%9D%B4%ED%95%B4/">DAP 1과목. 전사아키텍처 이해 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

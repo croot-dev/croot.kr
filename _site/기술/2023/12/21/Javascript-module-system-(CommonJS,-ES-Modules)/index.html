@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Javascript module system (CommonJS, ES Modules) - Croot Blog</title>
+  <meta name="description" content="💡"CJS"와 "MJS"는 각각 CommonJS와 ECMAScript Modules의 약어입니다. 이 두 모듈 시스템은 JavaScript에서 모듈을 정의하고 가져오는 방식을 다르게 다룹니다.">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2023/12/21/Javascript-module-system-(CommonJS,-ES-Modules)/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Javascript module system (CommonJS, ES Modules)</h1>
+    <!-- <p class="c-article__time"><time datetime="2023-12-21T00:00:00+09:00" itemprop="datePublished">Dec 21, 2023</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2023년 12월 21일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 08월 03일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">"CJS"와 "MJS"는 각각 CommonJS와 ECMAScript Modules의 약어입니다. 이 두 모듈 시스템은 JavaScript에서 모듈을 정의하고 가져오는 방식을 다르게 다룹니다.</div>
+</div>
+
+<h2 id="목차">목차</h2>
+
+<h2 id="commonjs-cjs"><strong>CommonJS (CJS):</strong></h2>
+
+<ul>
+  <li><strong>동기적 로딩:</strong> CommonJS는 동기적인 방식으로 모듈을 로딩합니다. 즉, 모듈이 필요할 때 해당 모듈이 로딩되기를 기다리고, 로딩이 완료된 후에 다음 코드를 실행합니다.</li>
+  <li><strong>서버 측 JavaScript (Node.js):</strong> CommonJS는 주로 서버 측 JavaScript 환경에서 사용되며, Node.js에서 모듈 시스템의 기본이었습니다.</li>
+  <li><strong>require() 함수:</strong> 모듈을 가져오는 데에 <code class="language-plaintext highlighter-rouge">require()</code> 함수를 사용합니다.</li>
+  <li><strong>단일 인스턴스:</strong> 모듈은 한 번만 로딩되며, 이후에는 캐싱된 인스턴스가 반환됩니다.</li>
+</ul>
+
+<p>예시 (CommonJS):</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 모듈 정의</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">value</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">func</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 코드</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 모듈 사용</span>
+<span class="kd">const</span> <span class="nx">myModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./myModule</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myModule</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+<span class="nx">myModule</span><span class="p">.</span><span class="nx">func</span><span class="p">();</span>
+
+</code></pre></div></div>
+
+<h2 id="ecmascript-modules-mjs"><strong>ECMAScript Modules (MJS):</strong></h2>
+
+<ul>
+  <li><strong>비동기적 로딩:</strong> ECMAScript Modules는 비동기적으로 모듈을 로딩합니다. 모듈이 필요할 때 비동기적으로 로딩되며, 이를 위해 <code class="language-plaintext highlighter-rouge">import</code> 문을 사용합니다.</li>
+  <li><strong>클라이언트 측 및 서버 측 JavaScript:</strong> MJS는 브라우저 환경에서도 사용 가능하며, 모던 브라우저들은 MJS를 지원합니다. Node.js에서도 MJS를 사용할 수 있습니다.</li>
+  <li><strong>import/export 구문:</strong> 모듈을 가져오는 데에 <code class="language-plaintext highlighter-rouge">import</code> 문을 사용하며, 다른 모듈에서 사용할 수 있도록 변수, 함수, 클래스 등을 <code class="language-plaintext highlighter-rouge">export</code> 키워드로 내보냅니다.</li>
+</ul>
+
+<p>예시 (ECMAScript Modules):</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 모듈 정의</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">value</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 코드</span>
+<span class="p">}</span>
+
+<span class="c1">// 모듈 사용</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">func</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./myModule</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+<span class="nx">func</span><span class="p">();</span>
+
+</code></pre></div></div>
+
+<p>요약하면, CommonJS는 주로 서버 측 JavaScript 환경에서 사용되고 동기적으로 모듈을 로딩하는 반면, ECMAScript Modules는 브라우저와 서버 모두에서 사용 가능하며 비동기적으로 모듈을 로딩합니다. 최신 JavaScript 프로젝트에서는 보통 ECMAScript Modules를 선호하는 추세가 있습니다.</p>
+
+<h2 id="commonjs-와-es-module-비교-표">CommonJS 와 ES Module 비교 표</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>특성</th>
+      <th>CommonJS</th>
+      <th>ES Module</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>모듈 정의</td>
+      <td><code class="language-plaintext highlighter-rouge">module.exports = ...</code></td>
+      <td><code class="language-plaintext highlighter-rouge">export</code> 및 <code class="language-plaintext highlighter-rouge">import</code> 구문 사용</td>
+    </tr>
+    <tr>
+      <td>모듈 로딩</td>
+      <td><code class="language-plaintext highlighter-rouge">require</code> 함수 사용</td>
+      <td><code class="language-plaintext highlighter-rouge">import</code> 구문 사용</td>
+    </tr>
+    <tr>
+      <td>비동기 로딩 지원</td>
+      <td>지원하지만 주로 동기적 사용</td>
+      <td>네이티브 비동기 지원</td>
+    </tr>
+    <tr>
+      <td>동적 모듈 로딩</td>
+      <td>지원</td>
+      <td>지원</td>
+    </tr>
+    <tr>
+      <td>실행 시점 평가</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>(Run-time Evaluation)</td>
+      <td>가능</td>
+      <td>불가능 (정적으로 해석됨)</td>
+    </tr>
+    <tr>
+      <td>브라우저 지원</td>
+      <td>일반적으로 사용 불가능</td>
+      <td>최신 브라우저에서 지원</td>
+    </tr>
+    <tr>
+      <td>활용 분야</td>
+      <td>주로 서버 측 JavaScript 개발</td>
+      <td>주로 클라이언트 측 및 브라우저 환경</td>
+    </tr>
+    <tr>
+      <td>사용 예시</td>
+      <td>Node.js</td>
+      <td>브라우저 및 Node.js (최신 버전)</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Dec 18, 2023</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2023/12/18/Next.js-14-App-router-with-Ant-Design-5-&-Styled-Components/">&laquo; Next.js 14 App router with Ant Design 5 & Styled-Components </a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Dec 27, 2023 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2023/12/27/Clean-Archtecture-%EC%84%9C%EC%A0%81-%EC%A0%95%EB%A6%AC/">Clean Archtecture 서적 정리 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

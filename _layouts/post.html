@@ -3,14 +3,25 @@ layout: page
 ---
 {% include katex_support.html %}
 
+<div>
+{% include notion_notice.html %}
+</div>
+
 <article class="c-article">
   <header class="c-article__header">
     <h1 class="c-article__title">{{ page.title }}</h1>
     <!-- <p class="c-article__time"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time></p> -->
   </header>
+
   <div class="c-article__info">
     <table>
       <tbody>
+        <tr>
+          <th>작성일</th><td>{{page.created | date: "%Y년 %m월 %d일" }}</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>{{page.edited | date: "%Y년 %m월 %d일" }}</td>
+        </tr>
         <tr>
           <th>카테고리</th><td>{{page.category}}</td>
         </tr>
@@ -24,12 +35,11 @@ layout: page
             </ul>
           </td>
         </tr>
+        {% if page.notion_id %}
         <tr>
-          <th>수정일</th><td>{{page.edited | date: "%b %-d, %Y" }}</td>
+          <th>원본</th><td><a href="https://croot.notion.site/{{page.notion_id | remove: '-'}}" target="_blank" rel="noopener noreferrer">https://croot.notion.site/{{page.notion_id | remove: '-'}}</a></td>
         </tr>
-        <tr>
-          <th>작성일</th><td>{{page.created | date: "%b %-d, %Y" }}</td>
-        </tr>
+        {% endif %}
       </tbody>
     </table>
   </div>

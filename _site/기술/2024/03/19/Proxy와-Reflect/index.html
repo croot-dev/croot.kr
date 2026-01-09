@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proxy와 Reflect - Croot Blog</title>
+  <meta name="description" content="Proxy">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2024/03/19/Proxy%EC%99%80-Reflect/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Proxy와 Reflect</h1>
+    <!-- <p class="c-article__time"><time datetime="2024-03-19T00:00:00+09:00" itemprop="datePublished">Mar 19, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 03월 19일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2025년 03월 31일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h2 id="proxy">Proxy</h2>
+
+<h3 id="정의">정의</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Proxy</code> 객체는 다른 객체에 대한 대리자 역할을 하며, 목표 객체의 동작을 가로채어 필요 시 수정할 수 있는 패턴의 객체이다.</p>
+
+<h3 id="구성">구성</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 기본 생성자 이용</span>
+<span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+
+<span class="c1">// revoke(취소) 가능한 Proxy 객체</span>
+<span class="k">new</span> <span class="nb">Proxy</span><span class="p">.</span><span class="nx">revocable</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Proxy</code> : 대상 객체와 핸들러 객체를 파라미터로 받으며 핸들러를 통해 대상 객체를 제어</p>
+
+<p><code class="language-plaintext highlighter-rouge">Target</code> : 프록시가 감싸는 실제 객체</p>
+
+<p><code class="language-plaintext highlighter-rouge">Handler</code> : 프록시의 동작을 정의하는 객체, 프록시에 적용할 트랩(trap) 함수를 포함</p>
+
+<blockquote>
+  <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable">Proxy.revocable 자세히 보기</a></p>
+</blockquote>
+
+<h3 id="handler에서-사용되는-주요-trap-함수">Handler에서 사용되는 주요 Trap 함수</h3>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">get</code></strong> : 프록시가 대상 객체의 속성을 읽을 때 호출</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">set</code></strong> : 프록시가 대상 객체의 속성에 값을 할당할 때 호출</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">apply</code></strong> : 프록시가 대상 객체의 함수를 호출할 때 호출</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">construct</code></strong> : 프록시가 대상 객체의 생성자를 호출할 때 호출</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">deleteProperty</code></strong> : 프록시가 대상 객체의 속성을 삭제할 때 호출</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">enumerate</code></strong> <strong>or</strong> <strong><code class="language-plaintext highlighter-rouge">ownKeys</code></strong> <strong>:</strong> 프록시가 대상 객체의 속성을 열거할 때 호출</li>
+</ul>
+
+<h3 id="예시">예시</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">docCookies</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">docCookies</span><span class="p">,</span> <span class="p">{</span>
+  <span class="c1">// 쿠키 값을 가져올 때 호출됨</span>
+  <span class="kd">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="nx">target</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">||</span> <span class="kc">undefined</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="c1">// 쿠키 값을 설정할 때 호출됨</span>
+  <span class="kd">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="c1">// 쿠키 속성 삭제를 가로챔</span>
+  <span class="nx">deleteProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 쿠키 삭제</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="c1">// 쿠키 속성을 열거함</span>
+  <span class="nx">ownKeys</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="c1">// 특정 키가 쿠키에 존재하는지 확인</span>
+  <span class="nx">has</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span> <span class="o">||</span> <span class="nx">target</span><span class="p">.</span><span class="nx">hasItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="c1">// 속성을 정의함</span>
+  <span class="nx">defineProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">descriptor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">descriptor</span> <span class="o">&amp;&amp;</span> <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span> <span class="k">in</span> <span class="nx">descriptor</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">target</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="c1">// 속성의 속성 서술자를 가져옴</span>
+  <span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">value</span>
+      <span class="p">?</span> <span class="p">{</span>
+          <span class="nx">value</span><span class="p">,</span>
+          <span class="na">writable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="na">enumerable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="na">configurable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">:</span> <span class="kc">undefined</span><span class="p">;</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="cm">/* 사용 테스트 */</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="nx">docCookies</span><span class="p">.</span><span class="nx">myCookie1</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">First value</span><span class="dl">"</span><span class="p">));</span> <span class="c1">// 쿠키 설정</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docCookies</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="dl">"</span><span class="s2">myCookie1</span><span class="dl">"</span><span class="p">));</span> <span class="c1">// 쿠키 가져오기</span>
+
+<span class="nx">docCookies</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="dl">"</span><span class="s2">myCookie1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Changed value</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// 쿠키 값 변경</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docCookies</span><span class="p">.</span><span class="nx">myCookie1</span><span class="p">);</span> <span class="c1">// 변경된 쿠키 값 가져오기</span>
+</code></pre></div></div>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;"></div>
+</div>
+
+<h2 id="reflect">Reflect</h2>
+
+<h3 id="정의-1">정의</h3>
+
+<p>JavaScript에서 메타프로그래밍을 위한 내장 객체로, 다양한 기본 동작들을 수행할 수 있는 메서드들을 제공</p>
+
+<h3 id="주요-method">주요 Method</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">Reflect</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">thisArgument</span><span class="p">,</span> <span class="nx">argumentsList</span><span class="p">)</span>
+<span class="c1">// target 함수를 this 값(thisArgument)과 인수(argumentsList) 목록으로 호출</span>
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">construct</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">argumentsList</span><span class="p">,</span> <span class="nx">newTarget</span><span class="p">?)</span>
+<span class="c1">// 생성자 `target` 를 인수(`argumentsList`) 목록을 사용하여 호출하여 새로운 인스턴스를 생성, 선택적으로 생성자(`newTarget`)의 변경된 버전을 사용 가능</span>
+<span class="nb">Reflect</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">?)</span>
+<span class="c1">// target 의 propertyKey 값을 가져옵니다. 선택적으로 receiver 객체를 제공하여 this 설정 가능</span>
+    
+<span class="nb">Reflect</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">?)</span>
+<span class="c1">// target.propertyKey 에 값을 설정, 선택적으로 receiver 객체를 제공하여 this 설정 가능</span>
+    
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">)</span>
+<span class="c1">// propertyKey 속성이 target에 존재하는지 확인</span>
+    
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">deleteProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">)</span>
+<span class="c1">// target 에서 propertyKey 속성을 삭제</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">)</span>
+<span class="c1">// target.propertyKey 에 대한 설명자(descriptor)를 반환</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">,</span> <span class="nx">attributes</span><span class="p">)</span>
+<span class="c1">// target.propertyKey 에 대한 새로운 설명자(descriptor)를 설정</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+<span class="c1">// target 의 프로토타입을 반환</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">prototype</span><span class="p">)</span>
+<span class="c1">// target 의 프로토타입을 설정</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">isExtensible</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+<span class="c1">// target 이 확장 가능한지 여부를 반환</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">preventExtensions</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+<span class="c1">// target 이 확장되지 않도록 설정</span>
+
+<span class="nb">Reflect</span><span class="p">.</span><span class="nx">ownKeys</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+<span class="c1">// target 의 모든 속성 키 배열을 반환</span>
+</code></pre></div></div>
+
+<h3 id="예시-1">예시</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Charlie</span><span class="dl">'</span> <span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="p">{</span>
+  <span class="kd">get</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">prop</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Accessing </span><span class="p">${</span><span class="nx">prop</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">Reflect</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">prop</span><span class="p">);</span> <span class="c1">// 안전하게 원본 동작 수행</span>
+  <span class="p">},</span>
+  <span class="kd">set</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Setting </span><span class="p">${</span><span class="nx">prop</span><span class="p">}</span><span class="s2"> to </span><span class="p">${</span><span class="nx">value</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">Reflect</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span> <span class="c1">// 원래 동작 보존</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">proxy</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// Accessing name → 'Charlie'</span>
+<span class="nx">proxy</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>          <span class="c1">// Setting age to 30</span>
+
+</code></pre></div></div>
+
+<h3 id="meta-programming">Meta programming</h3>
+
+<p>프로그램이 자신이나 다른 프로그램을 수정할 수 있게 하는 프로그래밍 기법</p>
+
+<p>코드의 유연성과 재사용성을 향상</p>
+
+<h2 id="refs">REFS.</h2>
+
+<p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy#%EB%AA%85%EC%84%B8">https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy#명세</a></p>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Mar 19, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2024/03/19/Gradle-+-SpringBoot+-GraphQL/">&laquo; Gradle + SpringBoot+ GraphQL</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Mar 25, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/03/25/Release%EC%9D%98-%EB%AA%A8%EB%93%A0-%EA%B2%83-%EC%84%9C%EC%A0%81%EC%A0%95%EB%A6%AC/">Release의 모든 것 서적정리 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

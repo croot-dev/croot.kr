@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ECIES 암호화 적용 기록 - Croot Blog</title>
+  <meta name="description" content="Prologue">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2025/08/20/ECIES-%EC%95%94%ED%98%B8%ED%99%94-%EC%A0%81%EC%9A%A9-%EA%B8%B0%EB%A1%9D/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">ECIES 암호화 적용 기록</h1>
+    <!-- <p class="c-article__time"><time datetime="2025-08-20T00:00:00+09:00" itemprop="datePublished">Aug 20, 2025</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2025년 08월 20일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2025년 12월 31일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+              
+              <li class="c-tag" style="background:rgb(253 236 200);color:rgb(64 44 27)">Security</li>
+              
+            </ul>
+          </td>
+        </tr>
+        
+        <tr>
+          <th>원본</th><td><a href="https://croot.notion.site/2556063e6590801093d2d0a0d66cebf2" target="_blank" rel="noopener noreferrer">https://croot.notion.site/2556063e6590801093d2d0a0d66cebf2</a></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h2 id="prologue">Prologue</h2>
+
+<p>그리스 내 교통시스템 프로젝트를 진행하면서 <strong>AMKA, Passport</strong> 등 민감한 개인정보를 입력받아 전송해야 하는 기능이 필요</p>
+
+<p>초기에는 RSA와 ECC 중 고민했으나, 보다 <strong>가벼운 ECC</strong>를 사용하기로 결정함.</p>
+
+<h3 id="보안-요구사항-하이브리드-암호화">보안 요구사항 (하이브리드 암호화)</h3>
+
+<ol>
+  <li><strong>서버</strong>에서 비대칭 키쌍(공개키/개인키) 생성</li>
+  <li><strong>공개키</strong>를 API로 <strong>클라이언트에 전달</strong></li>
+  <li>클라이언트는 대칭키(AES 등)를 생성해 <strong>폼 데이터 암호화</strong></li>
+  <li><strong>대칭키를 공개키로 암호화</strong></li>
+  <li><strong>암호화된 데이터 + 암호화된 대칭키를 서버로 전송</strong></li>
+  <li>서버는 <strong>개인키로 대칭키 복호화</strong>, 이후 <strong>데이터 복호화 및 처리</strong></li>
+</ol>
+
+<p>👉 ECC 기반 암호화 방식 중 <strong>ECIES(Integrated Encryption Scheme)</strong> 를 이용하기로 결정.</p>
+
+<p>처음에는 ECIES 자체가 하이브리드 암호화 방식인지 몰랐음… 의사소통을 원활히 하기 위해 기본적인 정의를 우선 학습함.</p>
+
+<h3 id="ecc-기반-암호화-유형">ECC 기반 암호화 유형</h3>
+
+<ul>
+  <li><strong>ECDSA (Elliptic Curve Digital Signature Algorithm)</strong>
+    <ul>
+      <li><strong>설명</strong>: 디지털 서명 생성 및 검증에 사용 → 데이터 무결성과 인증 보장</li>
+      <li><strong>특징</strong>: RSA보다 짧은 키 길이로 동일 보안 수준 제공</li>
+      <li><strong>용도</strong>: 블록체인(비트코인, 이더리움), 소프트웨어 서명, 인증서</li>
+    </ul>
+  </li>
+  <li><strong>ECDH (Elliptic Curve Diffie-Hellman)</strong>
+    <ul>
+      <li><strong>설명</strong>: 두 당사자 간 안전한 키 교환 프로토콜</li>
+      <li><strong>특징</strong>: 비밀키를 직접 교환하지 않고 안전하게 공유 가능</li>
+      <li><strong>용도</strong>: TLS/SSL, VPN, 암호화 통신</li>
+    </ul>
+  </li>
+  <li><strong>ECIES (Elliptic Curve Integrated Encryption Scheme)</strong>
+    <ul>
+      <li><strong>설명</strong>: 공개키 암호화 + 대칭키 암호화를 결합한 하이브리드 방식</li>
+      <li><strong>특징</strong>: 공개키로 대칭키 암호화 + 데이터는 대칭키로 암호화</li>
+      <li><strong>용도</strong>: 데이터 암호화, 안전한 메시지 전송</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="구현-과정">구현 과정</h1>
+
+<h2 id="라이브러리-적용">라이브러리 적용</h2>
+
+<ul>
+  <li><strong>Server (Java)</strong> → <a href="https://downloads.bouncycastle.org/java/docs/bcprov-jdk15to18-javadoc/index.html?org%2Fbouncycastle%2Fjcajce%2Fprovider%2Fasymmetric%2Fec%2FIESCipher.ECIES.html=">BouncyCastle 라이브러리</a> 사용</li>
+  <li><strong>Client (Vue)</strong> → <a href="https://github.com/ecies/js">eciesjs 라이브러리</a> 사용</li>
+</ul>
+
+<p>라이브러리를 이용하여 빠르게 해결하도록 시도.</p>
+
+<p>하지만… 라이브러리마다 <strong>계산 방식, KDF, MAC 처리</strong>가 달라 <strong>호환되지 않는 문제</strong> 발생!</p>
+
+<p>상세 옵션을 이용해볼까 싶었지만 라이브러리 BouncyCastle 의 암호화 방식이 너무 복잡하여 직접 암복호화 로직을 작성하기로 함.</p>
+
+<h2 id="암호화-알고리즘-분석">암호화 알고리즘 분석</h2>
+
+<ul>
+  <li><strong>Server (Java)</strong> → Cipher 이용</li>
+  <li><strong>Client (Vue)</strong> → Web Crypto API 이요</li>
+</ul>
+
+<h3 id="ecies-구성">ECIES 구성</h3>
+
+<ul>
+  <li><strong>키 합의 (ECDH)</strong>
+    <ul>
+      <li>송신자와 수신자의 키를 이용해 <strong>공유 비밀키(Shared Secret)</strong> 생성</li>
+    </ul>
+  </li>
+  <li><strong>키 도출 함수 (KDF)</strong>
+    <ul>
+      <li>공유 비밀키를 기반으로
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">EncKey</code> (대칭키 암호화용)</li>
+          <li>
+            <p><code class="language-plaintext highlighter-rouge">MacKey</code> (무결성 검증용)</p>
+
+            <p>을 생성</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>대칭키 암호화 (AES 등)</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">EncKey</code>로 실제 평문 데이터를 암호화 → Ciphertext</li>
+    </ul>
+  </li>
+  <li><strong>무결성 검증 (MAC)</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">MacKey</code>를 이용해 Ciphertext에 대한 <strong>HMAC</strong> 생성</li>
+      <li>데이터 위·변조 여부 확인</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ecies-흐름"><strong>ECIES 흐름</strong></h3>
+
+<p><img src="/assets/img/2025-08-20-ECIES-암호화-적용-기록.md/0.png" alt="0" /><em>image.png</em></p>
+
+<ol>
+  <li><strong>송신자</strong>
+    <ul>
+      <li>수신자의 공개키로 ECDH 수행 → Shared Secret</li>
+      <li>Shared Secret을 KDF로 처리 → <code class="language-plaintext highlighter-rouge">EncKey</code>, <code class="language-plaintext highlighter-rouge">MacKey</code></li>
+      <li><code class="language-plaintext highlighter-rouge">EncKey</code>로 메시지 대칭 암호화 (AES)</li>
+      <li><code class="language-plaintext highlighter-rouge">MacKey</code>로 HMAC 생성</li>
+      <li>최종적으로: <code class="language-plaintext highlighter-rouge">Ciphertext + HMAC + 송신자 공개키</code> 전송</li>
+    </ul>
+  </li>
+  <li><strong>수신자</strong>
+    <ul>
+      <li>송신자의 공개키 + 자신의 개인키로 ECDH 수행 → 동일한 Shared Secret</li>
+      <li>동일한 KDF 수행 → <code class="language-plaintext highlighter-rouge">EncKey</code>, <code class="language-plaintext highlighter-rouge">MacKey</code></li>
+      <li>HMAC 검증 → 메시지 무결성 확인</li>
+      <li><code class="language-plaintext highlighter-rouge">EncKey</code>로 암호문 복호화</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="구현">구현</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">nuxt</span> <span class="o">+</span> <span class="nx">typescript</span> <span class="nx">컴포저블</span> <span class="nx">생성</span>
+
+<span class="mi">1</span><span class="p">.</span> <span class="nx">base64</span> <span class="nx">형태의</span> <span class="nx">server</span> <span class="kr">public</span> <span class="nx">key</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">form</span> <span class="nx">object</span><span class="p">,</span> <span class="nx">암호화</span> <span class="nx">대상</span> <span class="nx">field명</span> <span class="nx">배열을</span> <span class="nx">입력받음</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">form</span> <span class="nx">field는</span> <span class="nx">AES</span><span class="o">/</span><span class="nx">CBC</span><span class="o">/</span><span class="nx">PKCS5Padding</span>  <span class="nx">암호화</span> <span class="nx">알고리즘</span> <span class="nx">이용하여</span> <span class="nx">암호화</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">AES</span> <span class="nx">Key와</span> <span class="nx">iv는</span> <span class="nx">EC</span><span class="o">/</span><span class="nx">secp256r1</span><span class="p">,</span> <span class="nx">ECIES</span> <span class="nx">암호화</span> <span class="nx">알고리즘</span> <span class="nx">이용하여</span> <span class="nx">만들어진</span> <span class="nx">server</span> <span class="kr">public</span> <span class="nx">key를</span> <span class="nx">이용하여</span> <span class="nx">암호화</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">java</span> <span class="nx">BouncyCastleProvider</span> <span class="nx">과</span> <span class="nx">호환</span> <span class="nx">되어야할</span> <span class="nx">것</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">출력은</span> <span class="nx">암호화된</span> <span class="nx">form</span> <span class="nx">object</span><span class="p">,</span> <span class="nx">암호화</span> <span class="nx">된</span> <span class="nx">aes</span> <span class="nx">key</span> <span class="nx">base64</span><span class="p">,</span> <span class="nx">암호화</span> <span class="nx">된</span> <span class="nx">iv</span> <span class="nx">base64가</span> <span class="nx">나와야</span> <span class="nx">함</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">salt</span><span class="p">,</span> <span class="nx">info</span><span class="p">,</span> <span class="nx">wrap</span> <span class="nx">등</span> <span class="nx">필수적이지</span> <span class="nx">않은</span> <span class="nx">로직은</span> <span class="nx">모두</span> <span class="nx">제거</span>
+</code></pre></div></div>
+
+<h3 id="최종-결정-암호화-방식">최종 결정 암호화 방식</h3>
+
+<p><strong>ECIES</strong></p>
+
+<ul>
+  <li>Curve : <code class="language-plaintext highlighter-rouge">secp256r1</code></li>
+  <li>Point Encoding: <code class="language-plaintext highlighter-rouge">? (Uncompressed | Compressed | Hybrid)</code></li>
+  <li>KDF: <code class="language-plaintext highlighter-rouge">KDF2 with SHA-256</code></li>
+  <li>대칭암호화: <code class="language-plaintext highlighter-rouge">AES-256-CBC</code></li>
+</ul>
+
+<p><strong>AES</strong></p>
+
+<ul>
+  <li>Mode: <code class="language-plaintext highlighter-rouge">AES-256-CBC</code></li>
+  <li>IV: <code class="language-plaintext highlighter-rouge">Random</code></li>
+  <li>Padding: <code class="language-plaintext highlighter-rouge">PKCS5Padding</code> (PKCS7Padding 호환)</li>
+  <li>MAC: <code class="language-plaintext highlighter-rouge">HMAC-SHA256</code></li>
+</ul>
+
+<hr />
+
+<h3 id="design">Design</h3>
+
+<p><img src="/assets/img/2025-08-20-ECIES-암호화-적용-기록.md/1.png" alt="1" /><em>image.png</em></p>
+
+<h3 id="소스코드">소스코드</h3>
+
+<p>Server</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Empty</span>
+</code></pre></div></div>
+
+<p>Client</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Empty</span>
+</code></pre></div></div>
+
+<h2 id="리팩토링">리팩토링</h2>
+
+<p>기존에는 Form data 암호화와 ECIES 내부 암호화 방식이 상이하게 개발되었음.</p>
+
+<p>Form data 암호화에 사용되는 대칭 암호화를 ECIES 내부에서도 동일하게 사용하게끔 개선</p>
+
+<p>Server</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RequiredArgsConstructor</span>
+<span class="nd">@Component</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EciesUtil</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">KEY_ALGORITHM</span> <span class="o">=</span> <span class="s">"ECDH"</span><span class="o">;</span> <span class="c1">// KeyAgreement algorithm</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">KEY_FACTORY_ALG</span> <span class="o">=</span> <span class="s">"EC"</span><span class="o">;</span> <span class="c1">// KeyFactory algorithm (important!)</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">CURVE_NAME</span> <span class="o">=</span> <span class="s">"secp256r1"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">HKDF_HASH</span> <span class="o">=</span> <span class="s">"HmacSHA256"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">AES_KEY_LEN_BYTES</span> <span class="o">=</span> <span class="mi">32</span><span class="o">;</span> <span class="c1">// 256-bit</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">SecureRandom</span> <span class="n">secureRandom</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SecureRandom</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">AesUtil</span> <span class="n">aesUtil</span><span class="o">;</span> <span class="c1">// AES 암복호화 유틸 (추정)</span>
+
+    <span class="kd">public</span> <span class="nc">KeyPair</span> <span class="nf">generateECKeyPair</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="nc">KeyPairGenerator</span> <span class="n">kpg</span> <span class="o">=</span> <span class="nc">KeyPairGenerator</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="no">KEY_FACTORY_ALG</span><span class="o">);</span>
+        <span class="nc">ECGenParameterSpec</span> <span class="n">ecGenParameterSpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ECGenParameterSpec</span><span class="o">(</span><span class="no">CURVE_NAME</span><span class="o">);</span>
+        <span class="n">kpg</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">ecGenParameterSpec</span><span class="o">,</span> <span class="n">secureRandom</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">kpg</span><span class="o">.</span><span class="na">generateKeyPair</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Sender: recipientPublicKey로부터 ephemeral 키 생성 후 shared secret -&gt; HKDF -&gt; aesKey 생성
+     * 반환값에 ephemeralPublicKey, aesKey, iv 포함 (iv는 랜덤 생성)
+     */</span>
+    <span class="kd">public</span> <span class="nc">EciesSecret</span> <span class="nf">generateSecret</span><span class="o">(</span><span class="nc">PublicKey</span> <span class="n">recipientPublicKey</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="c1">// 1) ephemeral keypair 생성</span>
+        <span class="nc">KeyPair</span> <span class="n">ephemeral</span> <span class="o">=</span> <span class="n">generateECKeyPair</span><span class="o">();</span>
+
+        <span class="c1">// 2) shared secret (ephemeralPriv, recipientPub)</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">sharedSecret</span> <span class="o">=</span> <span class="n">deriveSharedSecret</span><span class="o">(</span><span class="n">ephemeral</span><span class="o">.</span><span class="na">getPrivate</span><span class="o">(),</span> <span class="n">recipientPublicKey</span><span class="o">);</span>
+
+        <span class="c1">// 3) HKDF로 AES 키 파생 (AES-256)</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">aesKeyBytes</span> <span class="o">=</span> <span class="n">hkdfExpand</span><span class="o">(</span><span class="n">sharedSecret</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"ECIES-AES-256"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span> <span class="no">AES_KEY_LEN_BYTES</span><span class="o">);</span>
+
+        <span class="nc">SecretKey</span> <span class="n">aesKey</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SecretKeySpec</span><span class="o">(</span><span class="n">aesKeyBytes</span><span class="o">,</span> <span class="s">"AES"</span><span class="o">);</span>
+
+        <span class="c1">// 4) IV 생성 (전송 필요)</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">ivBytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">16</span><span class="o">];</span>
+        <span class="n">secureRandom</span><span class="o">.</span><span class="na">nextBytes</span><span class="o">(</span><span class="n">ivBytes</span><span class="o">);</span>
+        <span class="nc">IvParameterSpec</span> <span class="n">iv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IvParameterSpec</span><span class="o">(</span><span class="n">ivBytes</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="nc">EciesSecret</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">ephemeralPublicKey</span><span class="o">(</span><span class="n">ephemeral</span><span class="o">.</span><span class="na">getPublic</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">aesKey</span><span class="o">(</span><span class="n">aesKey</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">iv</span><span class="o">(</span><span class="n">iv</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Receiver: base64로 넘어온 ephemeralPublicKey와 자신의 privateKey로 shared secret 생성 후 동일한 HKDF로 aesKey 도출
+     */</span>
+    <span class="kd">public</span> <span class="nc">EciesSecret</span> <span class="nf">generateSecret</span><span class="o">(</span><span class="nc">PrivateKey</span> <span class="n">recipientPrivateKey</span><span class="o">,</span> <span class="nc">String</span> <span class="n">base64EphemeralPublicKey</span><span class="o">,</span> <span class="nc">String</span> <span class="n">base64Iv</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">ephemeralBytes</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="n">base64EphemeralPublicKey</span><span class="o">);</span>
+        <span class="nc">KeyFactory</span> <span class="n">kf</span> <span class="o">=</span> <span class="nc">KeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="no">KEY_FACTORY_ALG</span><span class="o">);</span>
+        <span class="nc">PublicKey</span> <span class="n">ephemeralPub</span> <span class="o">=</span> <span class="n">kf</span><span class="o">.</span><span class="na">generatePublic</span><span class="o">(</span><span class="k">new</span> <span class="nc">X509EncodedKeySpec</span><span class="o">(</span><span class="n">ephemeralBytes</span><span class="o">));</span>
+
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">ivBytes</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="n">base64Iv</span><span class="o">);</span>
+        <span class="nc">IvParameterSpec</span> <span class="n">iv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IvParameterSpec</span><span class="o">(</span><span class="n">ivBytes</span><span class="o">);</span>
+
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">sharedSecret</span> <span class="o">=</span> <span class="n">deriveSharedSecret</span><span class="o">(</span><span class="n">recipientPrivateKey</span><span class="o">,</span> <span class="n">ephemeralPub</span><span class="o">);</span>
+
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">aesKeyBytes</span> <span class="o">=</span> <span class="n">hkdfExpand</span><span class="o">(</span><span class="n">sharedSecret</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"ECIES-AES-256"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span> <span class="no">AES_KEY_LEN_BYTES</span><span class="o">);</span>
+        <span class="nc">SecretKey</span> <span class="n">aesKey</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SecretKeySpec</span><span class="o">(</span><span class="n">aesKeyBytes</span><span class="o">,</span> <span class="s">"AES"</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="nc">EciesSecret</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">ephemeralPublicKey</span><span class="o">(</span><span class="n">ephemeralPub</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">aesKey</span><span class="o">(</span><span class="n">aesKey</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">iv</span><span class="o">(</span><span class="n">iv</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">deriveSharedSecret</span><span class="o">(</span><span class="nc">PrivateKey</span> <span class="n">priv</span><span class="o">,</span> <span class="nc">PublicKey</span> <span class="n">pub</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="nc">KeyAgreement</span> <span class="n">keyAgreement</span> <span class="o">=</span> <span class="nc">KeyAgreement</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="no">KEY_ALGORITHM</span><span class="o">);</span>
+        <span class="n">keyAgreement</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">priv</span><span class="o">);</span>
+        <span class="n">keyAgreement</span><span class="o">.</span><span class="na">doPhase</span><span class="o">(</span><span class="n">pub</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">keyAgreement</span><span class="o">.</span><span class="na">generateSecret</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// HKDF (RFC 5869) - simple extract/expand using HmacSHA256</span>
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">hkdfExpand</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">prkOrIkm</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">salt</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">info</span><span class="o">,</span> <span class="kt">int</span> <span class="n">len</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="c1">// For simplicity: do HKDF-Extract then HKDF-Expand</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">prk</span> <span class="o">=</span> <span class="n">hkdfExtract</span><span class="o">(</span><span class="n">salt</span><span class="o">,</span> <span class="n">prkOrIkm</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nf">hkdfExpandFromPrk</span><span class="o">(</span><span class="n">prk</span><span class="o">,</span> <span class="n">info</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">hkdfExtract</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">salt</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">ikm</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="nc">Mac</span> <span class="n">mac</span> <span class="o">=</span> <span class="nc">Mac</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="no">HKDF_HASH</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">salt</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">salt</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">mac</span><span class="o">.</span><span class="na">getMacLength</span><span class="o">()];</span>
+        <span class="o">}</span>
+        <span class="nc">SecretKeySpec</span> <span class="n">keySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SecretKeySpec</span><span class="o">(</span><span class="n">salt</span><span class="o">,</span> <span class="no">HKDF_HASH</span><span class="o">);</span>
+        <span class="n">mac</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">keySpec</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mac</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">ikm</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">hkdfExpandFromPrk</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">prk</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">info</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span> <span class="o">{</span>
+        <span class="nc">Mac</span> <span class="n">mac</span> <span class="o">=</span> <span class="nc">Mac</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="no">HKDF_HASH</span><span class="o">);</span>
+        <span class="nc">SecretKeySpec</span> <span class="n">keySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SecretKeySpec</span><span class="o">(</span><span class="n">prk</span><span class="o">,</span> <span class="no">HKDF_HASH</span><span class="o">);</span>
+        <span class="n">mac</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">keySpec</span><span class="o">);</span>
+
+        <span class="kt">int</span> <span class="n">hashLen</span> <span class="o">=</span> <span class="n">mac</span><span class="o">.</span><span class="na">getMacLength</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="nc">Math</span><span class="o">.</span><span class="na">ceil</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">length</span> <span class="o">/</span> <span class="n">hashLen</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">GeneralSecurityException</span><span class="o">(</span><span class="s">"Cannot expand to more than 255 * HashLen bytes with HKDF"</span><span class="o">);</span>
+
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">copied</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">mac</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">info</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">mac</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">info</span><span class="o">);</span>
+            <span class="n">mac</span><span class="o">.</span><span class="na">update</span><span class="o">((</span><span class="kt">byte</span><span class="o">)</span> <span class="n">i</span><span class="o">);</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">mac</span><span class="o">.</span><span class="na">doFinal</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">toCopy</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">length</span> <span class="o">-</span> <span class="n">copied</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">result</span><span class="o">,</span> <span class="n">copied</span><span class="o">,</span> <span class="n">toCopy</span><span class="o">);</span>
+            <span class="n">copied</span> <span class="o">+=</span> <span class="n">toCopy</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// AES 암복호 호출은 기존의 aesUtil 사용</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">data</span><span class="o">,</span> <span class="nc">EciesSecret</span> <span class="n">secret</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">aesUtil</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">secret</span><span class="o">.</span><span class="na">getAesKey</span><span class="o">(),</span> <span class="n">secret</span><span class="o">.</span><span class="na">getIv</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">decrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">encryptedData</span><span class="o">,</span> <span class="nc">EciesSecret</span> <span class="n">secret</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">aesUtil</span><span class="o">.</span><span class="na">decrypt</span><span class="o">(</span><span class="n">encryptedData</span><span class="o">,</span> <span class="n">secret</span><span class="o">.</span><span class="na">getAesKey</span><span class="o">(),</span> <span class="n">secret</span><span class="o">.</span><span class="na">getIv</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="c1">// PostConstruct는 데모용으로만 사용; 운영 환경에선 제거 권장</span>
+    <span class="nd">@PostConstruct</span>
+    <span class="kt">void</span> <span class="nf">demo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">KeyPair</span> <span class="n">kp</span> <span class="o">=</span> <span class="n">generateECKeyPair</span><span class="o">();</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"publicKey (base64) = {}"</span><span class="o">,</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">kp</span><span class="o">.</span><span class="na">getPublic</span><span class="o">().</span><span class="na">getEncoded</span><span class="o">()));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"EciesUtil demo error"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Client</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** ECIES 암호화 비밀 키 자료구조 */</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">EciesSecret</span> <span class="p">{</span>
+  <span class="cm">/** 임시 공개키 */</span>
+  <span class="nl">ephemeralPublicKey</span><span class="p">:</span> <span class="nx">CryptoKey</span><span class="p">;</span>
+  <span class="cm">/** 파생된 AES 대칭키 */</span>
+  <span class="nl">aesKey</span><span class="p">:</span> <span class="nx">CryptoKey</span><span class="p">;</span>
+  <span class="cm">/** AES-CBC 암호화를 위한 초기화 벡터 (IV) */</span>
+  <span class="nl">iv</span><span class="p">:</span> <span class="nb">Uint8Array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="nx">type</span> <span class="nx">Base64String</span> <span class="o">=</span> <span class="nx">string</span><span class="p">;</span>
+
+<span class="cm">/**
+ * 서버 공개키와 Form 데이터를 받아서 선택 필드를 ECIES 암호화
+ *
+ * @template Form Form 객체 타입
+ * @param serverPublicKeyBase64 Base64 인코딩된 서버 공개키 (SPKI)
+ * @param formData 암호화할 Form 데이터
+ * @param fieldsToEncrypt 암호화할 필드 배열
+ * @returns 암호화 결과 객체
+ */</span>
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">encryptFormData</span><span class="o">&lt;</span><span class="nx">Form</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">serverPublicKeyBase64</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">formData</span><span class="p">:</span> <span class="nx">Form</span><span class="p">,</span>
+  <span class="nx">fieldsToEncrypt</span><span class="p">:</span> <span class="nx">string</span><span class="p">[],</span>
+<span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="p">{</span>
+  <span class="na">iv</span><span class="p">:</span> <span class="nx">Base64String</span><span class="p">;</span>
+  <span class="nl">ephemeralPubKey</span><span class="p">:</span> <span class="nx">Base64String</span><span class="p">;</span>
+  <span class="nl">encryptedFormData</span><span class="p">:</span> <span class="nx">Form</span><span class="p">;</span>
+<span class="p">}</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="c1">// 서버 공개키 import</span>
+  <span class="kd">const</span> <span class="nx">serverPubKey</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">importKey</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">spki</span><span class="dl">"</span><span class="p">,</span>
+    <span class="nb">Uint8Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">atob</span><span class="p">(</span><span class="nx">serverPublicKeyBase64</span><span class="p">),</span> <span class="nx">c</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)).</span><span class="nx">buffer</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ECDH</span><span class="dl">"</span><span class="p">,</span> <span class="na">namedCurve</span><span class="p">:</span> <span class="dl">"</span><span class="s2">P-256</span><span class="dl">"</span> <span class="p">},</span>
+    <span class="kc">false</span><span class="p">,</span>
+    <span class="p">[],</span>
+  <span class="p">);</span>
+
+  <span class="c1">// ECIES 비밀 키 생성</span>
+  <span class="kd">const</span> <span class="nx">secret</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">generateSecret</span><span class="p">(</span><span class="nx">serverPubKey</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">ephemeralPubKey</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">exportKey</span><span class="p">(</span><span class="dl">"</span><span class="s2">spki</span><span class="dl">"</span><span class="p">,</span> <span class="nx">secret</span><span class="p">.</span><span class="nx">ephemeralPublicKey</span><span class="p">);</span>
+
+  <span class="c1">// 필드별 암호화</span>
+  <span class="kd">const</span> <span class="nx">encryptedFormData</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">formData</span> <span class="p">};</span>
+  <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">formData</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="k">async</span> <span class="p">([</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">fieldsToEncrypt</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">encryptedFormData</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">encryptField</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">secret</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}),</span>
+  <span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">iv</span><span class="p">:</span> <span class="nx">arrayBufferToBase64</span><span class="p">(</span><span class="nx">secret</span><span class="p">.</span><span class="nx">iv</span><span class="p">.</span><span class="nx">buffer</span> <span class="k">as</span> <span class="nb">ArrayBuffer</span><span class="p">),</span>
+    <span class="na">ephemeralPubKey</span><span class="p">:</span> <span class="nx">arrayBufferToBase64</span><span class="p">(</span><span class="nx">ephemeralPubKey</span><span class="p">),</span>
+    <span class="nx">encryptedFormData</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="cm">/** ArrayBuffer → Base64 변환 */</span>
+<span class="kd">function</span> <span class="nx">arrayBufferToBase64</span><span class="p">(</span><span class="nx">buffer</span><span class="p">:</span> <span class="nb">ArrayBuffer</span><span class="p">):</span> <span class="nx">string</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">binary</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Uint8Array</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">binary</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">bytes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">btoa</span><span class="p">(</span><span class="nx">binary</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/** PKCS#7 패딩 적용 */</span>
+<span class="kd">function</span> <span class="nx">pkcs7Pad</span><span class="p">(</span><span class="nx">data</span><span class="p">:</span> <span class="nb">Uint8Array</span><span class="p">,</span> <span class="nx">blockSize</span><span class="p">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">16</span><span class="p">):</span> <span class="nb">Uint8Array</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">padLength</span> <span class="o">=</span> <span class="nx">blockSize</span> <span class="o">-</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span> <span class="o">%</span> <span class="nx">blockSize</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">padded</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Uint8Array</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">padLength</span><span class="p">);</span>
+  <span class="nx">padded</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">padded</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">padded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">padLength</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">padded</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/** 서버 공개키로 ECIES 비밀 키 생성 */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">generateSecret</span><span class="p">(</span><span class="nx">pubKey</span><span class="p">:</span> <span class="nx">CryptoKey</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">EciesSecret</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">ephemeralKeyPair</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">generateKey</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ECDH</span><span class="dl">"</span><span class="p">,</span> <span class="na">namedCurve</span><span class="p">:</span> <span class="dl">"</span><span class="s2">P-256</span><span class="dl">"</span> <span class="p">},</span> <span class="kc">true</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">deriveKey</span><span class="dl">"</span><span class="p">]);</span>
+
+  <span class="kd">const</span> <span class="nx">sharedSecret</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">deriveKey</span><span class="p">(</span>
+    <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ECDH</span><span class="dl">"</span><span class="p">,</span> <span class="na">public</span><span class="p">:</span> <span class="nx">pubKey</span> <span class="p">},</span>
+    <span class="nx">ephemeralKeyPair</span><span class="p">.</span><span class="nx">privateKey</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AES-CBC</span><span class="dl">"</span><span class="p">,</span> <span class="na">length</span><span class="p">:</span> <span class="mi">256</span> <span class="p">},</span>
+    <span class="kc">true</span><span class="p">,</span>
+    <span class="p">[</span><span class="dl">"</span><span class="s2">encrypt</span><span class="dl">"</span><span class="p">],</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">iv</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">getRandomValues</span><span class="p">(</span><span class="k">new</span> <span class="nb">Uint8Array</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">ephemeralPublicKey</span><span class="p">:</span> <span class="nx">ephemeralKeyPair</span><span class="p">.</span><span class="nx">publicKey</span><span class="p">,</span>
+    <span class="na">aesKey</span><span class="p">:</span> <span class="nx">sharedSecret</span><span class="p">,</span>
+    <span class="nx">iv</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="cm">/** 문자열 → AES-CBC 암호화 (PKCS#7 포함) */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">eciesEncrypt</span><span class="p">(</span><span class="nx">source</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">secret</span><span class="p">:</span> <span class="nx">EciesSecret</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Base64String</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">plaintext</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TextEncoder</span><span class="p">().</span><span class="nx">encode</span><span class="p">(</span><span class="nx">source</span><span class="p">);</span>
+  <span class="nx">plaintext</span> <span class="o">=</span> <span class="nx">pkcs7Pad</span><span class="p">(</span><span class="nx">plaintext</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">ciphertext</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AES-CBC</span><span class="dl">"</span><span class="p">,</span> <span class="na">iv</span><span class="p">:</span> <span class="nx">secret</span><span class="p">.</span><span class="nx">iv</span> <span class="p">},</span> <span class="nx">secret</span><span class="p">.</span><span class="nx">aesKey</span><span class="p">,</span> <span class="nx">plaintext</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">arrayBufferToBase64</span><span class="p">(</span><span class="nx">ciphertext</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/** 단일 필드 암호화 */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">encryptField</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">secret</span><span class="p">:</span> <span class="nx">EciesSecret</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Base64String</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="nx">eciesEncrypt</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">secret</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="na">error</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Encryption failed for value: </span><span class="p">${</span><span class="nx">value</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">`Failed to encrypt field: </span><span class="p">${</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="epilogue">Epilogue</h1>
+
+<p>해당 업무를 진행하며 과거에 아무것도 모르고 그냥 무작정 암기했던 악몽같은 기술들이 새록새록 기억나면서 굉장히 신선했음.</p>
+
+<p>Buffer 처리나 Web Crypto API 핸들링도 좀 더 능숙해졌고, 기본적인 암호화 구조나 개념들과도 좀 더 친해진 것 같음.</p>
+
+<p>피와 살이 되는 경험이였던 것 같음…</p>
+
+<h1 id="참고">참고</h1>
+
+<p>구현 Design sequence diagram</p>
+
+<p><a href="https://prod-files-secure.s3.us-west-2.amazonaws.com/8daffe33-d95b-4c96-91e6-1b899bcdb2d7/a7e5a59a-ccb0-41b0-b7cf-f894674cfbf3/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8_%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%82%E1%85%B3%E1%86%AB_%E1%84%83%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7.drawio?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666H36SVSH%2F20260109%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260109T095253Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjENn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGrPHHkK4o3inqeb99fw0pmuXrtzgBs%2BiXZx%2FbDb7YIrAiEA4Z38T7d1Af%2FQ8JVX96hRy0SQiIcHTBhxZ1kqXSg2sx8qiAQIov%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDGFPuEWKJNXSF6hd4yrcAwR0j%2BGQpTkjiq8cWiePNdw%2Bf0%2BT9CuWTmTWfdT2z50uD5MHPKo%2BZTiBt79uHOyurs9lnAahC0CmqerCdfPETKyYCqSqB5PrRQeFpl%2FBMw%2Bkfx792Lfm7DzSFyqPD3rBRD4213zRgbD1TXSI%2BADZ%2FoIhY%2BSeBO9h7yBlVrRLeJl0MMo1tO38MgrSDvEWvqCu%2FVknSxtt9iU3OVNt6iW%2Fo1vqAvpTeFOLvH9t1GdoKJTii3BwQ%2B0GdY4ZYXl0hcw%2FDvKGeAqY4YmJGiLnEbC3waHG74X49rzfxqkjUuJyLPtqwntJB34Ibj5u%2BCm5x2qunXTQnQuqfzbgHg8wI0O8nSt1DgfsvPaYZTzpxVWwBfmVT3GOf6ATNn2fO%2FRpdIxjqYL%2FskLN7ldjG%2FcBnIfnqpClXHkunQeV6WtiJaEfqQhAJlEIBRpp8jofvR3TbpDtnhd%2B6V6ELZx%2BH%2FABWxbskCC463gisTjAhdyynetwHtDS9SnVbFxC4GfSCXhVtSQ5zaQjuqL%2FLJ2XZIMoggCpSYcb6FOH7bzo4jOwQHHrk94B25de06tUM0k0kVbkJfqJDClSb2VDwPOQq46BwmZ3hBhqn2Qn4I4DTjODGpTjtxzTqtCRenLEXilwDEa5MO%2BLg8sGOqUBRfoHZROocam2b2TCBsW21cbQP4rDDTVyflGH1qXkPtzSAY9yjivMN1debrIzi0BQ3lYAbpzL6WGFXSdc50QA3iFVkmRmXcGrJ78H07Ai%2FZb1p2OgxOuK%2FYCa5OW4owdjFag2xu0MDYoqBcayEwvk2piW2oDqOaeOgxJnOeS6KsjxbPx3sxDSfj41%2B67UrSb9I8pZN0KBSARFfkCX7S3Uc%2BYdWndl&amp;X-Amz-Signature=c1b1b85b8e9ea23827a39106d7f90bce8c5eb5c35cdb787af192e358140735cb&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">file</a></p>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Aug 5, 2025</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2025/08/05/%EB%B6%84%EC%82%B0-%ED%99%98%EA%B2%BD-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%A0%95%EB%A6%AC/">&laquo; 📦 분산 환경 알고리즘 정리</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Nov 11, 2025 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2025/11/11/Gartner-2026/">Gartner 2026 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

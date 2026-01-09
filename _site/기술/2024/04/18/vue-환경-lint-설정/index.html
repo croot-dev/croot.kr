@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vue 환경 lint 설정 - Croot Blog</title>
+  <meta name="description" content="💡전체 샘플 코드는 아래 리포지토리를 참고하시길 바랍니다.https://github.com/croot-dev/vue-lint-confighttps://github.com/croot-dev/vue-lint-config/tree/240508">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2024/04/18/vue-%ED%99%98%EA%B2%BD-lint-%EC%84%A4%EC%A0%95/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">vue 환경 lint 설정</h1>
+    <!-- <p class="c-article__time"><time datetime="2024-04-18T00:00:00+09:00" itemprop="datePublished">Apr 18, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 04월 18일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 08월 03일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">전체 샘플 코드는 아래 리포지토리를 참고하시길 바랍니다.<br /><a href="https://github.com/croot-dev/vue-lint-config" target="_blank"><s>https://github.com/croot-dev/vue-lint-config</s></a><s><br /></s><a href="https://github.com/croot-dev/vue-lint-config/tree/240508" target="_blank">https://github.com/croot-dev/vue-lint-config/tree/240508</a></div>
+</div>
+
+<h2 id="환경-및-설정">환경 및 설정</h2>
+
+<ul>
+  <li>IDE : <strong>VSCode</strong> - <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+  <li>Package Manager : <strong>yarn@1.22.22</strong> - <a href="https://github.com/yarnpkg/yarn">https://github.com/yarnpkg/yarn</a></li>
+  <li>Build Tool : <strong>Vite</strong> [/vit/] - <a href="https://ko.vitejs.dev/guide/">https://ko.vitejs.dev/guide/</a></li>
+  <li>Framework : <strong>vue3 -</strong> <a href="https://v3-docs.vuejs-korea.org/">https://v3-docs.vuejs-korea.org/</a></li>
+  <li>Superset : <strong>Typescript</strong> - <a href="https://www.typescriptlang.org/">https://www.typescriptlang.org/</a></li>
+</ul>
+
+<h3 id="vscodeextensionsjson">.vscode/extensions.json</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"recommendations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+	  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+	  
+    </span><span class="s2">"Vue.volar"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"dbaeumer.vscode-eslint"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"esbenp.prettier-vscode"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stylelint.vscode-stylelint"</span><span class="w">
+    
+	  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div></div>
+
+<h3 id="vscodesettingsjson">.vscode/settings.json</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+		</span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+		
+		</span><span class="err">//</span><span class="w"> </span><span class="err">editor</span><span class="w">
+    </span><span class="nl">"editor.codeActionsOnSave"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"source.fixAll"</span><span class="p">:</span><span class="w"> </span><span class="s2">"explicit"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"source.fixAll.eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"explicit"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"source.fixAll.stylelint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"explicit"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"editor.formatOnSave"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"editor.defaultFormatter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"esbenp.prettier-vscode"</span><span class="p">,</span><span class="w">
+
+    </span><span class="err">//</span><span class="w"> </span><span class="err">eslint</span><span class="w">
+    </span><span class="nl">"eslint.enable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eslint.format.enable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eslint.codeActionsOnSave.mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"problems"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eslint.codeActionsOnSave.rules"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+
+		</span><span class="err">//</span><span class="w"> </span><span class="err">stylelint</span><span class="w">
+    </span><span class="nl">"stylelint.enable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stylelint.validate"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"css"</span><span class="p">,</span><span class="w"> </span><span class="s2">"scss"</span><span class="p">,</span><span class="w"> </span><span class="s2">"vue"</span><span class="p">]</span><span class="w">
+    </span><span class="nl">"stylelint.packageManager"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yarn"</span><span class="p">,</span><span class="w">
+    
+    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="packagejson">package.json</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vue-lint-config</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">private</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.0.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">module</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">dev</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vite</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">build</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">run-p type-check </span><span class="se">\"</span><span class="s2">build-only {@}</span><span class="se">\"</span><span class="s2"> --</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">preview</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vite preview</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">build-only</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vite build</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">type-check</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vue-tsc --build --force</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">lint</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">format</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">prettier --write src/</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">dependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">vue</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^3.4.21</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">engines</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+	  <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">18.18.2</span><span class="dl">"</span><span class="p">,</span>
+	  <span class="dl">"</span><span class="s2">yarn</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.22.22</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">devDependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">@rushstack/eslint-patch</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^1.8.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@tsconfig/node20</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^20.1.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@types/node</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^20.12.5</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@typescript-eslint/parser</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^7.8.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@vitejs/plugin-vue</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.0.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@vue/eslint-config-prettier</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^9.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@vue/eslint-config-typescript</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^13.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@vue/tsconfig</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^0.5.1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eslint</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^8.57.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eslint-config-stylelint</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^21.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eslint-import-resolver-typescript</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^3.6.1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eslint-plugin-import</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^2.29.1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eslint-plugin-stylelint</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^0.1.1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eslint-plugin-vue</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^9.23.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">npm-run-all2</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^6.1.2</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">prettier</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^3.2.5</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">sass</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^1.77.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">stylelint</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^16.5.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">stylelint-config-recess-order</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.0.1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">stylelint-config-recommended-scss</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^14.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">stylelint-config-recommended-vue</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^1.5.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">stylelint-config-standard-scss</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^13.1.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">typescript</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~5.4.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">vite</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.2.8</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">vue-tsc</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^2.0.11</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="eslint-설정">Eslint 설정</h2>
+
+<h3 id="eslintrccjs">.eslintrc.cjs</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* eslint-env node */</span>
+<span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@rushstack/eslint-patch/modern-module-resolution</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">root</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">extends</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">'</span><span class="s1">plugin:vue/vue3-recommended</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">eslint:recommended</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">plugin:import/recommended</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">plugin:import/typescript</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">@vue/eslint-config-typescript</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">@vue/eslint-config-prettier/skip-formatting</span><span class="dl">'</span>
+  <span class="p">],</span>
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">stylelint</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">import</span><span class="dl">'</span><span class="p">],</span>
+  <span class="na">parser</span><span class="p">:</span> <span class="dl">'</span><span class="s1">vue-eslint-parser</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">parserOptions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">parser</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@typescript-eslint/parser</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">ecmaVersion</span><span class="p">:</span> <span class="dl">'</span><span class="s1">latest</span><span class="dl">'</span>
+  <span class="p">},</span>
+  <span class="na">rules</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">'</span><span class="s1">import/order</span><span class="dl">'</span><span class="p">:</span> <span class="p">[</span>
+      <span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">groups</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">'</span><span class="s1">type</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">builtin</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">external</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">internal</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">parent</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">sibling</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">index</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">unknown</span><span class="dl">'</span>
+        <span class="p">],</span>
+        <span class="na">pathGroupsExcludedImportTypes</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">@tanstack*</span><span class="dl">'</span><span class="p">],</span>
+        <span class="na">alphabetize</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">order</span><span class="p">:</span> <span class="dl">'</span><span class="s1">asc</span><span class="dl">'</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="prettier-설정">Prettier 설정</h2>
+
+<h3 id="prettierrcjson">.prettierrc.json</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">$schema</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://json.schemastore.org/prettierrc</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">semi</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">tabWidth</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">singleQuote</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">printWidth</span><span class="dl">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">trailingComma</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="stylelint-설정">Stylelint 설정</h2>
+
+<h3 id="stylelintrcjson">.stylelintrc.json</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"extends"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"stylelint-config-standard"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stylelint-config-standard-scss"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stylelint-config-recommended-scss"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stylelint-config-recommended-vue"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stylelint-config-recess-order"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"plugin"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"stylelint-scss"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stylelint-order"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Apr 9, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2024/04/09/Git-Merge-%EC%A0%84%EB%9E%B5/">&laquo; Git Merge 전략</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Apr 19, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/04/19/Ising-solver-chip/">Ising solver chip &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

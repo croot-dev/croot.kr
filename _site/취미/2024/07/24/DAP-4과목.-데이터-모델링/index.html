@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DAP 4과목. 데이터 모델링 - Croot Blog</title>
+  <meta name="description" content="제1장 데이터 모델링 이해">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EC%B7%A8%EB%AF%B8/2024/07/24/DAP-4%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8%EB%A7%81/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">DAP 4과목. 데이터 모델링</h1>
+    <!-- <p class="c-article__time"><time datetime="2024-07-24T00:00:00+09:00" itemprop="datePublished">Jul 24, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 07월 24일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 11월 03일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>취미</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h1 id="제1장-데이터-모델링-이해">제1장 데이터 모델링 이해</h1>
+
+<h2 id="제1절-데이터-모델링-개요">제1절 데이터 모델링 개요</h2>
+
+<h3 id="1-데이터-모델링-정의">1. 데이터 모델링 정의</h3>
+
+<p>현실 세계 조직의 업무에서 필요로 하는 정보를 컴퓨터 세계의 데이터베이스에 저장, 활용하기 위한 지적인 작업 과정</p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/0.png" alt="0" /><em>Untitled.png</em></p>
+
+<p>현실 세계의 정보를 추상화(Abstraction)를 통해 정보구조와 업무규칙을 ERD로 표현하는 과정을 개념 데이터 모델링 이라고 한다.</p>
+
+<p>개념 데이터 모델을 특정 데이터베이스로 구현하기위해 표현하는 것을 논리 데이터 모델링 이라 한다.</p>
+
+<p><strong>데이터 모델링 탄생 배경</strong></p>
+
+<p>파일 시스템 이용 → 파일 공유 불가로 데이터 중복 발생 → 데이터 불일치 및 시스템 통합 한계 발생</p>
+
+<p>계층형 데이터베이스 환경 → 정보의 고립화 발생 → 중복 데이터 발생</p>
+
+<p>정보의 고립화 현상을 없애기 위해 관계형 데이터베이스 모델링 이용</p>
+
+<p><strong>정보시스템 개발 방법론</strong></p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/1.png" alt="1" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>구조적 방법론 : 절차 중심 업무 파악</li>
+  <li>정보공학 방법론 : 데이터와 프로세스를 병행 분석 후 상호작용 분석을 정리
+    <ul>
+      <li>정보 아키텍처</li>
+      <li>시스템 아키텍처</li>
+      <li>기술 아키텍처</li>
+      <li>조직 아키텍처</li>
+    </ul>
+  </li>
+  <li>객체지향 방법론</li>
+  <li>컴포넌트 기반 방법론</li>
+  <li>Agile</li>
+</ul>
+
+<h3 id="2-데이터-모델링-중요성">2. 데이터 모델링 중요성</h3>
+
+<p>데이터베이스 내에 데이터 값의 일관성과 정확성, 즉 데이터 무결성이 결정적으로 중요하기 때문이다.</p>
+
+<p>데이터 모델은 데이터베이스 설계에 대한 계획 또는 청사진이다. 데이터 모델을 통해 구축될 시스템의 데이터 구조에 대한 형상을 이해하고, 요구사항, 변경 등 원활한 의사소통을 할 수 있게 해준다.</p>
+
+<p>분석/설계 단계에서 조기에 오류를 발견하여 정정할 수 있도록 하는 최적의 수단</p>
+
+<h2 id="제2절-데이터-모델링-기법-이해">제2절 데이터 모델링 기법 이해</h2>
+
+<h3 id="1-엔티티-관계-데이터-모델">1. 엔티티-관계 데이터 모델</h3>
+
+<p><strong>추상화</strong></p>
+
+<p>현실세계 존재하는 구체적 개체(Entity) 또는 객체(Object)들의 공통된 특징을 파악하여 인식의 대상으로 삼는 행위</p>
+
+<p>논리 모델링에서 사용하는 추상화에는 세가지가 있다.</p>
+
+<ul>
+  <li>유형화
+    <ul>
+      <li>같은 성질을 갖는 멤버들을 타입 또는 유형(Class)이라는 하나의 개념으로 정의하는데 사용</li>
+    </ul>
+  </li>
+  <li>집단화
+    <ul>
+      <li>속성이라는 타입들의 세트로 구성되는 새로운 타입을 정의하는 개념</li>
+    </ul>
+  </li>
+  <li>일반화
+    <ul>
+      <li>여러 엔티티 타입 간의 공통적인 특성을 파악하는 과정</li>
+      <li>추상화와는 다르게 슈퍼타입에 정의된 모든 특성이 서브타입으로 상속됨</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>타입과 인스턴스</strong></p>
+
+<ul>
+  <li>엔티티 타입(타입)은 엔티티(인스턴스)의 집합</li>
+  <li>관계(타입)는 페어링(인스턴스)의 집합</li>
+  <li>속성(타입)은 값(인스턴스)의 집합</li>
+</ul>
+
+<h3 id="2-엔티티-관계-데이터-모델-구성요소">2. 엔티티-관계 데이터 모델 구성요소</h3>
+
+<p>엔티티-관계 데이터 모델은 엔티티, 관계, 속성이라는 세 가지 요소로 구성</p>
+
+<p><strong>엔티티</strong></p>
+
+<p>동일한 업무 행위나 유사한 속성을 갖는 단일 개념으로 정의한 멤버들의 집합체</p>
+
+<p><strong>관계</strong></p>
+
+<p>하나 또는 두 개의 엔티티에서 인스턴스를 연관시키는 업무적인 이유</p>
+
+<ul>
+  <li>여러 개의 엔티티를 Join 하여 정보를 조회할 수 있다.</li>
+  <li>중복 데이터를 배제하여 데이터 정확성 향상에 기여한다.</li>
+</ul>
+
+<p><strong>속성과 도메인</strong></p>
+
+<p>속성은 엔티티에 저장되는 인스턴스들의 특성을 설명하는 항목</p>
+
+<p>하나의 속성이 갖는 같은 종류의 모든 값들의 집합을 그 속성의 도메인(Domain)이라고 한다.</p>
+
+<p>속성은 한 도메인 상에서 정의되어야하며, 정의된 속성은 해당 도메인으로부터만 값을 취할 수 있다.</p>
+
+<p><strong>식별자</strong></p>
+
+<p>엔티티에 저장되는 특정 인스턴스 하나를 식별할 수 있는 하나 또는 여러개의 속성을 <u>**유일 식별자**</u>라고 한다.</p>
+
+<ul>
+  <li>일련의 식별자 속성은 반드시 값을 갖는다.</li>
+  <li>일련의 식별자 속성의 값은 유일하다.</li>
+  <li>식별자를 구성하는 속성은 최소한의 개수로 해야 한다.</li>
+</ul>
+
+<h2 id="제3절-데이터-모델링-표기법-이해">제3절 데이터 모델링 표기법 이해</h2>
+
+<h3 id="1-엔티티-관계-데이터-모델-표기법">1. 엔티티-관계 데이터 모델 표기법</h3>
+
+<p><strong>엔티티 표기법</strong></p>
+
+<ul>
+  <li><strong>정보공학(IE) 엔티티 표기법</strong> : 독립과 종속 엔티티로 구분
+    <ul>
+      <li><strong>독립</strong> 엔티티 : 다른 인스턴스에 의존하지 않는 엔티티</li>
+      <li><strong>종속</strong> 엔티티
+        <ul>
+          <li><strong>특성</strong> 엔티티 : 하나의 인스턴스에 여러 번 발생하는 속성의 그룹</li>
+          <li><strong>연관</strong> 엔티티 : 두 개 이상의 다른 엔티티로부터 식별자를 상속 받는 엔티티</li>
+          <li><strong>서브타입</strong> 엔티티 : 다른 부분집합과 구별되는 공통 속성이나 관계를 공유하는 부분집합</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>CASE*Method 엔티티 표기법</strong>
+    <ul>
+      <li>독립, 종속 엔티티 구분은 없지만 연관, 슈퍼타입, 서브타입 개념은 동일</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>속성 표기법</strong></p>
+
+<p>‘엔티티 명 + 수식어 + 도메인 명’ 형태로 하는 것이 좋은 방법</p>
+
+<ul>
+  <li>유일식별자, 주 키
+    <ul>
+      <li>정보공학(IE) : 엔티티 사각형 상단에 별도 기재</li>
+      <li>CASE*Method : 속성명 앞에 <code class="language-plaintext highlighter-rouge">#</code> 표시</li>
+    </ul>
+  </li>
+  <li>외래식별자, 외래 키
+    <ul>
+      <li>속성명 뒤에 <code class="language-plaintext highlighter-rouge">(FK)</code> 표기</li>
+    </ul>
+  </li>
+  <li>필수, 선택 속성
+    <ul>
+      <li>정보공학(IE) : 속성명 앞에 필수는 <code class="language-plaintext highlighter-rouge">*</code> , 선택은 <code class="language-plaintext highlighter-rouge">o</code>  표기</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>관계 표기법</strong></p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/2.png" alt="2" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>관계 기수성(Cardinality, Degree) 표기법
+    <ul>
+      <li>일대일 관계</li>
+      <li>일대다 관계</li>
+      <li>다대다 관계</li>
+    </ul>
+  </li>
+  <li>관계 선택성 표기법
+    <ul>
+      <li>필수 관계</li>
+      <li>선택 관계</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>관계 식별성 표기법</strong></p>
+
+<ul>
+  <li>식별 관계
+    <ul>
+      <li>부모 엔티티의 식별자가 자식 엔티티의 식별자의 일부분이 되는 관계</li>
+      <li>정보공학 표기법 : 실선</li>
+      <li>CASE*Method 표기법 : UID Bar 사용</li>
+    </ul>
+  </li>
+  <li>비식별 관계
+    <ul>
+      <li>부모 엔티티의 식별자가 자식 엔티티의 식별자의 일반 속성으로 표현되는 관계</li>
+      <li>정보공학 표기법 : 점선</li>
+      <li>CASE*Method 표기법 : UID Bar 미사용</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제4절-관계형-모델-이론">제4절 관계형 모델 이론</h2>
+
+<h3 id="1-릴레이션-개념">1. 릴레이션 개념</h3>
+
+<p>두 개의 집합 x,y가 있을 때 두 집합간의 관계 R을 만족하는 모든 순서쌍</p>
+
+<p>주어진 도메인들의 카디션 프로덕트의 부분집합</p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/3.png" alt="3" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>릴레이션 스키마 : 릴레이션 이름과 애트리뷰트(Column)들의 집합으로 구성</li>
+  <li>릴레이션 인스턴스 : 어느 한 시점에 릴레이션에 포함되어 있는 튜플(Row)의 집합</li>
+  <li>차수(Degree) : 애트리뷰트(Column)의 개수</li>
+  <li>기수성(Cardinality) : 튜플(Row)의 수</li>
+</ul>
+
+<p><strong>속성과 도메인의 개념</strong></p>
+
+<ul>
+  <li>속성 = 애트리뷰트(Attribute)
+    <ul>
+      <li>데이터의 가장 작은 논리적 단위</li>
+      <li>더 이상 분해할 필요가 없는 원자 값</li>
+    </ul>
+  </li>
+  <li>도메인
+    <ul>
+      <li>하나의 애트리뷰트가 갖는 같은 타입의 모든 원자 값들의 집합</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-관계형-모델-이론">2. 관계형 모델 이론</h3>
+
+<ul>
+  <li><strong>데이터 구조</strong> : 사용자가 인식하는 데이터의 구성</li>
+  <li><strong>데이터 조작</strong> : 사용자가 관계형 데이터 구조에 행하는 일련의 처리 형태</li>
+  <li><strong>데이터 무결성</strong> : 사용자가 관계형 테이블에 데이터 조작을 수행할 때 데이터의 일관성과 정확성을 유지할 수 있도록 하는 일련의 업무 규칙</li>
+</ul>
+
+<p><strong>데이터 구조 특성</strong></p>
+
+<ul>
+  <li>각 열은 하나의 값을 가진다</li>
+  <li>각 열의 값은 동일한 종류이다</li>
+  <li>각 행은 유일하다</li>
+  <li>열의 순서는 의미가 없다</li>
+  <li>행의 순서는 의미가 없다</li>
+  <li>각 열은 유일한 이름을 가진다</li>
+</ul>
+
+<p><strong>데이터 조작</strong></p>
+
+<ul>
+  <li>집합 처리</li>
+  <li>관계 연산자 : 조회</li>
+  <li>처리 연산자 : 관계 테이블의 내용 변화</li>
+</ul>
+
+<p><strong>데이터 무결성</strong></p>
+
+<ul>
+  <li><strong>엔티티 무결성 규칙</strong>
+    <ul>
+      <li>식별자를 구성하는 각 속성이 null이 아닐 것</li>
+      <li>엔티티 내 특정 인스턴스의 유일성을 보장할 것</li>
+      <li>최소한의 속성 집합 일 것</li>
+    </ul>
+  </li>
+  <li><strong>참조 무결성 규칙</strong>
+    <ul>
+      <li>입력규칙</li>
+      <li>삭제규칙</li>
+    </ul>
+  </li>
+  <li><strong>도메인 무결성 규칙</strong>
+    <ul>
+      <li>같은 도메인 값들끼리만 비교 가능</li>
+      <li>속성이 취할 수 있는 값의 제한</li>
+    </ul>
+  </li>
+  <li><strong>연쇄 작용 또는 업무 규칙</strong>
+    <ul>
+      <li>사용자규칙 : 업무규칙을 쉽고 명확하게 기술</li>
+      <li>사건 : INSERT, UPDATE, DELETE, SELECT</li>
+      <li>엔티티 : 사건 대상 테이블</li>
+      <li>속성 : 사건 대상 속성</li>
+      <li>조건 : 연쇄작용 일으키기 위한 조건</li>
+      <li>연쇄작용 : 업무규칙에 의해 해당 사건이 일어났을 때 수행 되어야 할 행위</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="제2장-데이터-모델링">제2장 데이터 모델링</h1>
+
+<h2 id="제1절-논리-데이터-모델링-이해">제1절 논리 데이터 모델링 이해</h2>
+
+<h3 id="1-논리-데이터-모델링-핵심">1. 논리 데이터 모델링 핵심</h3>
+
+<p>업무에서 필요로 하는 요구사항을 데이터 관점에서 이해하고 정리하여 문서화하는 것</p>
+
+<p><strong>논리 데이터 모델링 필수 성공 요소</strong></p>
+
+<ul>
+  <li>많은 시간을 업무에 능통한 현업 사용자와 함께 진행할 것</li>
+  <li>절차보다는 데이터에 초점을 두고 진행할 것</li>
+  <li>데이터의 구조와 무결성을 함께 고려할 것</li>
+  <li>개념화와 정규화 기법을 적용할 것</li>
+  <li>가능하다면 다이어그램을 이용하여 업무를 표현할 것</li>
+  <li>데이터 모델링을 지원하는 데이터 사전을 구축할 것</li>
+</ul>
+
+<p><strong>논리 데이터 모델링 목적 및 효과</strong></p>
+
+<ul>
+  <li>해당 비즈니스에 대한 데이터 관점에서의 명확한 이해</li>
+  <li>전사적인 통합 데이터 체계 관리</li>
+  <li>데이터 일관성 및 정확성 유지를 위한 규칙 도출</li>
+  <li>안정적인 데이터베이스 설계의 토대 마련</li>
+  <li>정보시스템 관계자와 명확한 의사소통을 위한 수단으로 활용</li>
+</ul>
+
+<h3 id="2-논리-데이터-모델링-절차">2. 논리 데이터 모델링 절차</h3>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/4.png" alt="4" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>주제 영역 정의</li>
+  <li>엔티티 정의</li>
+  <li>관계 정의</li>
+  <li>속성 정의</li>
+  <li>식별자 확정</li>
+  <li>정규화</li>
+  <li>이력 관리</li>
+</ul>
+
+<h2 id="제2절-주제-영역-정의">제2절 주제 영역 정의</h2>
+
+<h3 id="1-주제-영역-개념">1. 주제 영역 개념</h3>
+
+<p>주요 자원, 상품, 활동을 중심으로 조직이 관심을 가지는 영역</p>
+
+<p>조직이 사용하는 데이터의 최상위 집합</p>
+
+<p>주제 영역은 계층적으로 표현될 수 있으며 분해하면 하위 수준의 주제 영역 또는 엔티티가 나타난다.</p>
+
+<h3 id="2-주제-영역-도출">2. 주제 영역 도출</h3>
+
+<p><strong>주제 영역 발견 기법</strong></p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/5.png" alt="5" /><em>Untitled.png</em></p>
+
+<p>가치 사슬(Value Chain) 분석 기법 활용</p>
+
+<p><strong>주제 영역 도출 방안</strong></p>
+
+<ul>
+  <li>업무 기능의 이름으로부터 도출</li>
+  <li>업무에서 사용하는 데이터의 명사형 도출</li>
+  <li>하향식 접근방법</li>
+  <li>상향식 접근방법</li>
+</ul>
+
+<p><strong>주제 영역 명명</strong></p>
+
+<ul>
+  <li>업무에서 사용하는 용어를 부여</li>
+  <li>유일한 단수형 명사 사용</li>
+  <li>데이터의 그룹을 의미하는 이름 부여</li>
+</ul>
+
+<h3 id="3-주제-영역-활용">3. 주제 영역 활용</h3>
+
+<p><strong>목적</strong></p>
+
+<ul>
+  <li>업무 분석 효율 향상</li>
+  <li>업무 기능과 병행하여 분석 시, 모델 품질 확보</li>
+  <li>주제 영역 계층과 업무 기능 계층 간 대응 관계 확인</li>
+  <li>전사 업무를 위한 전체 데이터 구성에 대한 청사진 제공</li>
+  <li>데이터 구성 및 통합에 대한 방향을 제시</li>
+  <li>효율적 데이터 관리 기준 제공</li>
+</ul>
+
+<p><strong>장점</strong></p>
+
+<ul>
+  <li>데이터 및 업무 활동 모델의 품질 보증</li>
+  <li>업무 범위 기준 확보</li>
+  <li>분할 정복으로 집중화한 토의 가능</li>
+  <li>모델 개발 조정 용이</li>
+  <li>저장소 관리 용이</li>
+</ul>
+
+<h3 id="4-주제-영역-정의-내용">4. 주제 영역 정의 내용</h3>
+
+<p><strong>주제 영역 목록</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>레벨</strong></th>
+      <th><strong>주제 영역 명</strong></th>
+      <th>설명</th>
+      <th><strong>대표 엔티티</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>주제 영역의 계층 수준</td>
+      <td>명명 규칙 준수</td>
+      <td>(단위 주제 영역인 경우)</td>
+      <td>대표적 엔티티 기술</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>레벨 : 주제 영역의 계층 수준</li>
+  <li>주제 영역 명</li>
+  <li>설명(단위 주제 영역의 경우)</li>
+  <li>대표 엔티티 : 대표적 엔티티 기술</li>
+</ul>
+
+<h2 id="제3절-엔티티-정의">제3절 엔티티 정의</h2>
+
+<h3 id="1-엔티티-개념">1. 엔티티 개념</h3>
+
+<p>동일한 업무 행위나 유사한 속성을 갖는 단일 개념으로 정의한 멤버들의 집합체</p>
+
+<p>다른 사람들과 소통하기 위하여 현실 세계의 인스턴스들을 추상화를 통해 엔티티로 정의하여 사용하는 것</p>
+
+<h3 id="2-엔티티-분류">2. 엔티티 분류</h3>
+
+<p><strong>일반적 분류</strong></p>
+
+<ul>
+  <li>유형 엔티티 : 물리적 존재 대상</li>
+  <li>활동 엔티티 : 어떤 사건에 관한 정보</li>
+  <li>개념 엔티티 : 관리할 정보가 있는 무형</li>
+</ul>
+
+<p><strong>모델 관점 분류</strong></p>
+
+<ul>
+  <li>독립 엔티티</li>
+  <li>종속 엔티티</li>
+</ul>
+
+<p><strong>발생 시점 분류</strong></p>
+
+<ul>
+  <li>키 엔티티 : 부모를 가지지 않는 엔티티</li>
+  <li>메인 엔티티 : 키 엔티티를 제외한 업무 중심에 해당하는 엔티티</li>
+  <li>액션 엔티티 : 키, 메인 엔티티가 아닌 모든 엔티티</li>
+</ul>
+
+<h3 id="3-엔티티-도출">3. 엔티티 도출</h3>
+
+<p>엔티티 도출의 가장 큰 목적은 업무를 빠짐없이 정확하게 표현하기 위한 것으로 방식은 중요하지 않다.</p>
+
+<ul>
+  <li><strong>현행 데이터베이스로부터 엔티티 도출</strong>
+    <ul>
+      <li>조직의 정보 요구 사항을 빠짐없이 정확하게 지원하는지 확인</li>
+      <li>현행 데이터베이스의 구조적인 문제점 및 해결 방안을 도출하기 위해</li>
+      <li>목표 정보 요구 사항을 지원하기 위한 논리 데이터 모델 결정</li>
+      <li>목표 데이터베이스로의 데이터 이행 시 정확한 원천 데이터 파악 위해</li>
+    </ul>
+  </li>
+  <li><strong>정보요구 분석</strong>
+    <ul>
+      <li>정보요구 사항을 범주로 분류하여 각 조직 계층이 원하는 정보요구 사항을 정리</li>
+      <li>조직 전체 관계자들의 정보요구 사항을 파악하여 논리 데이터 모델에 반영하는 것이 매우 중요</li>
+    </ul>
+  </li>
+  <li><strong>업무에서 사용하는 문서로부터 도출</strong>
+    <ul>
+      <li>현업이 사용하는 실 데이터 값이 보이는 문서가 가장 좋은 자료</li>
+      <li>논리 데이터 모델 검토 시 현업에서 발생하는 문서를 이용하는 방법을 추천</li>
+    </ul>
+  </li>
+  <li><strong>사용자 인터뷰로부터 도출</strong>
+    <ul>
+      <li>데이터 모델러는 현업 전문가와 인터뷰를 통해 명확하게 이해해야 좋은 모델을 만들 수 있다.</li>
+      <li>각 조직만의 특별한 업무 규칙들을 잘 파악하여 모델에 표현하는 것이 가장 중요한 사항이다.</li>
+    </ul>
+  </li>
+  <li><strong>아키텍처 모델로부터 도출</strong>
+    <ul>
+      <li>정보 전략 계획(ISP)이나 전사아키텍처 계획(EAP) 수행 산출인 개념 데이터 모델을 이용하는 방법</li>
+    </ul>
+  </li>
+  <li><strong>업무 수행 프로세스로부터 도출</strong>
+    <ul>
+      <li>프로세스를 보면 정보가 관리되는 어떤 구별 가능한 인스턴스가 도출된다.</li>
+      <li>중복이 발생할 수 있지만 통합, 정규화 과정에서 확인 가능</li>
+    </ul>
+  </li>
+  <li><strong>엔티티 분류 기법 활용하여 도출</strong>
+    <ul>
+      <li>주제 영역에서부터 분할 정복으로 엔티티를 분류 및 도출하며 모델을 생성</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="4-엔티티-검증">4. 엔티티 검증</h3>
+
+<ul>
+  <li>조직의 업무를 수행하는데 필요한 의미 있는 정보를 나타냄</li>
+  <li>특정 사례가 아닌 유사한 사물들을 대표하는 집합체</li>
+  <li>인스턴스가 포함할 내부 연관성 있는 속성에 의해 결정된 단일개념을 대표</li>
+  <li>엔티티 내 인스턴스의 출현을 구별할 수 있는 능력을 제공</li>
+  <li>정규화 규칙을 만족</li>
+</ul>
+
+<h3 id="5-엔티티-정의-사항">5. 엔티티 정의 사항</h3>
+
+<p>데이터 모델 구축 팀이 수집 및 기록해야 하는 것들이다.</p>
+
+<ul>
+  <li><strong>엔티티 명 :</strong> 설정된 명명 규칙을 따르는 고유한 이름을 부여받아야 함
+    <ul>
+      <li>지켜야 할 규칙
+        <ul>
+          <li>현실 세계의 인스턴스 및 정보를 대표</li>
+          <li>엔티티 명 자체로 의미를 표현</li>
+          <li>물리적인 사항을 개념화한 논리적 사물을 반영</li>
+          <li>최소한의 어휘로 의미 전달</li>
+        </ul>
+      </li>
+      <li>지키지 말아야 할 규칙
+        <ul>
+          <li>승인되지 않은 약어</li>
+          <li>정보시스템 구성요소 (테이블, 파일, 메뉴, 보고서 등)</li>
+          <li>두 가지 이상의 개념을 동시에 사용하는 표현</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>엔티티 설명</strong></li>
+  <li><strong>엔티티 분류</strong></li>
+  <li><strong>현재 발생 건수</strong></li>
+  <li><strong>발생 건수 변화</strong></li>
+  <li><strong>권한</strong></li>
+  <li><strong>식별자 속성</strong></li>
+  <li><strong>외래 식별자 속성</strong></li>
+  <li><strong>식별자 이외 속성</strong></li>
+</ul>
+
+<h3 id="6-엔티티-일반화">6. 엔티티 일반화</h3>
+
+<p><strong>일반화 정의</strong></p>
+
+<p>현실세계의 사물, 사건을 단순화하여 표현하는 추상화 기법 중 하나로 엔티티의 부분집합을 정의하는 것</p>
+
+<ul>
+  <li>슈퍼타입 엔티티 : 일반화 계층의 가장 상위 엔티티</li>
+  <li>서브타입 엔티티 : 공통의 속성이나 관계를 공유하는 인스턴스 부분집합</li>
+</ul>
+
+<p><strong>일반화 특성</strong></p>
+
+<ul>
+  <li>슈퍼타입은 두 개 이상의 동릭적인 서브타입으로 구성</li>
+  <li>슈퍼타입은 각 서브타입들의 공통적인 속성과 관계를 가짐</li>
+  <li>서브타입은 자신의 속성이나 독립적인 관계를 가짐</li>
+  <li>속성이나 관계를 가지지 않는 서브타입은 되도록 일반 속성으로 처리</li>
+</ul>
+
+<p><strong>일반화 시점</strong></p>
+
+<ul>
+  <li>인스턴스가 공통 속성 집합을 가질 때 → 속성의 명확화</li>
+  <li>인스턴스가 공통 관계 집합을 가질 때 → 관계의 명확화</li>
+</ul>
+
+<p><strong>일반화 장단점</strong></p>
+
+<p>| 구분 | 일반화(Generalization)                                                    | 상세화(Specialization)                                                   |
+| – | ———————————————————————- | ——————————————————————— |
+| 장점 | - 데이터 통합되어 조회가 간편</p>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>업무 로직 변화 신속하게 대응 가능</td>
+          <td>- 명확한 업무 파악 가능</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>데이터 추가, 변경 용이</li>
+  <li>장애나 에러 파급효과 낮음</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>업무파악, 인수인계 용이</td>
+          <td> </td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td>단점</td>
+          <td>- 여러 업무 데이터가 섞여 파악 어려움</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>모든 업무를 이해해야 관리 가능</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>데이터 변경 시 타 업무 영향 발생</td>
+          <td>- 엔티티 증가로 관려 어려움</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>데이터 불일치 발생 가능성</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>통합 정보 도출 어려움</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="제4절-관계-정의">제4절 관계 정의</h2>
+
+<h3 id="1-관계-개념">1. 관계 개념</h3>
+
+<p>하나 또는 두 개의 엔티티로부터 인스턴스를 연관시키는 업무적인 이유</p>
+
+<p><strong>부모·자식 엔티티</strong></p>
+
+<p>엔티티 사이 관계가 있을 때 기수성과 선택성에 따라 부모, 자식 엔티티를 구분한다.</p>
+
+<p>외래 키가 나타나는 곳이 자식 엔티티</p>
+
+<p><strong>관계 읽기</strong></p>
+
+<p>엔티티에 인스턴스가 입력되는 시점에 관계가 있는 상대 엔티티에 인스턴스 필요여부에 따라 관계 선택성 결정</p>
+
+<h3 id="2-관계-도출">2. 관계 도출</h3>
+
+<p>일반적으로 현업이 사용하는 용어에서 동사적인 표현에 유의할 필요가 있다.</p>
+
+<blockquote>
+  <p>유형</p>
+  <ul>
+    <li>존재 관계 : 부서에는 사원이 근무한다.</li>
+    <li>기능 관계 : 교수는 학생을 가르친다.</li>
+    <li>사건 관계 : 고객은 상품을 주문한다.</li>
+  </ul>
+</blockquote>
+
+<h3 id="3-관계-정의-사항">3. 관계 정의 사항</h3>
+
+<p>데이터 모델 구축 팀이 수집 및 기록해야 하는 것.</p>
+
+<ul>
+  <li><strong>관계명</strong> : 명명 규칙이나 표준에 맞는 이름 부여</li>
+  <li><strong>관계요약 설명</strong> :</li>
+  <li><strong>외래 키</strong> : 모든 외래 키 속성은 반드시 데이터 모델 내 주 키로 선언되어 있어야 한다. (참조무결성 기본 규칙)</li>
+  <li><strong>관계유형</strong> : 부모의 이전 키들이 자식 엔티티에서 수행하는 역할에 따라 관계유형 구분</li>
+  <li><strong>기수성, 선택성</strong> : 업무규칙을 정밀하게 묘사하는 내용</li>
+  <li><strong>참조무결성</strong> : 데이터의 정확성과 일관성을 보장하는 입력, 수정, 삭제 규칙 세가지가 있다.</li>
+</ul>
+
+<h3 id="4-특수-관계">4. 특수 관계</h3>
+
+<p><strong>자기 참조 관계</strong></p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/6.png" alt="6" /><em>Untitled.png</em></p>
+
+<p><strong>다대다 관계</strong></p>
+
+<p>다디대 관계는 카티션 프로덕트가 박생하여 정보의 왜곡이 따름.</p>
+
+<p>따라서 논리 데이터 모델링 끝 시점에 연결(Associative) 엔티티로 다대다 관계 해소 필요</p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/7.png" alt="7" /><em>Untitled.png</em></p>
+
+<p><strong>배타적 관계</strong></p>
+
+<p>엔티티의 행(Row)이 두 개 이상의 다른 엔티티 행과 관계를 맺는데 있어서 어느 시점에 반드시 하나의 엔티티의 행과 관계를 맺는 형태</p>
+
+<p>정보공학(IE) 표기법에서는 표기가 불가능하여 대체로 설명해야한다.</p>
+
+<p><img src="/assets/img/2024-07-24-DAP-4과목.-데이터-모델링.md/8.png" alt="8" /><em>Untitled.png</em></p>
+
+<h2 id="제5절-속성-정의">제5절 속성 정의</h2>
+
+<h3 id="1-속성-개념">1. 속성 개념</h3>
+
+<p>업무에서 필요로 하는 엔티티에 속하는 모든 인스턴스들이 공통으로 가지는 각각의 특성</p>
+
+<p>데이터베이스 내에 저장되는 최소 단위의 정보로 속성 값을 통해 많은 의사 결정을 하게 된다.</p>
+
+<h3 id="2-속성-도출">2. 속성 도출</h3>
+
+<ul>
+  <li>현행 시스템 자료</li>
+  <li>현업 장표 보고서</li>
+  <li>사용자와 협의</li>
+  <li>데이터 흐름도의 데이터 저장소</li>
+  <li>전문 서적 및 자료</li>
+  <li>다른 시스템 자료</li>
+</ul>
+
+<h3 id="3-속성-정의-사항">3. 속성 정의 사항</h3>
+
+<p>엔티티 속성을 위한 속성 명세를 작성하는 데 걸리는 시간은 고품질의 데이터를 보장하기 위한 투자</p>
+
+<p><strong>속성 정의 사항</strong></p>
+
+<ul>
+  <li>속성 명
+    <ul>
+      <li>의미가 명확한 속성 명칭 부여</li>
+      <li>유일한 복합명사 사용</li>
+      <li>단수형으로 속성 명 사용</li>
+      <li>표준 단어 및 용어 제정</li>
+    </ul>
+  </li>
+  <li>속성 설명</li>
+  <li>선택성 및 선택성 조건</li>
+  <li>속성 유형
+    <ul>
+      <li>기본 속성</li>
+      <li>유도 속성 : 다른 속성 값으로부터 유도되는 속성</li>
+      <li>설계 속성 : 업무 제약사항이나 운영 단순화 용 속성</li>
+    </ul>
+  </li>
+  <li>유도 알고리즘</li>
+  <li>도메인</li>
+  <li>허용 값</li>
+  <li>기본 값</li>
+  <li>소유 권한
+    <ul>
+      <li>데이터 거버넌스 차원의 속성 정의 및 승인 권한</li>
+      <li>데이터 생성 및 사용 권한 기록 관리</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>속성 상세정보 중요성</strong></p>
+
+<ul>
+  <li>업무 관련 데이터의 본질과 목적을 이해하는데 도움</li>
+  <li>속성 수준의 무결성 설정 및 강화</li>
+  <li>데이터 무결성을 개선하여 품질 향상</li>
+  <li>데이터 사전을 구성</li>
+</ul>
+
+<h3 id="4-속성-검증-및-확정">4. 속성 검증 및 확정</h3>
+
+<ul>
+  <li>원자 값 단위까지 분할</li>
+  <li>하나의 값만 가지는지 검증</li>
+  <li>유도 속성인지 검증</li>
+</ul>
+
+<h3 id="5-유도-속성-규칙">5. 유도 속성 규칙</h3>
+
+<ul>
+  <li>데이터 모댈 내에 반드시 기술 권장</li>
+  <li>경영층이 원하는 정보를 대표</li>
+  <li>사용자의 데이터 요구사항을 나타낸다</li>
+  <li>식별자로서 역할 금지</li>
+</ul>
+
+<h2 id="제6절-식별자-확정">제6절 식별자 확정</h2>
+
+<h3 id="1-식별자-개념">1. 식별자 개념</h3>
+
+<p><strong>식별자 종류</strong></p>
+
+<ul>
+  <li><strong>본질 식별자(Natural Key)</strong> : 유일성과 대표성을 보장하는 속성</li>
+  <li><strong>인조 식별자(Surrogate Key)</strong> : 인위적으로 만든 속성</li>
+  <li><strong>보조 식별자(Alternate Key)</strong> : 유일성을 만족하지만 대표성을 갖지 못하는 속성</li>
+</ul>
+
+<p><strong>후보 식별자 도출</strong></p>
+
+<ul>
+  <li>Null 불가능</li>
+  <li>유일성 만족</li>
+  <li>나머지 속성도 직접 식별 가능</li>
+  <li>속성 집합을 선택 시 개념적으로 유일해야 한다.</li>
+  <li>자주 변경되지 않아야 한다</li>
+</ul>
+
+<p><strong>보조 식별자</strong></p>
+
+<p>유일한 값을 가지면서 필수적으로 정의되었다면 가능.</p>
+
+<p><strong>인조 식별자 지정</strong></p>
+
+<ul>
+  <li>범용적인 값을 사용</li>
+  <li>유일 값을 만들기 위해 사용</li>
+  <li>단일 인조 식별자로 대체할 수 없는 형태 주의</li>
+  <li>편의성, 단순성 확보를 위해 사용 가능</li>
+  <li>의미의 체계화를 위해 사용 가능
+    <ul>
+      <li>코드화를 위하여 식별자 지정</li>
+    </ul>
+  </li>
+  <li>내부적으로만 사용</li>
+</ul>
+
+<p><strong>식별자 확정</strong></p>
+
+<p>하향식 방식으로 진행하는 것이 좋음</p>
+
+<ol>
+  <li>기준정보 엔티티 식별자 확정</li>
+  <li>중요 거래처리 엔티티 식별자 확정</li>
+  <li>기타 거래처리 엔티티 식별자 확정</li>
+</ol>
+
+<h2 id="제7절-정규화">제7절 정규화</h2>
+
+<h3 id="1-정규화-정의">1. 정규화 정의</h3>
+
+<p>엔티티에 데이터의 입력, 수정, 삭제 연산을 수행할 때 발생하는 이상현상을 제거하여 논리 데이터 모델링의 목적인 정확성, 일관성, 단순성, 비중복성, 안정성을 만족시키는 최적의 데이터 구조를 만들어가는 과정</p>
+
+<h3 id="2-정규화-장점">2. 정규화 장점</h3>
+
+<ul>
+  <li>중복값 제거</li>
+  <li>Null 값 제거</li>
+  <li>복잡한 코드 사용 감소</li>
+  <li>새로운 요구 사항 발견 가능성</li>
+  <li>업무 규칙 체계화</li>
+  <li>데이터 구조 안정성 확보</li>
+</ul>
+
+<h3 id="3-정규화-과정">3. 정규화 과정</h3>
+
+<blockquote>
+  <p><u>_암기 : 완부이결다조_</u></p>
+</blockquote>
+
+<ul>
+  <li>입력 이상</li>
+  <li>수정 이상</li>
+  <li>삭제 이상</li>
+</ul>
+
+<p><strong>제1정규형</strong></p>
+
+<ul>
+  <li>모든 속성은 하나의 원자적 값을 가져야 한다.</li>
+  <li>모든 값은 동일한 형식이며 유일한 이름을 가져야 한다.</li>
+  <li>행(Row) 간 식별 가능해야 한다.</li>
+</ul>
+
+<p><strong>제2정규형</strong></p>
+
+<ul>
+  <li>모든 속성은 식별자 속성에 완전 종속되어야 한다.</li>
+</ul>
+
+<p><strong>제3정규형</strong></p>
+
+<ul>
+  <li>식별자가 아닌 모든 속성 간에는 서로 종속될 수 없다.</li>
+</ul>
+
+<h2 id="제8절-이력-관리">제8절 이력 관리</h2>
+
+<h3 id="1-이력-관리란">1. 이력 관리란?</h3>
+
+<p>데이터는 오랜 기간 유지시켜 좀 더 가치 있는 정보를 제공할 수 있도록 해야한다.</p>
+
+<h3 id="2-이력-관리-대상-선정">2. 이력 관리 대상 선정</h3>
+
+<p><strong>사용자 조사</strong></p>
+
+<p>데이터 이력 관리는 비용이 들어가게 된다 따라서 검증 과정을 거쳐야 한다.</p>
+
+<ul>
+  <li>변경 내역 감시 필요 여부</li>
+  <li>시간에 따른 데이터 변경 여부</li>
+  <li>시간에 따른 데이터 관계 변경 여부</li>
+  <li>과거의 데이터 조회 필요 여부</li>
+  <li>과거 버전 보관 필요 여부</li>
+</ul>
+
+<p><strong>이력 데이터 종류</strong></p>
+
+<ul>
+  <li><strong>발생 이력 데이터</strong>
+    <ul>
+      <li>이벤트 기반 이력 데이터 생성</li>
+      <li>배치(batch) 기반 이력 데이터 생성</li>
+    </ul>
+  </li>
+  <li><strong>변경 이력 데이터</strong></li>
+  <li><strong>진행 이력 데이터</strong></li>
+</ul>
+
+<p><strong>이력 관리 형태</strong></p>
+
+<ul>
+  <li><strong>시점 이력</strong> : 변경 발생 시각만 관리</li>
+  <li><strong>선분 이력</strong> : 변경 시작부터 종료까지 관리</li>
+</ul>
+
+<p><strong>선분 이력 관리 유형</strong></p>
+
+<ul>
+  <li><strong>인스턴스 레벨 이력 관리</strong> <em>: 변경 인스턴스 전체</em>
+    <ul>
+      <li>한 번의 액세스로 스냅샷 참조 가능</li>
+      <li>로그성 데이터에 적합</li>
+      <li>저장 용이</li>
+      <li>컬럼 변경 시 추적 어려움</li>
+      <li>자식정보(하위 데이터) 추적 어려움</li>
+    </ul>
+  </li>
+  <li><strong>속성 레벨 이력 관리</strong> <em>: 변경 속성만</em>
+    <ul>
+      <li>변경 이벤트가 분명함</li>
+      <li>통합 이력 관리 가능</li>
+      <li>독립적 처리 가능(변경 부분만 처리 가능)</li>
+      <li>변경이 많은 경우 적용 어려움</li>
+    </ul>
+  </li>
+  <li><strong>주제 레벨 이력 관리</strong> <em>: 인스턴스 레벨 + 속성 레벨</em>
+    <ul>
+      <li>확장성 확보 용이</li>
+      <li>독립적 처리 가능(변경 부분만 처리 가능)</li>
+      <li>통합 이력 관리 가능</li>
+      <li>부문 변경 정도 차이가 심한 경우 유리</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-선분-이력-관리용-식별자-확정">3. 선분 이력 관리용 식별자 확정</h3>
+
+<p>선분 이력 관리 엔티티의 UID 확정은 향후 테이블로 만들어지고 사용될 때의 성능 측면도 고려해야한다.</p>
+
+<p>데이터는 유일하지만 의미적으로 유일하지 않는 부분의 유일성 검증 조치를 병행해야 한다.</p>
+
+<p><strong>선분 이력에서 종료점 처리 시 주의 사항</strong></p>
+
+<ul>
+  <li>NULL 처리
+    <ul>
+      <li>비교 불가능, 인덱스 사용 불가</li>
+    </ul>
+  </li>
+  <li>최대값 부여
+    <ul>
+      <li>가능한 기본값 제약 부여</li>
+      <li>수행 속도 유리</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제9절-논리-데이터-모델-품질-검토">제9절 논리 데이터 모델 품질 검토</h2>
+
+<p>데이터 모델 품질 검토 기준은 주로 논리 데이터 모델과 물리 데이터 모델에 대해 적용하며, 
+조직에 따라 개념 데이터 모델에 대한 검토 기준을 추가하기도 한다.</p>
+
+<p><strong>논리 데이터 모델 품질 기준</strong></p>
+
+<ul>
+  <li><strong>정확성</strong>  : 데이터 모델 표기법 및 요구사항 반영 정확성</li>
+  <li><strong>완전성</strong> : 요구사항 및 업무 영역 완전성</li>
+  <li><strong>준거성</strong> : 제반 준수 요건들 누락 없이 준수 여부 확인</li>
+  <li><strong>최신성</strong> : 현행 시스템 최신 상태 반영 확인</li>
+  <li><strong>일관성</strong> : 데이터 요소 정의 및 참조 일관성 확인</li>
+  <li><strong>활용성</strong> : 설명 충분성 및 변경 유연성 확인</li>
+</ul>
+
+<h3 id="2-논리-데이터-모델-품질-검토-체크리스트의-활용">2. 논리 데이터 모델 품질 검토 체크리스트의 활용</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>검토대상</th>
+      <th>검토항목</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>엔티티</td>
+      <td>엔티티명, 엔티티 정의, 통합 수준, 권한, 발생 건수·빈도, 엔티티 관계, 법규 준수, 요구 사항 추적 가능성</td>
+    </tr>
+    <tr>
+      <td>속성</td>
+      <td>속성명, 속성 정의, 속성 설명, 속성 유형, 식별자 정의, 법규 준수, 도메인 정의, 추출 속성 정의, 요구 사항 추적 가능성, 오너십 정의</td>
+    </tr>
+    <tr>
+      <td>관계</td>
+      <td>관계명, 관계 정의, 관계 설명, 관계 표현, 식별자 상속, 표구 사항 추적 가능성, 외래키, 참조무결성</td>
+    </tr>
+    <tr>
+      <td>모델 전반</td>
+      <td>주제영역 적절성, 논리모델 상세화, 이력 관리</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="제3장-물리-데이터-모델링">제3장 물리 데이터 모델링</h1>
+
+<h2 id="제1절-물리-데이터-모델링-이해">제1절 물리 데이터 모델링 이해</h2>
+
+<h3 id="1-물리-데이터-모델-정의">1. 물리 데이터 모델 정의</h3>
+
+<p>논리적 모델을 특정 데이터베이스로 설계함으로써 생성된 데이터를 저장할 수 있는 물리적인 스키마</p>
+
+<p>논리 데이터 모델을 사용하고자 하는 각 DBMS의 특성을 고려하여 데이터베이스 저장 구조로 변환하는 것</p>
+
+<h3 id="2-물리-데이터-모델-의의">2. 물리 데이터 모델 의의</h3>
+
+<p>사전에 작성된 논리적 데이터 모델을 각각의 관계형 데이터베이스 관리 시스템의 특성, 기능, 성능 등을 고려하여 데이터베이스의 물리적인 구조(Schema)를 작성해가는 과정</p>
+
+<p>저장 공간, 분산, 데이터 저장 방법, 성능 등을 함께 고려하는 단계</p>
+
+<h3 id="3-논리-데이터-모델-물리-데이터-모델">3. 논리 데이터 모델-물리 데이터 모델</h3>
+
+<p>물리적 데이터 모델 설계 경우는 다음 4가지로 나눌 수 있다.</p>
+
+<ul>
+  <li>분산 데이터베이스 구축 시</li>
+  <li>물리 데이터 모델 비교</li>
+  <li>물리적 환경의 변화</li>
+  <li>물리적 모델의 형상 관리</li>
+</ul>
+
+<h2 id="제2절-물리-요소-조사-및-분석">제2절 물리 요소 조사 및 분석</h2>
+
+<h3 id="1-시스템-구축-관련-명명-규칙">1. 시스템 구축 관련 명명 규칙</h3>
+
+<p>시스템 구축과 관련된 명명 규칙 파악하여 물리 데이터 모델에 적용해야 한다.</p>
+
+<h3 id="2-하드웨어-자원-파악">2. 하드웨어 자원 파악</h3>
+
+<ul>
+  <li>CPU</li>
+  <li>메모리</li>
+  <li>디스크</li>
+  <li>I/O 컨트롤러</li>
+  <li>네트워크
+    <ul>
+      <li>처리 가능 속도</li>
+      <li>집중 부하 발생 시간대</li>
+      <li>동시 접속 가용성</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-운영체제-및-dbms-버전-파악">3. 운영체제 및 DBMS 버전 파악</h3>
+
+<p>운영 환경과 관련된 운영체제 관련 요소 파악 및 관리 현황 파악</p>
+
+<h3 id="4-dbms-파라미터-정보-파악">4. DBMS 파라미터 정보 파악</h3>
+
+<p>DBMS가 관리하는 파라미터의 종류와 관리 대상들을 정확하게 파악하고 정의해야 한다.</p>
+
+<p>데이터 저장 공간 관리 기법, 메모리 관리 기법 등의 파라미터 주의 필요.</p>
+
+<h3 id="5-데이터베이스-운영과-관련된-관리-요소-파악">5. 데이터베이스 운영과 관련된 관리 요소 파악</h3>
+
+<ul>
+  <li>사용자 관리 기법 및 정책</li>
+  <li>백업·복구 기법 및 정책</li>
+  <li>보안 관리 정책</li>
+</ul>
+
+<h2 id="제3절-논리-물리모델-변환">제3절 논리-물리모델 변환</h2>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">변환은 글보다는 실제 ERD를 찾아볼 것.</div>
+</div>
+
+<h3 id="1-논리-데이터-모델-물리-데이터-모델-변환-용어">1. 논리 데이터 모델-물리 데이터 모델 변환 용어</h3>
+
+<ul>
+  <li>Entity → Table</li>
+  <li>Attribute → Column</li>
+  <li>Primary UID → Primary Key</li>
+  <li>Alternate UID ⇒ Unique Key</li>
+  <li>Relationship → Foreign Key</li>
+  <li>Business Constraints → Check Constraints</li>
+</ul>
+
+<h3 id="2-엔티티-테이블-변환">2. 엔티티-테이블 변환</h3>
+
+<p><strong>테이블 설명</strong></p>
+
+<ul>
+  <li><strong>테이블</strong> : 컬럼, 로우, 지정된 유형의 데이터 값으로 이루어진 구조</li>
+  <li><strong>로우</strong> : =튜플, 인스턴스, 어커런스</li>
+  <li><strong>칼럼</strong> : Value 저장 항목</li>
+  <li><strong>기본키</strong> : 하나 또는 여러 칼럼 조합으로 유일성</li>
+  <li><strong>외래키</strong> : 외부 데이터 집합과의 관계 구현</li>
+</ul>
+
+<p><strong>서브타입 변환</strong></p>
+
+<p>논리모델링에서 표현된 서브타입은 물리 데이터 모델에서 테이블의 형태로 설계되어야 한다.</p>
+
+<ul>
+  <li>슈퍼타입 기준 테이블 변환
+    <ul>
+      <li>통합하여 하나의 테이블</li>
+      <li>모든 서브타입 데이터 포함</li>
+      <li>서브타입의 양이나 속성이 적을 경우 적용</li>
+    </ul>
+  </li>
+  <li>서브타입 기준 테이블 변환
+    <ul>
+      <li>슈퍼타입 속성을 각 서브타입에 추가</li>
+      <li>서브타입이 양이나 속성이나 관계가 많을 경우 적용</li>
+    </ul>
+  </li>
+  <li>개별타입 기준 테이블 변환
+    <ul>
+      <li>슈퍼타입과 서브타입을 각각 테이블로 변환</li>
+      <li>1:1 관계가 생성</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-속성-칼럼-변환">3. 속성-칼럼 변환</h3>
+
+<p><strong>일반 속성 변환</strong></p>
+
+<ul>
+  <li>칼럼 명칭은 표준화된 약어 사용</li>
+  <li>칼럼 명칭은 짧은 것이 좋음</li>
+</ul>
+
+<p><strong>Primary UID → 기본키 변환</strong></p>
+
+<ol>
+  <li>Primary UID 속성에 PK 표시</li>
+  <li>여러 칼럼으로 구성된 UID는 NN, U1 표시</li>
+  <li>다른 Unique Key는 U2 표시</li>
+</ol>
+
+<p><strong>Primary UID(관계의 UID Bar) → 기본키 변환</strong></p>
+
+<ol>
+  <li>외래키 칼럼 포함</li>
+  <li>PK 일부로 표시</li>
+  <li>추가된 FK 칼럼에 표본 데이터 추가</li>
+</ol>
+
+<p><strong>Secondary(Alternate) UID → Unique Key 변환</strong></p>
+
+<p>Primary UID 변환 절차와 동일</p>
+
+<p><strong>테이블 정의서</strong></p>
+
+<p>테이블, 칼럼 변환 작업이 완료되면 테이블 정의서를 생성.</p>
+
+<p>구축 시 개발자들이 가장 많이 참조하는 산출물</p>
+
+<h3 id="4-관계-변환">4. 관계 변환</h3>
+
+<p><strong>1:M 관계 변환</strong></p>
+
+<ol>
+  <li>1→PK, M→FK 로 변환</li>
+  <li>표본 데이터 추가</li>
+</ol>
+
+<p><strong>1:1 관계 변환</strong></p>
+
+<ol>
+  <li>Optional 테이블 기본키를 Mandatory 테이블의 외래키로 변환</li>
+  <li>NN 표시</li>
+</ol>
+
+<p><strong>1:M 순환 관계 변환</strong></p>
+
+<ol>
+  <li>외래키 칼럼 추가</li>
+  <li>칼럼 명칭은 가능한 관계 명칭 반영</li>
+</ol>
+
+<p><strong>배타적 관계 변환</strong></p>
+
+<ul>
+  <li><strong>외래키 분리 방법</strong> : 각각의 관계 칼럼으로 생성</li>
+  <li><strong>외래키 결합 방법</strong> : 하나의 관계 칼럼으로 생성</li>
+</ul>
+
+<h3 id="5-관리상-필요한-칼럼-추가">5. 관리상 필요한 칼럼 추가</h3>
+
+<p>관리상의 이유나 프로그래밍 용이 차원에서 테이블이나 칼럼을 추가한다.</p>
+
+<h3 id="6-데이터-타입-선택">6. 데이터 타입 선택</h3>
+
+<ul>
+  <li>문자 타입
+    <ul>
+      <li>영문만 사용 여부 확인</li>
+      <li>문자열 최대 및 고정 길이 확인</li>
+    </ul>
+  </li>
+  <li>숫자 타입
+    <ul>
+      <li>실제 숫자 타입 여부 확인</li>
+      <li>세부 타입 결정 : Boolean, Integer, Decimal, Money 등</li>
+    </ul>
+  </li>
+  <li>날짜 타입
+    <ul>
+      <li>세부 날짜 타입 기준 선정</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="7-데이터-표준-적용">7. 데이터 표준 적용</h3>
+
+<p><strong>개념</strong></p>
+
+<p>표준 용어, 표준 도메인, 표준 명명 규칙 등 존재</p>
+
+<p><strong>적용 대상</strong></p>
+
+<ul>
+  <li>데이터베이스</li>
+  <li>스토리지 그룹</li>
+  <li>테이블스페이스</li>
+  <li>테이블</li>
+  <li>칼럼</li>
+  <li>인덱스</li>
+  <li>뷰</li>
+</ul>
+
+<p><strong>데이터 표준 적용 방법</strong></p>
+
+<ul>
+  <li>명명 규칙</li>
+  <li>표준 용어집</li>
+</ul>
+
+<h2 id="제4절-반정규화">제4절 반정규화</h2>
+
+<p>시스템 성능 향상, 개발 과정 편의성, 운영 단순화를 위해 정규화의 원칙에 위배되는 행위를 의미함</p>
+
+<p>성능과 관리효율을 증대시킬 수 있지만, 데이터의 일관성 및 정합성 유지 불리함</p>
+
+<h3 id="1-테이블-분할">1. 테이블 분할</h3>
+
+<p>수직 혹은 수평 분할하는 것을 테이블 분할 또는 파티셔닝이라고 한다.</p>
+
+<ul>
+  <li><strong>수평 분할 :</strong> 레코드를 기준으로 테이블을 분할하는 것</li>
+  <li><strong>수직 분할 :</strong>
+    <ul>
+      <li>조회 및 갱신 칼럼 분리</li>
+      <li>조회 빈도가 잦은 칼럼</li>
+      <li>거대한 칼럼 크기</li>
+      <li>특정 칼럼 보안 적용</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-중복-테이블-생성">2. 중복 테이블 생성</h3>
+
+<p>Group by, Sum 등 집계 함수를 위해 특정 통계 테이블이나 중복 테이블을 추가하는 경우도 있다.</p>
+
+<p><strong>중복 테이블 생성 판단 근거</strong></p>
+
+<ul>
+  <li>정규화에 충실하지만 수행 속도가 증가 시</li>
+  <li>많은 범위를 자주 처리해야 하는 경우</li>
+  <li>특정 범위 데이터가 자주 처리되는 경우</li>
+  <li>요약 자료만 주로 요구되는 경우</li>
+  <li>인덱스, 클러스터링 으로 우선 해결</li>
+</ul>
+
+<p><strong>중복테이블 유형</strong></p>
+
+<ul>
+  <li>집계 테이블</li>
+  <li>진행 테이블</li>
+</ul>
+
+<h3 id="3-중복-칼럼-생성">3. 중복 칼럼 생성</h3>
+
+<p><strong>중복 칼럼 생성 상황</strong></p>
+
+<ul>
+  <li>빈번한 조인이 필요한 칼럼</li>
+  <li>상위 레벨 텡이블에 집계 칼럼 추가</li>
+  <li>하위 레벨 테이블에 중복 칼럼 복사</li>
+  <li>연산 컬럼 추가</li>
+  <li>기타</li>
+</ul>
+
+<h2 id="제5절-물리-데이터-모델-품질-검토">제5절 물리 데이터 모델 품질 검토</h2>
+
+<h3 id="1-물리-데이터-모델-품질-검토-개요">1. 물리 데이터 모델 품질 검토 개요</h3>
+
+<p>물리 데이터 모델은 시스템 성능에 대해 직접적인 영향을 미치기 때문에 성능 문제를 사전에 검토하여 최소화하는 노력이 필요</p>
+
+<p><strong>물리 데이터 모델 품질 기준</strong></p>
+
+<ul>
+  <li><strong>정확성</strong>  : 데이터 모델 표기법 및 요구사항 반영 정확성</li>
+  <li><strong>완전성</strong> : 요구사항 및 업무 영역 완전성</li>
+  <li><strong>준거성</strong> : 제반 준수 요건들 누락 없이 준수 여부 확인</li>
+  <li><strong>최신성</strong> : 현행 시스템 최신 상태 반영 확인</li>
+  <li><strong>일관성</strong> : 데이터 요소 정의 및 참조 일관성 확인</li>
+  <li><strong>활용성</strong> : 설명 충분성 및 변경 유연성 확인</li>
+</ul>
+
+<h3 id="2-물리-데이터-모델-품질-검토-체크리스트의-활용">2. 물리 데이터 모델 품질 검토 체크리스트의 활용</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>검토대상</th>
+      <th>검토항목</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>테이블</td>
+      <td>테이블명, 테이블 설명, 테이블 정의, 통합 수준, 권한, 발생 건수·빈도, 법규 준수, 요구 사항 추적 가능성</td>
+    </tr>
+    <tr>
+      <td>칼럼</td>
+      <td>칼럼명, 칼럼 정의, 칼럼 설명, Primary Key, Unique Key, 법규 준수, 도메인 정의, 추출 칼럼의 정의, 요구사항 추적 가능성, 오너십 정의</td>
+    </tr>
+    <tr>
+      <td>FK</td>
+      <td>참조무결성 규칙 정의</td>
+    </tr>
+    <tr>
+      <td>모델 전반</td>
+      <td>바정규화, 인덱스 정의, 스토리지 정의</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Jul 9, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/07/09/DAP-3%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%A4%80%ED%99%94/">&laquo; DAP 3과목. 데이터 표준화</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Nov 3, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2024/11/03/%EA%B5%AD%EA%B0%80-%EB%B3%84-%EC%88%AB%EC%9E%90-%ED%91%9C%EA%B8%B0%EB%B0%A9%EC%8B%9D/">국가 별 숫자 표기방식 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

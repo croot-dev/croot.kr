@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DAP 1과목. 전사아키텍처 이해 - Croot Blog</title>
+  <meta name="description" content="제1장 전사아키텍처와 데이터아키텍처">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EC%B7%A8%EB%AF%B8/2024/06/26/DAP-1%EA%B3%BC%EB%AA%A9.-%EC%A0%84%EC%82%AC%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%9D%B4%ED%95%B4/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">DAP 1과목. 전사아키텍처 이해</h1>
+    <!-- <p class="c-article__time"><time datetime="2024-06-26T00:00:00+09:00" itemprop="datePublished">Jun 26, 2024</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2024년 06월 26일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 07월 05일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>취미</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h1 id="제1장-전사아키텍처와-데이터아키텍처">제1장 전사아키텍처와 데이터아키텍처</h1>
+
+<h2 id="제1절-아키텍처-개요">제1절 아키텍처 개요</h2>
+
+<h3 id="1-아키텍처-정의">1. 아키텍처 정의</h3>
+
+<p><strong>개념</strong></p>
+
+<p><u>구축하고자 하는 목적에 따라 복잡한 대상을 단순하게 표현하고, 구성요소의 변화에 대한 요구를 수용할 수 있게 한 청사진(blueprint)</u></p>
+
+<p><strong>구성요소</strong></p>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/0.png" alt="0" /><em>Untitled.png</em></p>
+
+<ul>
+  <li><strong>규칙(Rule)</strong> : 모든 활동의 기준을 확립하는 것
+    <ul>
+      <li>전략</li>
+      <li>원칙, 지침</li>
+      <li>표준</li>
+    </ul>
+  </li>
+  <li><strong>모델(Model)</strong> : 사전에 약속된 표기법에 의하여 표현
+    <ul>
+      <li>참조 모델 (비즈니스, 데이터, 애플리케이션, 기술 등)</li>
+    </ul>
+  </li>
+  <li><strong>계획(Plan)</strong> : 현재 아키텍처와 목표 아키텍처를 정의
+    <ul>
+      <li>이행 계획</li>
+      <li>구축 계획</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>중요성</strong></p>
+
+<ul>
+  <li>경영 전략 혹은 비즈니스 목표를 달성하기 위한 방향을 제시</li>
+  <li>정보 시스템과 정보 기술의 방향을 제시하며 의사소통의 매개체</li>
+  <li>정보 시스템이 필요한 품질 속성을 정의 및 실현</li>
+  <li>최적화를 위한 의사결정, 대안 제시, 복잡도 감소 등에 도움</li>
+</ul>
+
+<p><strong>활용 및 기대효과</strong></p>
+
+<ul>
+  <li>정보관리 역량 강화</li>
+  <li>의사결정의 정확성과 신속성 제고</li>
+  <li>변화에 대한 유연한 대응과 비용 절감</li>
+</ul>
+
+<h3 id="2-전사-아키텍처-개요">2. 전사 아키텍처 개요</h3>
+
+<p><strong>도입 배경</strong></p>
+
+<ul>
+  <li>정보시스템 상호운용성 및 통합성 결여</li>
+  <li>조직 경영계획과 목표를 효과적으로 달성하기 위한 정보시스템 비전과 전략 수립 필요성 증대</li>
+  <li>비즈니스 환경 변화에 대한 IT 대응 체계 미흡</li>
+  <li>정보기술에 대한 의존도 심화</li>
+  <li>체계적 아키텍처 구축 미흡</li>
+</ul>
+
+<p><strong>전사아키텍처 정의</strong></p>
+
+<p>일정한 기준과 절차에 따라 조직 전체 구성요소를 통합적으로 분석한 뒤 이들 간의 관계를 구조적으로 정리한 체제 및 이를 바탕으로 정보화 등을 통하여 구성요소들을 최적화하기 위한 방법</p>
+
+<blockquote>
+  <p><strong>전사(Enterprise) :</strong><br />
+공동의 목표를 추구하기 위해 고객과 상품(서비스)이 존재하고 조직, 지원, 기술을 보유하며 필요한 업무 프로세스를 수행하는 조직의 집합체</p>
+</blockquote>
+
+<p><strong>아키텍처 도메인 구성</strong></p>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/1.png" alt="1" /><em>Untitled.png</em></p>
+
+<ul>
+  <li><strong>비즈니스 아키텍처</strong> : 기업의 경영 목표를 달성하기 위한 업무 구조를 정의</li>
+  <li><strong>애플리케이션 아키텍처 :</strong> 전체 애플리케이션을 식별하고 연관성을 정의하며 그룹화하고 범주화하여 구조를 체계화</li>
+  <li><strong>데이터 아키텍처 :</strong> 데이터 구조, 데이터 표준, 데이터 관리 체계를 포함</li>
+  <li><strong>기술 아키텍처 :</strong> 이식성과 확장성 강화, 독립성 확보, 상호운용성 강화</li>
+</ul>
+
+<h3 id="3-데이터아키텍처-개요">3. 데이터아키텍처 개요</h3>
+
+<p><strong>데이터아키텍처 개념</strong></p>
+
+<ul>
+  <li>
+    <p>정의</p>
+
+    <p>전략적 데이터 요구 사항으로 나타나는 조직의 전략 및 이러한 요구 사항을 충족하기 위한 설계와 연계하여 데이터 자산을 관리하기 위한 청사진</p>
+  </li>
+  <li>특징
+    <ul>
+      <li><strong>Aligned</strong> : 비즈니스를 효과적으로 지원하는 데이터 전략</li>
+      <li><strong>Targeted</strong> : 필수/핵심 데이터에 집중</li>
+      <li><strong>Actionable :</strong> 명확한 활동과 마일스톤</li>
+      <li><strong>Evolutionary</strong> : 변화하는 요구와 기술을 충족하기 위한 유연성</li>
+    </ul>
+  </li>
+  <li>실패요인
+    <ul>
+      <li>기업/조직의 모든 데이터와 정보 포함 시도</li>
+      <li>전문성 결여, 내재 기술력 오해</li>
+      <li>IT 부서의 독점적 소유 및 조치</li>
+      <li>외부에 의존하는 기술적 해결 시도</li>
+      <li>각 조직 별 독자적 개발 진행 및 통제 부재</li>
+      <li>학술적 접근 및 과도한 복잡성</li>
+      <li>이상에 치우친 원칙과 정책</li>
+      <li>단계적 성과를 미고려한 장기 수행 전략</li>
+      <li>변화 수용에 대한 배척</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>데이터아키텍처 중요성</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 전사 데이터 구성 파악이 용이
+- 데이터 품질확보 용이
+- 명확한 의사소통 향상
+- 신속하고 적절한 의사결정 가능
+- 데이터 연계 및 상호운용성 향상에 따른 업무 정확성 및 효율성 향상
+</code></pre></div></div>
+
+<p><strong>데이터아키텍처 구성</strong></p>
+
+<p>가장 높은 추상화 수준에서 개괄적으로 표현한 모델로부터 시작하여 이를 단계적으로 상세화해 나가면서 계층적 구성을 갖추게 된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>모델</th>
+      <th>관점</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>전사 데이터 영역</td>
+      <td>계획자</td>
+      <td>상위 주제 영역</td>
+    </tr>
+    <tr>
+      <td>개념 데이터</td>
+      <td>책임자</td>
+      <td>단위 주제 영역 또는 핵심 엔티티</td>
+    </tr>
+    <tr>
+      <td>논리 데이터</td>
+      <td>설계자</td>
+      <td>상세한 구조를 논리적으로 구체화</td>
+    </tr>
+    <tr>
+      <td>물리 데이터</td>
+      <td>개발자</td>
+      <td>DBMS나 환경에 적합한 구조 설계 및 객체 정의</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="제-2절-아키텍처-프레임워크">제 2절 아키텍처 프레임워크</h2>
+
+<h3 id="1-아키텍처-프레임워크-개요">1. 아키텍처 프레임워크 개요</h3>
+
+<p>아키텍처를 빠르게 구현하여 실체화할 수 있도록 하기 위해 프레임워크가 사용된다.</p>
+
+<p><u>**정책**</u>, <u>**정보**</u>, <u>**관리체계**</u> 등으로 구성되며 일반적으로 적합한 프레임워크 정의를 위해 <u>**참조모델(RM)**</u>이 사용된다.</p>
+
+<p><strong>전사아키텍처 프레임워크</strong></p>
+
+<p>전사아키텍처 활동에서 얻어지는 산출물을 분류하여 조직화하고 이를 유지 관리하기 위한 전체적인 틀을 정의하는 것.</p>
+
+<p><strong>데이터아키텍처 프레임워크</strong></p>
+
+<p>전사아키텍처 수립 없이도 독집적으로 구축할 수 있지만, 전사아키텍처와 Alignment를 고려하여 구성하는 것이 좋다.</p>
+
+<h3 id="2-전사아키텍처-프레임워크-구성">2. 전사아키텍처 프레임워크 구성</h3>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/2.png" alt="2" /><em>Untitled.png</em></p>
+
+<blockquote>
+  <p>아키텍처 도메인 : 아키텍처 매트릭스 상에서 뷰의 관점으로 아키텍처 영역을 구분한 것.</p>
+</blockquote>
+
+<ul>
+  <li><strong>전사아키텍처 정책</strong> : 아키텍처 구축 목적과 방향 정의
+    <ul>
+      <li><strong>아키텍처 매트릭스</strong> : 정보를 어떻게 구성할 것인지
+        <ul>
+          <li>관점(Perspective)과 뷰(View) 두 가지 차원에  따라 정보를 구분하고 산출물을 정의</li>
+        </ul>
+      </li>
+      <li><strong>비전</strong> : 달성하고자 하는 궁극적인 모습
+        <ul>
+          <li>구축 목표, 전략, 방향 등을 포함</li>
+        </ul>
+      </li>
+      <li><strong>원칙</strong> : 관리하고 활용하기 위한 원칙
+        <ul>
+          <li>전사아키텍처 대원칙, 아키텍처 원칙, 표준 등을 포함</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>전사아키텍처 정보</strong> : 전사아키텍처 정보의 구체적인 모습
+    <ul>
+      <li>현행 아키텍처</li>
+      <li>목표 아키텍처</li>
+      <li>이행 계획
+        <ul>
+          <li>이행 전략과 이행 계획을 정의한 것</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>전사아키텍처 관리</strong> : 구축된 전사아키텍처를 관리하고 활용하는 방법 정의
+    <ul>
+      <li>관리 체계
+        <ul>
+          <li>전사아키텍처 거버넌스로써 활동 관리, 변경 통제, 원칙과 정책 준수 감시 등</li>
+        </ul>
+      </li>
+      <li>관리 시스템
+        <ul>
+          <li>모델링 도구, 리포지토리, 포털 등으로 구성</li>
+        </ul>
+      </li>
+      <li>평가 모형
+        <ul>
+          <li>주기적 평가 및 개선점 도출을 위한 성숙 모형</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-전사아키텍처-프레임워크-사례">3. 전사아키텍처 프레임워크 사례</h3>
+
+<p><strong>자크만 프레임워크 (ZEAF)</strong></p>
+
+<ul>
+  <li>다섯가지 관점
+    <ul>
+      <li>기획자(Planner)</li>
+      <li>소유자(Owner)</li>
+      <li>설계자(Designer)</li>
+      <li>개발자(Builder)</li>
+      <li>계약자(Sub-contractor)</li>
+    </ul>
+  </li>
+  <li>
+    <p>아키텍처 뷰를 5W1H 원칙에 근거하여 묘사 정의</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>원칙</th>
+          <th>묘사</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What</td>
+          <td>데이터</td>
+          <td>프로젝트에 필요한 업무 데이터와 정보, 요건을 규정</td>
+        </tr>
+        <tr>
+          <td>How</td>
+          <td>기능</td>
+          <td>프로세스가 어떻게 작동하고 회사에 영향을 미치는지 명시</td>
+        </tr>
+        <tr>
+          <td>Where</td>
+          <td>네트워크</td>
+          <td>업무 활동이 벌어지는 관련 위치와 시스템 네트워크 전부</td>
+        </tr>
+        <tr>
+          <td>Who</td>
+          <td>사람</td>
+          <td>핵심 이해관계자들을 명시하고 프로젝트에 관련된 직원 전원을 결정</td>
+        </tr>
+        <tr>
+          <td>When</td>
+          <td>시간</td>
+          <td>회사 내에서 업무 프로세스가 언제 그리고 몇 시에 수행되는지 명시</td>
+        </tr>
+        <tr>
+          <td>Why</td>
+          <td>이유</td>
+          <td>최종 솔루션을 선택한 이유와 해당 계획 또는 프로젝트의 이유를 명시</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<blockquote>
+  <p>국내에서는 자크만 프레임워크를 기반으로 한 데이터아키텍처 프레임워크가 많이 참조/활용 됨.</p>
+</blockquote>
+
+<h3 id="4-데이터아키텍처-프레임워크-구성">4. 데이터아키텍처 프레임워크 구성</h3>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/3.png" alt="3" /><em>Untitled.png</em></p>
+
+<ul>
+  <li><strong>데이터아키텍처 정책 :</strong> 전사아키텍처의 목적 및 방향과 Alignment 를 유지
+    <ul>
+      <li><strong>아키텍처 매트릭스</strong> : 정보를 어떻게 구성할 것인지
+        <ul>
+          <li>자크만 프레임워크의 Data영역에 대해 상세화 수준 구분에 따라 분류한 계층적 결과물을 상세하게 정의하는 방식으로 구성</li>
+          <li>각 셀은 전후좌우의 셀과 연관성을 가지며 추적성이 확보되어야 한다.</li>
+        </ul>
+      </li>
+      <li><strong>비전</strong></li>
+      <li><strong>원칙</strong></li>
+    </ul>
+  </li>
+  <li><strong>데이터아키텍처 정보</strong>
+    <ul>
+      <li>현행 DA
+        <ul>
+          <li>주제영역 모델, 개념모델, 논리모델, 물리모델로 구성</li>
+          <li>각 모델 간 매핑정보를 관리하여 상호 추적성이 유지 필요</li>
+        </ul>
+      </li>
+      <li>목표 DA <em>- 현행 DA와 동일</em></li>
+      <li>이행계획
+        <ul>
+          <li>이행 전략, 세부 이행 계획, 변화 관리 계획 등 정의</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>데이터아키텍처 관리</strong>
+    <ul>
+      <li>관리 체계</li>
+      <li>관리 시스템</li>
+      <li>평가 모형</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제-3절-데이터아키텍처-참조모델">제 3절 데이터아키텍처 참조모델</h2>
+
+<h3 id="1-참조모델-정의">1. 참조모델 정의</h3>
+
+<p><strong>참조모델 개념</strong></p>
+
+<ul>
+  <li>아키텍처 구성요소를 식별하여 표준화한 것</li>
+  <li>다양한 관점을 충족시킬 수 있도록 시스템에 대한 개념적인 모델을 추상화하고, 구성요소를 재사용 가능한 방식으로 생성하여 사용할 수 있도록 한 모델</li>
+</ul>
+
+<p><strong>참조모델 구축 방법</strong></p>
+
+<ul>
+  <li>공통 특성 추출 방식
+    <ul>
+      <li>단점: 요소간 경계가 불명확, 하위수준 정의가 명확하지 않음.</li>
+      <li>장점: 이해가 쉽고 산출물이 적음.</li>
+    </ul>
+  </li>
+  <li>대표 기업 아키텍처 재활용 방식
+    <ul>
+      <li>장점 : 산출물의 관계가 정확, 하위 수준까지 정의되어 있음.</li>
+      <li>단점 : 기업 보안상 대부분 비공개임.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>참조모델 구축 고려사항</strong></p>
+
+<ul>
+  <li>기준이나 표준 역할을 할 수 있고, 참조 또는 재활용이 가능해야한다.</li>
+  <li>관련 지식의 전달 수단으로 활용될 수 있어야한다.</li>
+  <li>이해관계자 간의 의사소통을 향상시킬 수 있어야한다.</li>
+  <li>수립하고 운영하기 위한 역할 및 책임이 제시되어야 한다.</li>
+  <li>평가 기준을 제시해야 한다.</li>
+  <li>환경 및 요건 변화에 대응가능해야 한다.</li>
+</ul>
+
+<h3 id="2-데이터-참조모델-drm">2. 데이터 참조모델 (DRM)</h3>
+
+<p><strong>데이터 참조모델 정의</strong></p>
+
+<p>업무 영역별, 주제 영역별로 표준 데이터 집합과 관리 항목들을 분류하고 표준화하여 재사용이 가능한 데이터 모델</p>
+
+<p><strong>데이터 참조모델 구축 방법</strong></p>
+
+<ul>
+  <li>유사 업종 데이터 참조모델 활용
+    <ul>
+      <li>단시간 적용가능 하지만 확보가 어려움</li>
+    </ul>
+  </li>
+  <li>연계 기업이나 조직의 데이터 참조모델 활용
+    <ul>
+      <li>통합성 및 연계성 확보 용이</li>
+    </ul>
+  </li>
+  <li>외부 표준 활용</li>
+  <li>현행 데이터 구조 기반 참조모델 정의</li>
+  <li>외부 전문가를 통해 참조모델 정의</li>
+</ul>
+
+<p><strong>데이터 참조모델 관리 기준</strong></p>
+
+<ul>
+  <li>범용성 : 다양한 업무 영역에서 참조 가능</li>
+  <li>단순성 : 비즈니스 복잡성이 나타나지 않아야 한다.</li>
+  <li>표준성 : 상식적이고 일반적인 수준에서 이해되는 용어 사용</li>
+  <li>정확성 : 관리되는 정보가 정확해야 한다.</li>
+  <li>정보 이용성 : 엔티티 정의, 관리 규칙, 속성 정의 등도 함께 저장한다.</li>
+  <li>분류성 : 데이터 구조를 정의하는 각 단계와 참조모델 범위 내에서도 분류될 수 있어야한다.</li>
+</ul>
+
+<p><strong>기대 효과</strong></p>
+
+<ul>
+  <li>데이터 표준화 및 공유 환경 구축</li>
+  <li>이식성과 확장성 향상</li>
+  <li>시스템 간 상호 운용성 향상</li>
+  <li>품질 향상 및 생산성 증대</li>
+  <li>중복 투자 방지 및 수명 주기 비용 절감</li>
+</ul>
+
+<h3 id="4-데이터-참조모델-활용">4. 데이터 참조모델 활용</h3>
+
+<p><strong>DRM 활용방안</strong></p>
+
+<ul>
+  <li>개선 대상 관련 데이터를 파악하기 위해 활용</li>
+  <li>일관성 있는 데이터아키텍처 정의에 활용</li>
+  <li>데이터 표준 준수에 대한 검증 기준</li>
+  <li>데이터 전략과 조직 운영 방향 결정에 활용</li>
+  <li>정보 상호운용성과 교환 촉진의 근거</li>
+</ul>
+
+<p><strong>DRM 고려사항</strong></p>
+
+<ul>
+  <li>기업 및 조직 환경 : 공공기관, 기업규모, 기술력 등</li>
+  <li>구축 목적 : 데이터 품질 개선, 데이터 연계성 향상 등</li>
+  <li>목표 영역 : 데이터 표준, 관리 프로세스, 전사 모델 등</li>
+  <li>대상 범위 : 전사, 특정 비즈니스 영역, 특정 시스템 등</li>
+</ul>
+
+<h2 id="제-4절-데이터아키텍처-프로세스">제 4절 데이터아키텍처 프로세스</h2>
+
+<h3 id="1-데이터-아키텍처-프로세스-개요">1. 데이터 아키텍처 프로세스 개요</h3>
+
+<p><strong>프로세스의 중요성</strong></p>
+
+<ul>
+  <li>목표하는 아키텍처를 최종 결과물이 산출되기까지의 일련의 과정을 식별하기에 용이한 활동 단위로 분해한 것</li>
+  <li>활동의 내용과 책임 소재를 규명하는 것이며 결과물의 납기나 품질 등에 있어 일정한 결과를 보장</li>
+</ul>
+
+<h3 id="2-데이터아키텍처-프로세스-구성">2. 데이터아키텍처 프로세스 구성</h3>
+
+<ul>
+  <li><strong>DA 정책 수립</strong> : 환경분석 및 방향 수립
+    <ol>
+      <li>방향 정의
+        <ol>
+          <li>내외부 환경분석</li>
+          <li>목적 및 방향 정의</li>
+          <li>프레임워크 정의</li>
+        </ol>
+      </li>
+      <li>정보 구성 정의
+        <ol>
+          <li>매트릭스 및 정보 구성요소 정의</li>
+          <li>참조모델 정의</li>
+          <li>원칙 수립</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>DA 정보 구축</strong> : 현행 DA와 목표 DA 정보 구축</li>
+  <li><strong>DA 관리 체계 수립</strong> : 조직/인력/프로세스 체계 정립, 시스템 및 평가모형 구축</li>
+  <li><strong>DA 활용</strong> : 목표 DA 달성을 위한 중장기 계획 수립</li>
+</ul>
+
+<h2 id="제5절-데이터아키텍트">제5절 데이터아키텍트</h2>
+
+<h3 id="1-아키텍트의-개념">1. 아키텍트의 개념</h3>
+
+<ul>
+  <li>아키텍처를 설계하고 유지/관리하는 사람 또는 그에 준하는 전문가</li>
+  <li>비즈니스 언어를 기술 언어로 표현하여 정보기술 또는 정보시스템의 방향 혹은 청사진을 제시</li>
+</ul>
+
+<h3 id="2-데이터-아키텍트의-위상과-역할">2. 데이터 아키텍트의 위상과 역할</h3>
+
+<ul>
+  <li>데이터 요구 사항 관리</li>
+  <li>데이터아키텍처 수립</li>
+  <li>레퍼런스 아키텍처 정의</li>
+  <li>데이터 모델 관리</li>
+  <li>데이터 표준 환경 설정 및 관리</li>
+  <li>DB 물리설계</li>
+  <li></li>
+  <li>데이터 전환 설계</li>
+  <li>데이터 흐름 정의</li>
+  <li>협업 및 조정</li>
+</ul>
+
+<h3 id="3-데이터-아키텍트-자질과-역량">3. 데이터 아키텍트 자질과 역량</h3>
+
+<ul>
+  <li>의사소통 능력</li>
+  <li>비즈니스에 대한 이해</li>
+  <li>기술에 대한 깊은 이해와 구현 능력</li>
+  <li>문서화 능력</li>
+  <li>유연한 사고와 친화력</li>
+  <li>데이터베이스 지식 및 기술력</li>
+  <li>시스템 개발 방법론 지식</li>
+  <li>전사아키텍처에 대한 이해</li>
+</ul>
+
+<h1 id="제2장-데이터아키텍처-구축">제2장 데이터아키텍처 구축</h1>
+
+<h2 id="제1절-데이터아키텍처-방향-수립">제1절 데이터아키텍처 방향 수립</h2>
+
+<h3 id="1-데이터-아키텍처-방향-수립-개요">1. 데이터 아키텍처 방향 수립 개요</h3>
+
+<p><strong>데이터 아키텍처 방향 수립 정의</strong></p>
+
+<p>경영 환경과 경영 전략에 대해 데이터아키텍처가 능동적으로 대응하며 발전하기 위하여 데이터아키텍처의 변화 요인을 분석하는 과정</p>
+
+<p><strong>데이터 아키텍처 방향 수립 목적</strong></p>
+
+<ul>
+  <li>기업이나 조직에게 어떠한 목표 이미지를 지향할 것인가</li>
+  <li>프레임워크는 어떤 모습으로 정의해야하는가</li>
+  <li>어떠한 원칙을 적용할 것인가</li>
+</ul>
+
+<p><strong>데이터 아키텍처 방향 수립 구성/절차</strong></p>
+
+<ol>
+  <li>DA 환경 분석</li>
+  <li>DA 구축 방향 정의</li>
+  <li>DA 프레임워크 정의</li>
+</ol>
+
+<h3 id="2-데이터-아키텍처-환경-분석">2. 데이터 아키텍처 환경 분석</h3>
+
+<p><strong>환경 분석 수행 과제</strong></p>
+
+<ul>
+  <li>비즈니스 내외부 환경 분석</li>
+  <li>데이터 관련 내외부 환경 분석</li>
+  <li>전사 범위 정의</li>
+</ul>
+
+<h3 id="3-데이터아키텍처-구축-방향-정의">3. 데이터아키텍처 구축 방향 정의</h3>
+
+<p><strong>목적 :</strong> 환경 분석 결과를 기반으로 DA 구축 목적을 설정</p>
+
+<ul>
+  <li>데이터 연계 및 상호운용성 증대</li>
+  <li>데이터 품질 제고</li>
+  <li>비즈니스 변화에 대한 신속한 대응 체계 구축</li>
+  <li>전사적 데이터 표준 체계 정립</li>
+  <li>마스터 데이터 기반 데이터 일관 체계 구축</li>
+</ul>
+
+<p><strong>범위 정의 절차 :</strong> 기업이나 조직의 DA 이해와 관리 역량을 고려하여 구축 범위를 지정</p>
+
+<ol>
+  <li><strong>확인</strong> : 기업/조직의 미션과 업무 범위 확인</li>
+  <li><strong>식별</strong> : 필요한 정보화 영역이나 핵심 데이터 구성을 식별</li>
+  <li><strong>분석</strong> : 반영 또는 지원 정도 분석</li>
+  <li><strong>정의</strong> : 대상 영역 정의</li>
+</ol>
+
+<p><strong>비전 수립</strong></p>
+
+<ul>
+  <li>기업이나 조직이 DA를 통해 실현하고자 하는 미래의 모습과 이를 확보하기 위해 기업이나 조직이 공유해야 할 가치</li>
+  <li>비전은 <u>**핵심 목표**</u>와 <u>**핵심 가치**</u>로 구성</li>
+  <li>익숙한 용어로 정의해야 한다.</li>
+</ul>
+
+<h3 id="4-데이터아키텍처-프레임워크-정의">4. 데이터아키텍처 프레임워크 정의</h3>
+
+<ul>
+  <li>기업이나 조직의 특성에 따라 적합한 형태로 정의하여 적용</li>
+  <li>보통 프로젝트 기획 단계에서 프레임워크가 도출됨</li>
+  <li>DA 정보 구성 단계에서 아키텍처 매트릭스를 별도로 정의</li>
+</ul>
+
+<h2 id="제2절-데이터아키텍처-정보-구성-정의">제2절 데이터아키텍처 정보 구성 정의</h2>
+
+<h3 id="1-데이터아키텍처-정보-구성-개요">1. 데이터아키텍처 정보 구성 개요</h3>
+
+<p><strong>데이터아키텍처 정보 개념</strong></p>
+
+<ul>
+  <li>대상 데이터를 최상위의 개괄적 모습에서부터 단계적으로 상세화하여 전사의 데이터를 해석하고 이해하기 쉽게 체계화한 것</li>
+  <li>비즈니스 프로세스의 변화에 독립적으로 데이터 구조를 도출하여 정의</li>
+  <li>관리 비용 대비 효과를 고려해야 함</li>
+</ul>
+
+<p><strong>데이터 아키텍처 정보 구성</strong></p>
+
+<ul>
+  <li>데이터 구조</li>
+  <li>데이터 흐름</li>
+  <li>데이터 요소</li>
+  <li>데이터 요소 간 관계</li>
+</ul>
+
+<h3 id="2-데이터아키텍처-매트릭스-정의">2. 데이터아키텍처 매트릭스 정의</h3>
+
+<p><strong>데이터아키텍처 매트릭스 개념</strong></p>
+
+<ul>
+  <li>전사적 데이터를 설명하는 모델과 원칙 정보를 통일된 시각으로 볼 수 있는 논리적인 틀</li>
+  <li>DA 도메인 산출물을 식별하고 정의하기 위해 논리적 체계를 정의하는 것</li>
+</ul>
+
+<p><strong>데이터아키텍처 매트릭스 구성</strong></p>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/4.png" alt="4" /><em>Untitled.png</em></p>
+
+<ul>
+  <li><strong>의사결정 유형 (Perspective)</strong>
+    <ul>
+      <li>단계(유형)이 많을수록 상세한 정보가 관리되며 구축/관리 비용은 늘어난다.</li>
+    </ul>
+  </li>
+  <li><strong>아키텍처 정보 유형 (View)</strong>
+    <ul>
+      <li>일반적으로 <u>데이터 구조</u>, <u>데이터, 흐름</u>, <u>데이터 관리</u> 로 분류한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/5.png" alt="5" /><em>Untitled.png</em></p>
+
+<p><strong>산출물 정의</strong></p>
+
+<p>산출물의 정의는 <u>방법론</u>, <u>업무 특성</u>, <u>조직 문화</u>에 영향을 받는다.</p>
+
+<p><strong>산출물 정의 세부 구성요소</strong></p>
+
+<ul>
+  <li>산출물 표현 방법 및 세부 구성 정의</li>
+  <li>현행 DA 정보에 대한 산출물 정의</li>
+  <li>목표 DA 정보에 대한 산출물 정의</li>
+  <li>산출물 간 연관성 정의</li>
+</ul>
+
+<p><strong>데이터아키텍처 매트릭스 정의 시 고려사항</strong></p>
+
+<ul>
+  <li>커뮤니케이션 수단으로써 모든 계층의 확신</li>
+  <li>조직 문화와 의사결정 구조를 고려한 테일러링 필요</li>
+  <li>DA 원칙 및 표준의 준수성, 접근의 통일성, 일관성 유지 고려</li>
+  <li>다른 아키텍처 도메인과의 상호 연계성 고려</li>
+</ul>
+
+<h3 id="3-데이터-참조모델-정의">3. 데이터 참조모델 정의</h3>
+
+<p>전사 기업이나 조직이 데이터 참조모델을 정의하고, 개별 기업이 확인하는 과정</p>
+
+<p>전사 데이터 통일성, 중복 정의 방지, 공유 데이터 발견, 상호운용성 향상 등의 목적으로 설계</p>
+
+<h3 id="4-데이터아키텍처-원칙-수립">4. 데이터아키텍처 원칙 수립</h3>
+
+<ul>
+  <li><strong>역할</strong>
+    <ul>
+      <li>의사결정의 객관적 기준 제시</li>
+      <li>의사소통 과정 투명성 제공</li>
+    </ul>
+  </li>
+  <li><strong>기대효과</strong>
+    <ul>
+      <li>비즈니스와 정보화 전략의 연결성 강화</li>
+      <li>조직 목표와 개별 구성원의 의사결정 Alignment.</li>
+      <li>통일성과 일관성 유지</li>
+    </ul>
+  </li>
+  <li><strong>구성요소</strong>
+    <ul>
+      <li>원칙</li>
+      <li>의미</li>
+      <li>근거</li>
+      <li>기대 효과</li>
+    </ul>
+  </li>
+  <li><strong>고려사항</strong>
+    <ul>
+      <li>명확한 의도 제시하여 혼돈 발생 최소화</li>
+      <li>효율적인 의사결정을 위한 가이드 제공</li>
+      <li>중대 의사결정 시 규범으로 활용</li>
+      <li>모든 정보 관리 및 기술 관련 의사결정은 DA 원칙을 기반으로 수행</li>
+      <li>원칙 수립 시 용어 선택 주의</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제3절-데이터아키텍처-구축-프로세스">제3절 데이터아키텍처 구축 프로세스</h2>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/6.png" alt="6" /><em>Untitled.png</em></p>
+
+<h3 id="1-데이터아키텍처-정보-구축-준비">1. 데이터아키텍처 정보 구축 준비</h3>
+
+<p><strong>자료 수집</strong></p>
+
+<ul>
+  <li>수집대상 : 구축 시 작성된 산출물, 완료 보고서 등</li>
+  <li>유사한 산출물을 활용하거나 필요시 생성 또는 보완 작업 수행</li>
+</ul>
+
+<p><strong>데이터아키텍처 정보 구축 방식</strong></p>
+
+<ul>
+  <li>상향식
+    <ul>
+      <li>장점 : 모든 데이터 포함 보장</li>
+      <li>단점 : 논리화/추상화로 인한 상위 계층 데이터 구조 수준 상이</li>
+    </ul>
+  </li>
+  <li>하향식
+    <ul>
+      <li>장점 : 관점이 명확</li>
+      <li>단점 : 일부 업무 누락 가능성</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-현행-데이터아키텍처-정보-구축">2. 현행 데이터아키텍처 정보 구축</h3>
+
+<p>하향식이 효율적이나 산출물이 데이터 현재 모습과 상이하면 상향식으로 구축.</p>
+
+<p>상위 정보만 구축 시 하향식, 실무자 수준의 정보를 구축시 상향식으로 진행.</p>
+
+<p>전사 데이터 영역 <u>범위 파악</u> 및 <u>자료 수집</u>이 선행되며, 문제점/원인/개선 방향 도출한다.</p>
+
+<p><strong>현행 데이터 분석</strong></p>
+
+<ul>
+  <li><strong>데이터 현황 분석 :</strong> 데이터베이스 개체 및 사용 현황 파악
+    <ul>
+      <li>완전성 분석 : 미사용 테이블/컬럼, 임시 데이터, 논리적 필수 컬럼 파악</li>
+      <li>우선순위 분석 : 핵심 엔티티 파악</li>
+      <li>정합성 분석 : 데이터 간 정합성 파악</li>
+      <li>유효성 분석 : 데이터 형식, 범위, 관계 유효성 파악</li>
+    </ul>
+  </li>
+  <li><strong>데이터 표준화 현황 분석</strong> : 개체의 명칭, 도메인, 코드 등 일관성 파악</li>
+  <li><strong>문서화 현황 및 정합성 분석</strong> : 설계 문서 확인, 일치 여부 확인 등</li>
+  <li><strong>설계 및 관리 현황 분석</strong> : 데이터 구조 설계 자료 여부, 현횅화 상태 파악 등</li>
+</ul>
+
+<p><strong>현행 데이터 표준 분석</strong></p>
+
+<ul>
+  <li>현행 데이터 표준 구성/활용 현황 분석</li>
+  <li>현행 데이터 표준 준수도 분석</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">데이터 표준 존재 시 적용 비율이나 현황 파악하며, 미존재 시 일관된 규칙 현황을 파악</div>
+</div>
+
+<p><strong>데이터 요구 사항 분석</strong></p>
+
+<ul>
+  <li>데이터 요구 사항 파악</li>
+  <li>요구사항 반영 현황 파악</li>
+  <li>목표 DA 데이터 요구사항 파악</li>
+  <li>목표 DA 방향성 수립 시사점 도출</li>
+</ul>
+
+<p><strong>현행 물리 데이터 모델 도출</strong></p>
+
+<ul>
+  <li>데이터 모델 생성 대상 범위 파악</li>
+  <li>범위 내 임시 테이블 파악 및 정리</li>
+  <li>모델 생성</li>
+  <li>관계 복원 및 한글 논리명 사용 가능 파악</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">역공학 이나 리버스 모델링 도구를 사용하여 <strong>ER 다이어그램</strong>으로 표현</div>
+</div>
+
+<p><strong>현행 논리 데이터 모델 도출</strong></p>
+
+<ul>
+  <li>데이터 표준 및 적용 현황 파악</li>
+  <li>물리 데이터 모델의 명명규칙 파악</li>
+  <li>한글명 도출</li>
+  <li>논리 데이터 모델 생성 및 상세화</li>
+  <li>테이블-엔티티, 컬럼-속성 매핑 관계 파악</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">정확한 이해가 매우 중요하여 한글화 혹은 이해가능한 자연어로 표현</div>
+</div>
+
+<p><strong>현행 개념 데이터 모델 도출</strong></p>
+
+<ul>
+  <li>정의 범위 파악</li>
+  <li>개념 데이터 모델 생성</li>
+  <li>각 구성 개체 간 매핑 관계 파악</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">주요 데이터를 중심으로 요약해서 표현한 것으로 보통 <strong>주제영역 단위</strong>이다.</div>
+</div>
+
+<p><strong>현행 주제영역 모델 도출</strong></p>
+
+<ul>
+  <li>주제영역 분류 파악 및 정의</li>
+</ul>
+
+<p><strong>현행 데이터 구조 문제점 및 개선방안 도출</strong></p>
+
+<ul>
+  <li>문제점 파악</li>
+  <li>데이터 오류 사항 근거 수집 및 원인 분석</li>
+  <li>시사점 도출</li>
+  <li>개션 방향 정의</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">데이터 참조모델이나 데이터 요구사항 등이 더해져 구체적인 개선방안이 된다.</div>
+</div>
+
+<h3 id="3-목표-데이터아키텍처-정보-구축">3. 목표 데이터아키텍처 정보 구축</h3>
+
+<p>목표 비즈니스 아키텍처를 지원하는 데이터를 식별하여 목표 데이터 모델로 표현하는 것</p>
+
+<p>구축 범위는 보통 데이터아키텍처 매트릭스의 개념적 수준까지 정의한다.</p>
+
+<p><strong>목표 데이터 표준, 관리 프로세스 정의</strong></p>
+
+<ul>
+  <li>데이터 정책 관리 프로세스 정의</li>
+  <li>목표 데이터 표준 정의</li>
+  <li>기타 관리 프로세스 정의 (표준, 요구사항, 모델, 흐름, 데이터베이스, 품질)</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">공유 방법, 교육, 모니터링, 변경 방법 및 절차 등이 함께 정의되어야 한다.</div>
+</div>
+
+<p><strong>목표 데이터 주제영역 정의</strong></p>
+
+<ul>
+  <li>주제영역 분류 원칙 정의</li>
+  <li>목표 데이터 주제영역 모델 정의</li>
+  <li>주제영역 간 관계 정의</li>
+  <li>목표 주제영역 정의서 작성</li>
+</ul>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">주제영역은 의사결정에 따라 계층적으로 구성 가능하며 보통 2~3레벨 계층을 사용</div>
+</div>
+
+<p><strong>목표 개념 데이터 모델 정의</strong></p>
+
+<ul>
+  <li>목표 개념 데이터 모델 정의</li>
+  <li>목표 개념 데이터 모델 정의서 작성 : 주요 데이터와 관계 설명</li>
+</ul>
+
+<p><strong>목표 논리 데이터 모델 정의</strong></p>
+
+<ul>
+  <li>목표 논리 데이터 모델 정의</li>
+  <li>목표 논리 데이터 모델 정의서 작성 : 엔티티, 속성 등</li>
+</ul>
+
+<p><strong>목표 물리 데이터 모델 정의</strong></p>
+
+<ul>
+  <li>목표 논리 데이터 모델 정의</li>
+  <li>목표 논리 데이터 모델 정의서 작성 : 테이블, 컬럼 등</li>
+</ul>
+
+<p><strong>목표 데이터베이스 개체 정보 구축</strong></p>
+
+<ul>
+  <li>목표 시스템 저장 공간 설계</li>
+  <li>목표 시스템 보안성 정의 : 보호 대상 데이터, 권한 등</li>
+  <li>목표 데이터 분산 설계 : 파티셔닝 등</li>
+</ul>
+
+<p><strong>목표 데이터 흐름 정의</strong></p>
+
+<ul>
+  <li>전사 데이터 통합 구조도 정의</li>
+  <li>데이터 흐름도 정의</li>
+  <li>아웃바운드/인바운드 데이터 정의서</li>
+</ul>
+
+<h3 id="4-목표-데이터아키텍처-이행-계획-수립">4. 목표 데이터아키텍처 이행 계획 수립</h3>
+
+<ul>
+  <li>데이터아키텍처 차이(Gap) 분석</li>
+  <li>프로젝트 정의</li>
+  <li>이행 전략 수립</li>
+  <li>이행 계획 수립</li>
+  <li>변화 관리 계획 수립</li>
+</ul>
+
+<h1 id="제3장-데이터-거버넌스">제3장 데이터 거버넌스</h1>
+
+<h2 id="제1절-데이터-거버넌스-개요">제1절 데이터 거버넌스 개요</h2>
+
+<h3 id="1-데이터-거버넌스-개념">1. 데이터 거버넌스 개념</h3>
+
+<p><strong>등장 배경</strong></p>
+
+<p>데이터를 근간으로 하는 디지털 비즈니스가 기업의 패러다임으로 자리잡아가게 됨.</p>
+
+<p>기업이나 조직은 자신의 비즈니스를 위해 데이터를 체계적으로 구성하고, 보호하며, 신속하게 공유하고 활용할 수 있는 전략과 아키텍처가 필요하게 됨.</p>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;"><strong>메타거버넌스(metagovernance) : </strong>거버넌스의 모든 과정에 적용되는 원칙과 규범을 세우기 위한 활동</div>
+</div>
+
+<p><strong>데이터 거버넌스 정의</strong></p>
+
+<p>특정 데이터 자산에 대한 통제나 조치를 실행하기 위해 일련의 규칙, 도구, 관리 절차를 적용하는 것.</p>
+
+<p>관련 구성원들이 적절하게 조직되어, 기업이나 조직의 목적에 적합하면서 높은 품질의 데이터를 사용할 수 있도록 하기 위한 바람직한 활동 체계</p>
+
+<p>데이터 거버넌스는 <u>**전략**</u>, <u>**정책**</u>, <u>**운영 요소**</u>를 결합하는 역할</p>
+
+<p><strong>데이터 거버넌스의 관점</strong></p>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/7.png" alt="7" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>책임감(Accountability)
+    <ul>
+      <li>데이터의 활용과 이동에 대한 모든 부분에 ownership을 명확하게 정의하여 투명한 데이터 처리를 보장하는 것.</li>
+    </ul>
+  </li>
+  <li>일관성(Consistency)
+    <ul>
+      <li>표준화된 절차를 수립하여 데이터의 통합성과 활용 효율을 향상</li>
+    </ul>
+  </li>
+  <li>적응성(Adaptability)
+    <ul>
+      <li>전략적 방향에 맞게 표준과 도구를 신속하게 조정할 수 있도록 기존 데이터 관리 방식을 대체할 수 있는 유연한 특성</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>데이터아키텍처와 데이터 거버넌스의 관계</strong></p>
+
+<p>데이터 거버넌스란 DA 정보를 구축하기 위한 정책과 DA 정보를 관리하는 프로세스를 정의하고 이를 수행하는 것.</p>
+
+<p>좀 더 확대한 개념으로 DA 정보를 포괄하는 데이터에 대한 전반적인 관리 체계를 구축하는 활동.</p>
+
+<h3 id="2-데이터-거버넌스의-필요성">2. 데이터 거버넌스의 필요성</h3>
+
+<ul>
+  <li>단일 소유권 결여
+    <ul>
+      <li>명확하지 않거나 미정의된 데이터 소유권</li>
+      <li>일관성 없는 데이터 처리</li>
+      <li>데이터 정리에 장시간 소요</li>
+    </ul>
+  </li>
+  <li>비즈니스 프로세스 불일치
+    <ul>
+      <li>단일 버전 데이터 부재</li>
+      <li>전사적 데이터 중복</li>
+      <li>데이터 품질, 흐름, 처리 표준 부재</li>
+      <li>프로젝트 의존적 접근법</li>
+    </ul>
+  </li>
+  <li>데이터 품질 표준 결여
+    <ul>
+      <li>불완전하고 낮은 품질의 데이터</li>
+      <li>의미있는 정보 도출 불가</li>
+    </ul>
+  </li>
+  <li>접근 편의성 결여
+    <ul>
+      <li>표준 규정 미존재</li>
+    </ul>
+  </li>
+  <li>데이터 보안성 결여
+    <ul>
+      <li>데이터 변경, 읽기 접근 권한 불명확</li>
+      <li>취약한 개인정보 데이터</li>
+    </ul>
+  </li>
+  <li>유지보수 결여
+    <ul>
+      <li>높은 유지보수 비용</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-데이터-거버넌스-구축-방향">3. 데이터 거버넌스 구축 방향</h3>
+
+<p><strong>통제 상태의 데이터로 이행</strong></p>
+
+<ul>
+  <li>데이터 요소에 대한 표준화된 명칭</li>
+  <li>데이터 요소에 대한 표준화된 업무적 정의</li>
+  <li>계산/추출 속성에 대한 규칙 정의</li>
+  <li>업무 데이터 요소의 물리적 위치에 대한 정의</li>
+  <li>데이터 품질 규칙</li>
+  <li>데이터 요소 생성 및 사용</li>
+  <li>데이터 관리자의 적절한 통제 규칙</li>
+</ul>
+
+<p><strong>장기적 접근</strong></p>
+
+<ul>
+  <li>조직 체게, 프로세스 체계 등의 문서화 및 제도화</li>
+  <li>데이터아키텍처 관련 제반 이해</li>
+  <li>DA 이해도 향상을 위한 교육 프로그램 제공</li>
+  <li>변화 관리를 위한 종합적인 프로그램 운영</li>
+  <li>데이터 거버넌스 수행 체계 제도적 장치 마련</li>
+  <li>활용도와 만족도를 주기적으로 점검 및 지속적으로 개선</li>
+</ul>
+
+<p><strong>데이터 거버넌스 기대 효과</strong></p>
+
+<ul>
+  <li>의사결정 활성화</li>
+  <li>업무 연계 효율 향상</li>
+  <li>이해관계자 만족도 향상</li>
+  <li>공통 접근방식 교육 효과</li>
+  <li>표준 및 절차 확립</li>
+  <li>비용 감소 및 효율 증대</li>
+  <li>투명성 보장</li>
+</ul>
+
+<h2 id="제2절-데이터-거버넌스-구성">제2절 데이터 거버넌스 구성</h2>
+
+<h3 id="1-데이터-거버넌스-구성-개요">1. 데이터 거버넌스 구성 개요</h3>
+
+<p><strong>데이터 거버넌스 수립 관점</strong></p>
+
+<ul>
+  <li>조직</li>
+  <li>프로세스</li>
+  <li>관리 시스템</li>
+  <li>인력</li>
+</ul>
+
+<h3 id="2-데이터-거버넌스-조직">2. 데이터 거버넌스 조직</h3>
+
+<p><strong>데이터 거버넌스 조직 개요</strong></p>
+
+<p>DA 관리를 위해 필요한 직무와 직무 간의 관계, 업무 분장을 정립하는 것</p>
+
+<p>기업 전체 또는 정보 관리 전체 조직과 일관성을 확보해야 하며, 다양한 시각에서 책임과 역할이 정의 되어야 함.</p>
+
+<p><strong>데이터 거버넌스 조직의 정의</strong></p>
+
+<p>계층간 얼라인먼트와 무결성, 전사적 통합성을 유지하며 지속적으로 DA 정보를 관리하는 조직</p>
+
+<p><strong>데이터 거버넌스 조직 정의 고려사항</strong></p>
+
+<ul>
+  <li>IT 조직 규모</li>
+  <li>데이터아키텍처 구축 목적</li>
+  <li>IT 조직과 현업의 관계</li>
+</ul>
+
+<h3 id="3-데이터-거버넌스-프로세스">3. 데이터 거버넌스 프로세스</h3>
+
+<p><strong>데이터 거버넌스 프로세스 개요</strong></p>
+
+<p>데이터 아키텍처를 관리하기 위한 활동을 정의하는 것</p>
+
+<ul>
+  <li>데이터 거버넌스 기획</li>
+  <li>데이터아키텍처 구축/변경 관리</li>
+  <li>데이터아키텍처 준수 통제</li>
+  <li>데이터아키텍처 활용 지원</li>
+  <li>데이터아키텍처 관리 시스템 관리</li>
+  <li>데이터아키텍처 평가</li>
+</ul>
+
+<p><strong>데이터 거버넌스 프로세스 구성</strong></p>
+
+<p>데이터 거버넌스 프로세스는 DA 구축과 구축 후 DA 활용/통제로 구성된다.</p>
+
+<p>IT 프로세스(수립-활용/통제-평가-변경)의 흐름을 DA관점에서 설계하면 정보의 완전성을 유지하기에 용이함.</p>
+
+<p><strong>데이터 거버넌스 원칙 주요사항</strong></p>
+
+<ul>
+  <li>보안성</li>
+  <li>무결성</li>
+  <li>프라이버시</li>
+  <li>윤리 및 규제 준수</li>
+  <li>데이터 품질</li>
+  <li>소유권</li>
+</ul>
+
+<p><strong>데이터 거버넌스 프로세스 도출 방법</strong></p>
+
+<p>관리 대상(Objects)에 대해 관리할 내용을 접근 관점(View)에 따라 구분하여 도출할 수 있다.</p>
+
+<ul>
+  <li>관리 대상 : DA 매트릭스에 정의된 산출물</li>
+  <li>접근 관점 : 육하원칙(Who, When, Where, What, How, Why)
+    <ul>
+      <li><strong>관리 행위(What) :</strong> 신규 생성, 변경, 삭제, 폐기</li>
+      <li><strong>행위 완성도(How) :</strong> 행위 근거, 규정 준수, 조치 완전성, 누락 배제, 얼라인먼트</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="4-데이터-거버넌스-인력">4. 데이터 거버넌스 인력</h3>
+
+<p><strong>데이터 거버넌스 인력 개요</strong></p>
+
+<p>데이터아키텍처 관리를 담당하는 직무별 역량을 정의하고 이를 확보하기 위한 방안을 정의하는 것</p>
+
+<ul>
+  <li>리더십 역량
+    <ul>
+      <li>DA 가치와 의미 파악</li>
+      <li>DA에 대한 전사적 공감대 형성</li>
+      <li>변화 관리 능력</li>
+    </ul>
+  </li>
+  <li>기술적 역량
+    <ul>
+      <li>DA 구축과 관리 절차 및 방법론 이해</li>
+      <li>DA 정보 정의</li>
+      <li>DA 관리 시스템 구축</li>
+    </ul>
+  </li>
+  <li>활용 역량
+    <ul>
+      <li>데이터 품질 유지 및 자산 가치 실현</li>
+      <li>업무 활동 효율성 및 효과성 증대 능력</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="5-데이터아키텍처-관리-시스템">5. 데이터아키텍처 관리 시스템</h3>
+
+<p><strong>데이터아키텍처 관리 시스템 개요</strong></p>
+
+<p>데이터아키텍처 정보를 구축하여 관리하고 활용하는 모든 데이터아키텍처 업무 프로세스에 대한 효율성을 제고하기 위한 정보 시스템</p>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/8.png" alt="8" /><em>Untitled.png</em></p>
+
+<ul>
+  <li>정보 정의 도구 영역
+    <ul>
+      <li>데이터 모델링 도구</li>
+    </ul>
+  </li>
+  <li>정보 관리 영역
+    <ul>
+      <li>DA Repository</li>
+      <li>DA 관리 포털</li>
+    </ul>
+  </li>
+  <li>DA 정보 활용 영역
+    <ul>
+      <li>계획자</li>
+      <li>관리자</li>
+      <li>설계자</li>
+      <li>개발자</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>데이터아키텍처 정보 정의 도구</strong></p>
+
+<p>데이터아키텍처 정보를 도식화하여 표현할 수 있는 모델링 도구</p>
+
+<ul>
+  <li>ER 다이어그램을 이용한 구조 및 관계 표현</li>
+  <li>데이터 모델 정보 질의 기능</li>
+  <li>산출물 및 보고서 생성 기능</li>
+  <li>인터페이스 기능</li>
+  <li>역공학 또는 리버스 데이터 모델링 지원</li>
+</ul>
+
+<p><strong>메타 데이터 관리 시스템</strong> (정보 관리 시스템)</p>
+
+<p>리포지터리와 데이터 포털로 구성되며 분석도구가 추가되기도 한다.</p>
+
+<ul>
+  <li>역할
+    <ul>
+      <li>버전 관리</li>
+      <li>변경 관리</li>
+      <li>현행 및 목표 DA 정보 비교</li>
+      <li>권한 관리</li>
+      <li>정보 활용 지원</li>
+      <li>분석 및 의사결정 지원</li>
+    </ul>
+  </li>
+  <li>구축 방법
+    <ul>
+      <li>패키지 커스터마이징</li>
+      <li>자체 시스템 구축</li>
+    </ul>
+  </li>
+  <li>도입효과
+    <ul>
+      <li>편리한 정보 접근성과 통제 기능</li>
+      <li>의사소통 도구로 활용</li>
+      <li>의사결정 도구로 활용</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="제3절-데이터-거버넌스-운영">제3절 데이터 거버넌스 운영</h2>
+
+<h3 id="1-데이터-거버넌스-운영-개요">1. 데이터 거버넌스 운영 개요</h3>
+
+<p><u>조직</u>, <u>프로세스</u>, <u>관리 시스템의</u> 조화를 바탕으로 <u>계획(Plan)</u>, <u>조치(Do)</u>, <u>검토(See)</u> 단계로 구성된 프로세스로 운영한다.</p>
+
+<h3 id="2-데이터-거버넌스-프로세스-운영-및-통제">2. 데이터 거버넌스 프로세스 운영 및 통제</h3>
+
+<p>프로세스를 관리 가능한 수준으로 분할하고 수행 관점과 통제 구분을 추가하여 상세 프로세스를 도출하고 정의</p>
+
+<ul>
+  <li>관리 대상</li>
+  <li>수행 관점 : 수행 주체, 수행 시기, 통제 위치, 관리 행위, 행위 완성도, 행위 목적</li>
+  <li>통제 구분 : 요청 / 승인</li>
+</ul>
+
+<h2 id="제4절-데이터-거버넌스의-확장">제4절 데이터 거버넌스의 확장</h2>
+
+<p><img src="/assets/img/2024-06-26-DAP-1과목.-전사아키텍처-이해.md/9.png" alt="9" /><em>빅데이터 기반 데이터 레이크와 기존 전형 데이터 기반 DW/DM 혼합 구성 예시</em></p>
+
+<p>최근 데이터 활용 경향은 다양한 데이터를 분석에 활용하여 더 넓은 범위와 유형의 결과를 얻도록 분석 영역을 확장하고자 하며, 데이터 관리 체계 수립의 효율화에도 관심이 집중되었다.</p>
+
+<p><strong>데이터 거버넌스 체계 수립 고려사항</strong></p>
+
+<ul>
+  <li>전사의 범위와 관리 대상 데이터 유형</li>
+  <li>데이터 흐름 관리 범위</li>
+  <li>민감 데이터 식별 및 처리 (비식별화)</li>
+  <li>다양한 원천 데이터를 고려한 데이터 품질 관리</li>
+  <li>데이터 카탈로그 또는 메타 데이터 관리</li>
+  <li>적재 파일 및 용량 관리</li>
+  <li>데이터 분류체계</li>
+  <li>권한 관리</li>
+  <li>다양한 기술 대응을 위한 데이터 거버넌스 조직 강화</li>
+</ul>
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Jun 12, 2024</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2024/06/12/%EB%B2%88%EC%97%AD-Axios%EC%99%80-fetch()-HTTP-%EC%9A%94%EC%B2%AD%EC%9D%84-%ED%95%A0-%EB%95%8C-%EC%96%B4%EB%96%A4-%EA%B2%83%EC%9D%B4-%EA%B0%80%EC%9E%A5-%EC%A2%8B%EC%9D%84%EA%B9%8C%EC%9A%94/">&laquo; [번역] Axios와 fetch(): HTTP 요청을 할 때 어떤 것이 가장 좋을까요?</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Jun 28, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2024/06/28/DAP-2%EA%B3%BC%EB%AA%A9.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9A%94%EA%B1%B4-%EB%B6%84%EC%84%9D/">DAP 2과목. 데이터 요건 분석 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

@@ -2,9 +2,10 @@
 layout: post
 title: "TypeScript의 주요 컴파일러 옵션"
 created: 2025-02-24
-edited: 2025-03-20
+edited: 2025-03-21
 category: [기술]
-tags: [Typescript:rgb(250 222 201):rgb(73 41 14)]
+tags: []
+notion_id: 1a46063e-6590-802c-a0d3-cd74f7247aba
 ---
 
 

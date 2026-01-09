@@ -6,14 +6,7 @@ pagination:
     per_page: 5
 ---
 
-<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
-  <span style="width:70px;font-size:2.8em">⚠️</span>
-  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
-    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성되었습니다.</span><br />
-    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
-    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
-  </p>
-</div>
+{% include notion_notice.html %}
 
 <section class="index-section">
   <dl class="document">
@@ -25,15 +18,18 @@ pagination:
   </dl>
   <dl class="document">
     <dt class="document__title">Trends</dt>
-    <dd class="document__desc"><a href="https://www.codenary.co.kr/company/list" target="_blank" rel="noopener noreferrer">Codenary</a> : 기업별 기술 스택, 기술 아키텍처 등</dd>
     <dd class="document__desc"><a href="https://npmtrends.com/" target="_blank" rel="noopener noreferrer">NPM Trends</a> : NPM 패키지 다운로드 비교</dd>
     <dd class="document__desc"><a href="https://trends.google.com/trends/" target="_blank" rel="noopener noreferrer">Google Trends</a> : 구글 검색 트렌드</dd>
+    <dd class="document__desc"><a href="https://github.com/hibuz/dev-conf-replay" target="_blank" rel="noopener noreferrer">국내 IT 세미나 및 개발자 컨퍼런스</a> : 국내 IT 세미나 및 개발자 컨퍼런스</dd>
+    <dd class="document__desc"><a href="https://gs.statcounter.com/" target="_blank" rel="noopener noreferrer">Statcounter Global Stats</a> : Browser, OS, Search Engine including Mobile Usage Share</dd>
   </dl>
   <dl class="document">
     <dt class="document__title">Tools</dt>
+    <dd class="document__desc"><a href="https://roadmap.sh/" target="_blank" rel="noopener noreferrer">Developer Roadmaps</a> : 학습을 안내하는 데 도움이 되는 로드맵을 제공</dd>
     <dd class="document__desc"><a href="https://www.photopea.com/" target="_blank" rel="noopener noreferrer">Photopea</a> : 웹 기반 이미지 편집기</dd>
+    <dd class="document__desc"><a href="https://codebeautify.org/" target="_blank" rel="noopener noreferrer">Ray</a> : 소스코드 스크린샷 생성기능 제공</dd>
     <dd class="document__desc"><a href="https://color.adobe.com/ko/create/color-wheel" target="_blank" rel="noopener noreferrer">Adobe color</a> : 어도비 색상 팔레트</dd>
-    <dd class="document__desc"><a href="https://trends.google.com/trends/" target="_blank" rel="noopener noreferrer">Google Trends</a> : 구글 검색 트렌드</dd>
+    
   </dl>
 </section>
 

@@ -10,6 +10,10 @@ pagination:
 
 {% assign posts = paginator.posts | where:"category", pagination.category %}
 
+<div style="margin-bottom:2rem">
+{% include notion_notice.html %}
+</div>
+
 <section class="c-archives">
   <link rel="shortcut icon" href="">
   {% for post in posts  %}
@@ -17,8 +21,8 @@ pagination:
   {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
   {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
   {% capture next_month %}{{ post.previous.date | date: "%m" }}{% endcapture %}
+  
   {% if forloop.first %}
-  <h2 class="c-archives__year" id="{{ this_year }}-{{ this_month }}-ref">{{this_year}}.{{ this_month }}</h2>
   <ul class="c-archives__list">
     {% endif %}
     <li class="c-archives__item">
@@ -34,12 +38,6 @@ pagination:
     </li>
     {% if forloop.last %}
   </ul>
-  {% else %}
-  {% if this_month != next_month %}
-</ul>
-<h2 class="c-archives__year" id="{{ next_year }}-{{ next_month }}-ref">{{next_year}}.{{ next_month }}</h2>
-<ul class="c-archives__list">
-  {% endif %}
   {% endif %}
   {% endfor %}
 </section>

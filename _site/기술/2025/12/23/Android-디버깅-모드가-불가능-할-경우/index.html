@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Android 디버깅 모드가 불가능 할 경우  - Croot Blog</title>
+  <meta name="description" content="One UI를 업데이트 이후 Chrome inspect 에 USB 연결 된 Device가 보이지 않는 현상이 발생">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2025/12/23/Android-%EB%94%94%EB%B2%84%EA%B9%85-%EB%AA%A8%EB%93%9C%EA%B0%80-%EB%B6%88%EA%B0%80%EB%8A%A5-%ED%95%A0-%EA%B2%BD%EC%9A%B0/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Android 디버깅 모드가 불가능 할 경우 </h1>
+    <!-- <p class="c-article__time"><time datetime="2025-12-23T00:00:00+09:00" itemprop="datePublished">Dec 23, 2025</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2025년 12월 23일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2026년 01월 09일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+        <tr>
+          <th>원본</th><td><a href="https://croot.notion.site/2d26063e659080afacdfcf3de9325355" target="_blank" rel="noopener noreferrer">https://croot.notion.site/2d26063e659080afacdfcf3de9325355</a></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <p>One UI를 업데이트 이후 Chrome inspect 에 USB 연결 된 Device가 보이지 않는 현상이 발생</p>
+
+<p>USB Debugging 허용을 해도 연결이 되지 않음</p>
+
+<blockquote>
+  <p>Pending authentication: please accept debugging session on the device.</p>
+</blockquote>
+
+<p><img src="/assets/img/2025-12-23-Android-디버깅-모드가-불가능-할-경우-.md/0.png" alt="0" /><em>image.png</em></p>
+
+<hr />
+
+<p>💡 Device 연결 해제 상태로 진행</p>
+
+<ol>
+  <li>SDK 플랫폼 도구 다운로드 (<a href="https://developer.android.com/studio/releases/platform-tools">https://developer.android.com/studio/releases/platform-tools</a>)</li>
+  <li>관련 파일 삭제</li>
+</ol>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Mac OS Terminal</span>
+
+% <span class="nb">cd</span> ~
+% <span class="nb">rm</span> <span class="nt">-rf</span> ./android/<span class="k">*</span> <span class="c"># or "rm -f ./android/adbkey ./android/adbkey.pub"</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Device 연결</li>
+  <li>재 시작 명령 실행 <em>(SDK 플랫폼 도구 다운로드 받은 곳으로 이동 필요)</em></li>
+</ol>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Mac OS Terminal</span>
+
+% <span class="nb">cd</span> ~/Downloads/platform-tools
+% ./adb kill-server
+% ./adb devices
+</code></pre></div></div>
+
+<ol>
+  <li>Device 에서 “Allow USB debugging” 메시지 확인</li>
+</ol>
+
+<p>출처: <a href="https://stackoverflow.com/questions/56251888/my-device-doesnt-show-the-allow-usb-debugging-dialog">https://stackoverflow.com/questions/56251888/my-device-doesnt-show-the-allow-usb-debugging-dialog</a></p>
+
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Nov 11, 2025</small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2025/11/11/Gartner-2026/">&laquo; Gartner 2026</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Dec 26, 2025 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2025/12/26/LLM-%ED%95%99%EC%8A%B5-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">LLM 학습 파이프라인 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

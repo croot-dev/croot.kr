@@ -4,7 +4,8 @@ title: "Yarn에서 preinstall, postinstall, prepare 스크립트 활용하기"
 created: 2025-02-19
 edited: 2025-02-19
 category: [기술]
-tags: [Architecture:rgb(232 222 238):rgb(65 36 84),yarn:rgb(253 236 200):rgb(64 44 27)]
+tags: []
+notion_id: 19f6063e-6590-80a7-932a-f0eafdebf23c
 ---
 
 

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON Query Libraries - Croot Blog</title>
+  <meta name="description" content="개인 프로젝트 중 JSON 데이터 쿼리 조회가 필요해서 찾아보았다.">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2023/12/29/JSON-Query-Libraries/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">JSON Query Libraries</h1>
+    <!-- <p class="c-article__time"><time datetime="2023-12-29T00:00:00+09:00" itemprop="datePublished">Dec 29, 2023</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2023년 12월 29일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2024년 08월 03일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <p>개인 프로젝트 중 JSON 데이터 쿼리 조회가 필요해서 찾아보았다.</p>
+
+<h2 id="라이브러리-비교">라이브러리 비교</h2>
+
+<h3 id="npm-다운로드-비교">npm 다운로드 비교</h3>
+
+<p><a href="https://npmtrends.com/JSONPath-vs-jmespath-vs-jq-vs-json-path-vs-json-query-vs-jsonpath-vs-jsonpath-plus">https://npmtrends.com/JSONPath-vs-jmespath-vs-jq-vs-json-path-vs-json-query-vs-jsonpath-vs-jsonpath-plus</a></p>
+
+<p><img src="/assets/img/2023-12-29-JSON-Query-Libraries.md/0.png" alt="0" /><em>Untitled.png</em></p>
+
+<h3 id="성능-비교-검증">성능 비교 검증</h3>
+
+<p>쿼리 라이브러리 성능을 비교한 프로젝트를 찾을 수 있었다. <a href="https://github.com/andykais/json-querying-performance-testing"><strong>Json Querying Performance Testing</strong></a></p>
+
+<p>하지만 4년 전에 작성한 것으로 각 라이브러리 버전이 낮아 최신버전으로 업데이트 후 비교해보았다.</p>
+
+<div class="callout" style="display:flex;width:100%;border-radius:4px;background:rgb(241,241,239);padding: 16px 16px 16px 12px;">
+<div style="display:flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:0.25em;flex-shrink:0;">💡</div>
+<div style="white-space:pre-wrap;word-break:break-word;caret-color:rgb(55, 53, 47);margin-left:8px;padding-left:2px;padding-right:2px;">전체 성능 비교 코드는 아래 Github에서 확인 가능합니다.</div>
+</div>
+
+<blockquote>
+  <p>성능 테스트는 각 라이브러리에 대하여 아래와 같이 세가지 쿼리를 실행합니다.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- `shallow` returns an object inside an array
+- `deep` returns a string from the object inside the array
+- `conditional` filters the results based on which lots have an 'UNKNOWN' street name, then returns an array of coordinates from inside the object
+</code></pre></div></div>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># summary</span>
+
+<span class="gu">## smallCityLots</span>
+┌───────────────────┬───────────────────┬───────────────────┬───────────────────┐
+│      (index)      │      shallow      │       deep        │    conditional    │
+├───────────────────┼───────────────────┼───────────────────┼───────────────────┤
+│     jmespath      │      0.0445       │      0.0299       │      0.0375       │
+│    json-query     │      0.0196       │      0.0301       │      0.0186       │
+│   jsonpath-plus   │      0.4228       │      0.3999       │      0.1292       │
+│     jsonpath      │      1.4185       │      10.9563      │       0.028       │
+│ map-filter-reduce │ 'not implemented' │ 'not implemented' │ 'not implemented' │
+└───────────────────┴───────────────────┴───────────────────┴───────────────────┘
+<span class="gu">## mediumCityLots</span>
+┌───────────────────┬───────────────────┬───────────────────┬───────────────────┐
+│      (index)      │      shallow      │       deep        │    conditional    │
+├───────────────────┼───────────────────┼───────────────────┼───────────────────┤
+│     jmespath      │      0.0375       │      0.0192       │      0.0263       │
+│    json-query     │      0.0505       │      0.0584       │      0.0469       │
+│   jsonpath-plus   │      1.1017       │      0.8726       │      0.2504       │
+│     jsonpath      │      3.2803       │      42.4674      │       0.051       │
+│ map-filter-reduce │ 'not implemented' │ 'not implemented' │ 'not implemented' │
+└───────────────────┴───────────────────┴───────────────────┴───────────────────┘
+<span class="gu">## largeCityLots</span>
+┌───────────────────┬───────────────────┬───────────────────┬───────────────────┐
+│      (index)      │      shallow      │       deep        │    conditional    │
+├───────────────────┼───────────────────┼───────────────────┼───────────────────┤
+│     jmespath      │      0.0178       │       0.031       │      0.0474       │
+│    json-query     │     'failed'      │     'failed'      │     'failed'      │
+│   jsonpath-plus   │      2.2324       │      2.3612       │      0.4997       │
+│     jsonpath      │      9.1876       │     172.0668      │      0.1204       │
+│ map-filter-reduce │ 'not implemented' │ 'not implemented' │ 'not implemented' │
+└───────────────────┴───────────────────┴───────────────────┴───────────────────┘
+</code></pre></div></div>
+
+<p>결론적으로 <code class="language-plaintext highlighter-rouge">jmespath</code> 가 가장 성능이 좋은 결과가 나왔다.</p>
+
+<h2 id="jmespath">jmespath</h2>
+
+<p>파이썬에서 주로 사용하는 JSON 쿼리 라이브러리이다.</p>
+
+<h3 id="공식페이지">공식페이지</h3>
+
+<p><a href="https://jmespath.org/">https://jmespath.org/</a></p>
+
+<h3 id="문법">문법</h3>
+
+<ol>
+  <li><strong>프로젝션 (Projection):</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">field</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">name</code>은 JSON 문서에서 <code class="language-plaintext highlighter-rouge">name</code> 필드의 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>다중 수준 프로젝션:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">field.subfield</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">person.name</code>은 <code class="language-plaintext highlighter-rouge">person</code> 객체의 <code class="language-plaintext highlighter-rouge">name</code> 필드의 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>와일드카드 (Wildcards):</strong>
+    <ul>
+      <li>문법:</li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">people[*].name</code>은 <code class="language-plaintext highlighter-rouge">people</code> 배열의 모든 요소의 <code class="language-plaintext highlighter-rouge">name</code> 필드 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>필터링 (Filtering):</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">[?expression]</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">people[?age &gt; 21].name</code>은 <code class="language-plaintext highlighter-rouge">people</code> 배열에서 <code class="language-plaintext highlighter-rouge">age</code>가 21보다 큰 요소의 <code class="language-plaintext highlighter-rouge">name</code> 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>내장 함수 활용:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">function(arguments)</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">length(people)</code>는 <code class="language-plaintext highlighter-rouge">people</code> 배열의 길이를 반환합니다.</li>
+    </ul>
+  </li>
+  <li><strong>테이블 슬라이싱:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">[start:end]</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">people[1:3]</code>는 <code class="language-plaintext highlighter-rouge">people</code> 배열에서 두 번째부터 세 번째까지의 요소를 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>정렬 및 리버스:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">sort_by(@, &amp;field)</code> 또는 <code class="language-plaintext highlighter-rouge">reverse(@)</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">sort_by(people, &amp;age)</code>는 <code class="language-plaintext highlighter-rouge">age</code> 필드를 기준으로 <code class="language-plaintext highlighter-rouge">people</code> 배열을 정렬합니다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="jsonpath-plus">jsonpath-plus</h2>
+
+<h3 id="공식페이지-1">공식페이지</h3>
+
+<p><a href="https://jsonpath-plus.github.io/JSONPath/docs/ts/index.html">https://jsonpath-plus.github.io/JSONPath/docs/ts/index.html</a></p>
+
+<h3 id="문법-1">문법</h3>
+
+<ol>
+  <li><strong>프로젝션 (Projection):</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$.field</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$.name</code>은 JSON 문서에서 최상위 수준의 <code class="language-plaintext highlighter-rouge">name</code> 필드의 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>다중 수준 프로젝션:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$.field.subfield</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$.person.name</code>은 <code class="language-plaintext highlighter-rouge">person</code> 객체의 <code class="language-plaintext highlighter-rouge">name</code> 필드의 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>와일드카드 (Wildcards):</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$.*</code> 또는 <code class="language-plaintext highlighter-rouge">$[*]</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$.*.name</code>은 모든 객체의 <code class="language-plaintext highlighter-rouge">name</code> 필드 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>필터링 (Filtering):</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$.field[?expression]</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$.people[?(@.age &gt; 21)].name</code>은 <code class="language-plaintext highlighter-rouge">people</code> 배열에서 <code class="language-plaintext highlighter-rouge">age</code>가 21보다 큰 요소의 <code class="language-plaintext highlighter-rouge">name</code> 값을 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>내장 함수 활용:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$.function(arguments)</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$.length($.people)</code>는 <code class="language-plaintext highlighter-rouge">people</code> 배열의 길이를 반환합니다.</li>
+    </ul>
+  </li>
+  <li><strong>테이블 슬라이싱:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$.field[start:end]</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$.people[1:3]</code>는 <code class="language-plaintext highlighter-rouge">people</code> 배열에서 두 번째부터 세 번째까지의 요소를 가져옵니다.</li>
+    </ul>
+  </li>
+  <li><strong>정렬 및 리버스:</strong>
+    <ul>
+      <li>문법: <code class="language-plaintext highlighter-rouge">$..field | sort</code> 또는 <code class="language-plaintext highlighter-rouge">$..field | reverse</code></li>
+      <li>예시: <code class="language-plaintext highlighter-rouge">$..age | sort</code>는 <code class="language-plaintext highlighter-rouge">age</code> 필드를 기준으로 배열을 정렬합니다.</li>
+    </ul>
+  </li>
+</ol>
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Dec 27, 2023</small>
+      <br>
+      <a class="no-hov" href="/%EC%B7%A8%EB%AF%B8/2023/12/27/Clean-Archtecture-%EC%84%9C%EC%A0%81-%EC%A0%95%EB%A6%AC/">&laquo; Clean Archtecture 서적 정리</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Jan 3, 2024 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2024/01/03/Github-Pages-Jekyll-%EC%97%90%EC%84%9C-Katex-%EC%A0%81%EC%9A%A9/">Github Pages Jekyll 에서 Katex 적용 &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

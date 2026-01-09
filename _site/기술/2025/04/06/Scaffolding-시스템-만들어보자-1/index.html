@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaffolding 시스템 만들어보자 - 1 - Croot Blog</title>
+  <meta name="description" content="Prologue">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%EA%B8%B0%EC%88%A0/2025/04/06/Scaffolding-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90-1/">
+  <link rel="alternate" type="application/rss+xml" title="Croot Blog" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+    <aside class="c-page__searchbox">
+  <div class="search">
+    <input id="search-input" 
+      type="search" 
+      tabindex="1" 
+      spellcheck="false" 
+      placeholder="검색어"
+    />
+  </div>
+
+  <ul id="results-container"></ul>
+</aside>
+
+<script src="/assets//script/simple-jekyll-search.min.js"></script>
+<script type="text/javascript">
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/json/search.json',
+    noResultText: '검색결과가 없습니다.',
+    limit: 1000,
+    fuzzy: false
+  })
+</script>
+
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Croot Blog</code></h1>
+  
+  <p>
+    <a href="/">Home</a>
+    <span class="u-separate"></span>
+    <a href="/about/">About</a>
+    <span class="u-separate"></span>
+    <a href="/tech/">Tech</a>
+    <span class="u-separate"></span>
+    <a href="/hobby/">Hobby</a>
+    <span class="u-separate"></span>
+    <a href="/archive/">Archive</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+    });
+</script>
+
+<div>
+
+<div style="display:flex;flex-direction:row;background:#efefef;padding: 1.2em 1.5em;">
+  <span style="width:70px;font-size:2.8em">⚠️</span>
+  <p style="flex:1;font-size:1.2em;line-height: 1.5;word-break: keep-all;">
+    <span>이 블로그의 모든 포스트는 Notion 데이터베이스를 자동 변환하여 작성 되었습니다.</span><br />
+    <span>따라서 문서에 따라 깨져 보일 수 있습니다.</span><br />
+    <span>더 많은 내용이 궁금하시다면 👀</span> <a href="https://www.notion.so/croot-dev/6c50e956396b41449b42a8e134d97c4e" target="_blank" style="margin-top:12px;z-index:1">Notion 보러가기</a>
+  </p>
+</div>
+
+</div>
+
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Scaffolding 시스템 만들어보자 - 1</h1>
+    <!-- <p class="c-article__time"><time datetime="2025-04-06T00:00:00+09:00" itemprop="datePublished">Apr 6, 2025</time></p> -->
+  </header>
+
+  <div class="c-article__info">
+    <table>
+      <tbody>
+        <tr>
+          <th>작성일</th><td>2025년 04월 06일</td>
+        </tr>
+        <tr>
+          <th>수정일</th><td>2025년 06월 20일</td>
+        </tr>
+        <tr>
+          <th>카테고리</th><td>기술</td>
+        </tr>
+        <tr>
+          <th>태그</th><td>
+            <ul class="c-tags">
+              
+            </ul>
+          </td>
+        </tr>
+        
+        <tr>
+          <th>원본</th><td><a href="https://croot.notion.site/1cd6063e659080fc9897dc7f299dc1c8" target="_blank" rel="noopener noreferrer">https://croot.notion.site/1cd6063e659080fc9897dc7f299dc1c8</a></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c-article__main">
+    <h2 id="prologue">Prologue</h2>
+
+<p>조만간 또 신규 프로젝트 환경 구축을 해야 할 일이 생기게 되었다.</p>
+
+<p>각 조직마다 사내 인프라, 아키텍처, 보안 등 제약사항이 하두 많아서 지속적으로 프로젝트를 시작할 때마다 아주 그냥 늘 새롭고 짜릿하다.</p>
+
+<ul>
+  <li>“ESLint, Prettier 다시 설정해야 하나?”</li>
+  <li>“CJS 쓸까 ESM 쓸까? 지난 플젝꺼 그냥 갖다 쓸까?”</li>
+  <li>“버전 또 바뀌었네… 올릴까 말까”</li>
+  <li>“Tailwind 추가에 ts? 아따 귀찮구만”</li>
+</ul>
+
+<p>이런 반복과 수고를 줄이고, <strong>일관된 개발 환경과 경험</strong>을 제공하기 위해 <code class="language-plaintext highlighter-rouge">@croot/scaffolding</code> 프로젝트를 시작해보기로 결심함</p>
+
+<h2 id="목표-빠른-구축-확장성-지속성">목표: 빠른 구축! 확장성! 지속성!</h2>
+
+<p>이 프로젝트의 핵심 목표는 단순하다.</p>
+
+<blockquote>
+  <p>모든 프론트엔드 프로젝트를 빠르게, 일관되게, 확장도 가능하고 지속적으로 재사용 가능하게 만든다.</p>
+</blockquote>
+
+<h3 id="주요-해결-과제">주요 해결 과제</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pain</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>설정 매번 복붙</td>
+      <td>설정 패키지로 모듈화</td>
+    </tr>
+    <tr>
+      <td>스타일, 룰, 타입 다 제각각</td>
+      <td>사내 표준 config로 통일</td>
+    </tr>
+    <tr>
+      <td>프로젝트 별 가이드 다름</td>
+      <td>유연한 config 구성</td>
+    </tr>
+    <tr>
+      <td>좀 더 세련되게…</td>
+      <td>CLI로 자동 생성</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="구조-design">구조 Design</h2>
+
+<p>pnpm을 이용해서 모노레포로 가져가는게 아무래도 최적이겠지?</p>
+
+<h3 id="monorepo-구조">Monorepo 구조</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/packages
+  /eslint-config    <span class="c"># ESLint 설정 모듈</span>
+  /prettier-config  <span class="c"># Prettier 설정 모듈</span>
+  /tsconfig         <span class="c"># TypeScript 설정 모듈</span>
+  /create-app       <span class="c"># CLI</span>
+/templates
+  /react
+  /vue
+  /next
+  /nuxt
+</code></pre></div></div>
+
+<h3 id="패키지-이름">패키지 이름</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>목적</th>
+      <th>패키지명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ESLint 설정</td>
+      <td><code class="language-plaintext highlighter-rouge">@croot/eslint-config</code></td>
+    </tr>
+    <tr>
+      <td>Prettier 설정</td>
+      <td><code class="language-plaintext highlighter-rouge">@croot/prettier-config</code></td>
+    </tr>
+    <tr>
+      <td>TS 설정</td>
+      <td><code class="language-plaintext highlighter-rouge">@croot/tsconfig</code></td>
+    </tr>
+    <tr>
+      <td>CLI 도구</td>
+      <td><code class="language-plaintext highlighter-rouge">@croot/create-app</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="네이밍-규칙">네이밍 규칙</h2>
+
+<p>모든 이름은 <code class="language-plaintext highlighter-rouge">@croot/</code> 스코프 하에서 일관성 있게 관리</p>
+
+<h3 id="eslint-설정-crooteslint-config">ESLint 설정 (<code class="language-plaintext highlighter-rouge">@croot/eslint-config</code>)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>파일명</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">base.js</code></td>
+      <td>기본 룰셋</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">typescript.js</code></td>
+      <td>TypeScript 룰</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prettier.js</code></td>
+      <td>Prettier 연동</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">eslint.config.js</code></td>
+      <td>v9 flat config 방식</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="prettier-설정-crootprettier-config">Prettier 설정 (<code class="language-plaintext highlighter-rouge">@croot/prettier-config</code>)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>파일명</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">index.js</code></td>
+      <td>기본 스타일</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tailwind.js</code></td>
+      <td>Tailwind 플러그인 포함</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tsconfig-설정-croottsconfig">TSConfig 설정 (<code class="language-plaintext highlighter-rouge">@croot/tsconfig</code>)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>파일명</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">base.json</code></td>
+      <td>공통 설정</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">react.json</code></td>
+      <td>React용</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vue.json</code></td>
+      <td>Vue용</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="cli-사용-방식">CLI 사용 방식</h2>
+
+<h3 id="기본-실행">기본 실행</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pnpm create @croot/app my-app
+</code></pre></div></div>
+
+<h3 id="옵션-선택-가능">옵션 선택 가능</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pnpm create @croot/app my-app <span class="nt">--type</span> esm <span class="nt">--ui</span> react <span class="nt">--ts</span> <span class="nt">--tailwind</span>
+</code></pre></div></div>
+
+<p>혹은 인터랙티브 모드:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pnpm create @croot/app my-app
+
+? Project Name: my-app
+? Framework: React / Vue / Next / Nuxt
+? Module Type: ESM / CJS
+? Use Typescript? <span class="o">(</span>Y/n<span class="o">)</span>
+? Use Tailwind CSS? <span class="o">(</span>Y/n<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="esm--cjs-전환-지원">ESM / CJS 전환 지원</h2>
+
+<p>CLI에서 생성 시 <code class="language-plaintext highlighter-rouge">--type esm</code> 또는 <code class="language-plaintext highlighter-rouge">--type cjs</code>를 지정하면,
+템플릿 내부 코드(<code class="language-plaintext highlighter-rouge">import/export</code>, <code class="language-plaintext highlighter-rouge">require/module.exports</code>) 및 <code class="language-plaintext highlighter-rouge">package.json</code>의 <code class="language-plaintext highlighter-rouge">type</code> 필드를 자동으로 변환하도록 지원.</p>
+
+<h2 id="확장성-고려">확장성 고려</h2>
+
+<p>향후에는 다음과 같은 기능도 무리 없이 추가할 수 있도록 설계 필요</p>
+
+<ul>
+  <li>템플릿 선택 확장: Svelte, Vanilla 등</li>
+  <li>테스트 프레임워크 선택 (<code class="language-plaintext highlighter-rouge">-test vitest</code>)</li>
+  <li>GitHub Actions / CI 설정 자동 포함</li>
+</ul>
+
+  </div>
+
+  <div class="c-article__comment">
+    <script src="https://utteranc.es/client.js"
+        repo="croot-dev/croot-dev.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+  </div>
+
+
+  <!-- Previous / Next Buttons -->
+  <div class="pagenav">
+    
+    <div class="wrapper" id="left">
+      <small><b>Previous</b> Apr 1, 2025</small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2025/04/01/html-to-pdf/">&laquo; ⚠️ html to pdf</a>
+    </div>
+    
+    
+    <div class="wrapper" id="right">
+      <small>Jun 20, 2025 <b>Next</b></small>
+      <br>
+      <a class="no-hov" href="/%EA%B8%B0%EC%88%A0/2025/06/20/NFC/">NFC  &raquo;</a>
+    </div>
+    
+  </div>
+  <!-- Disqus comments view -->
+  
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>&copy; croot-dev.github.io 2026</p>
+  <p><a href="https://github.com/croot-dev">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>
