@@ -2,7 +2,7 @@
 layout: post
 title: "⚠️ html to pdf"
 created: 2025-04-01
-edited: 2025-08-24
+edited: 2026-01-10
 category: [기술]
 tags: []
 notion_id: 1c86063e-6590-80f9-b7c3-ed21965bc75c

@@ -2,9 +2,9 @@
 layout: post
 title: "Yarn에서 preinstall, postinstall, prepare 스크립트 활용하기"
 created: 2025-02-19
-edited: 2025-02-19
+edited: 2026-01-10
 category: [기술]
-tags: []
+tags: [Engineering:rgb(219 237 219):rgb(28 56 41)]
 notion_id: 19f6063e-6590-80a7-932a-f0eafdebf23c
 ---
 

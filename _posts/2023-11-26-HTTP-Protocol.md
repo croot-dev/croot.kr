@@ -4,7 +4,7 @@ title: "HTTP Protocol"
 created: 2023-11-26
 edited: 2025-12-30
 category: [기술]
-tags: [Network:rgb(219 237 219):rgb(28 56 41)]
+tags: [Network:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 81c9e423-43f1-49a2-9ba3-e6b459e4edf8
 ---
 

@@ -2,9 +2,9 @@
 layout: post
 title: "Scaffolding 시스템 만들어보자 - 1"
 created: 2025-04-06
-edited: 2025-06-20
+edited: 2026-01-10
 category: [기술]
-tags: []
+tags: [DevOps:rgb(253 236 200):rgb(64 44 27)]
 notion_id: 1cd6063e-6590-80fc-9897-dc7f299dc1c8
 ---
 

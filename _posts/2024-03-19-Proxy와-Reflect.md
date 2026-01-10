@@ -2,9 +2,9 @@
 layout: post
 title: "Proxy와 Reflect"
 created: 2024-03-19
-edited: 2025-03-31
+edited: 2026-01-10
 category: [기술]
-tags: []
+tags: [Engineering:rgb(219 237 219):rgb(28 56 41)]
 notion_id: ecfebc4f-e7f1-463d-8d7a-2206da8028d3
 ---
 

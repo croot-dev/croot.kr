@@ -2,9 +2,9 @@
 layout: post
 title: "Vertical SaaS란?"
 created: 2026-01-09
-edited: 2026-01-09
+edited: 2026-01-10
 category: [취미]
-tags: []
+tags: [Data & AI:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 2e36063e-6590-8003-912e-f16c02840e69
 ---
 
@@ -28,6 +28,7 @@ notion_id: 2e36063e-6590-8003-912e-f16c02840e69
 | → 특정 산업에 특화
 → 좁고 깊은 기능                     | → 모든 산업에 적용
 → 넓고 얕은 기능                          |
+|                                            |                                                 |
 
 
 ---

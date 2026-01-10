@@ -2,9 +2,9 @@
 layout: post
 title: "WebView 이미지 Carousel 성능 개선 기록"
 created: 2025-12-27
-edited: 2026-01-07
+edited: 2026-01-10
 category: [기술]
-tags: [Frontend:rgb(211 229 239):rgb(24 51 71),Testing:rgb(227 226 224):rgb(50 48 44)]
+tags: [Engineering:rgb(219 237 219):rgb(28 56 41),Testing:rgb(227 226 224):rgb(50 48 44)]
 notion_id: 2d66063e-6590-8069-810a-f233c26a8dc8
 ---
 
@@ -149,7 +149,7 @@ if (delta > targetFrameTime) {
 ## 테스트 구현
 
 
-[performance-test.html](https://prod-files-secure.s3.us-west-2.amazonaws.com/8daffe33-d95b-4c96-91e6-1b899bcdb2d7/be7f76b2-7690-41a2-830b-2f1cca0637b2/performance-test.html?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466V3ZVJL4F%2F20260109%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260109T101533Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjENn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGfcc9XAO2enDhJBmhwc2yLrm4N2BrReh23YomY6UpvwAiEArDlmtDUuC%2B%2Buk%2FqhijvuqCHShIvTw%2BisjfhTCU%2Bzk%2B0qiAQIov%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDPslXRCIUL1ixoLKPSrcA8TiQbBT18KuXiF%2FcmVqhLsAql%2BUo4r43MRZNOYk8NBYNQkBnwsOBvFNg749Pa9MspxcweBPbQMKU67keRU8rfyWUR7MaitWpXmrW0lXY2%2BwxpoFYwAEzBjWcQIgApLIHmf0IIWPliQ6RASuEkE0Bv%2BRWpFoJOGRTLvk5cWA3zjQeVbT6jYHvOPWFTzCU%2FmLxFyIukWE0K%2F6aXrOjaVGqcZJMQ%2FAQAdbWm42epNIdITnNIhJc%2FWKGitJSrV0V%2BVeuiBWq99%2BFz%2BVSql1fX%2FGvkWpV1W82mxtdCB5UAiwuCtTKITnvZvWe4qMDEpt%2BidhAePdm13uV4x0FeAiTOf5leNioqhHw81FYqZTMi1RDJ5STXRF5XZ%2FwoBDBrT2bbUXB4aKiNWQnJCypaiW53l0bVH3GRAuyGOr5EWQ%2Bp6YltYjR2ckkiUPpOhK%2BxSoXq%2Bz1atZPzoDCGuQ%2BqV7rzSc405cdIsbbvmTLKV6tRgw4DwFgZZu7e2o3ret8nbNy7Pu%2FbgXHgVxUT10sKcPQ2ysfjD3i1MgTfv6hq%2B5JbL3o5FOoLoLDCrCVVkXFxQ3ONql54y3pLXmhHkvPltOflVQ51Zd89RaUs1GjhQiYU9wFeGTIFsvxcKitDdvX7yMMPuMg8sGOqUBR%2BuvK6EUD5vFupvAIK%2FaaWJKY9435Wx%2BeVyxsgcbM05Sli24XDBwRB82TqPtm%2FWJW2kjR7mwDmVAMg55%2Bd25Nt9f7UAJOhW9a2V5US2WaDsWs91HPYQSyHSQEPb0gyeGL%2BHBIhySn4%2BmhpzAycRPP3XahaafFPsRPki7JE21vMr%2BFFLIXehNpwdL3eFqMg%2FfqrgK78huaG0i1tkOM9Ru8w%2BStM4L&X-Amz-Signature=fec4d6ec3e4051b5626a257d6f43556ce1e0446c1438d697f3e403d4055d5eb1&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+[performance-test.html](https://prod-files-secure.s3.us-west-2.amazonaws.com/8daffe33-d95b-4c96-91e6-1b899bcdb2d7/be7f76b2-7690-41a2-830b-2f1cca0637b2/performance-test.html?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466ROSAHAME%2F20260110%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260110T085052Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDVkZFJCIHP8ic5ujXTXiEVojmlyXlx96XHIjUDQGpWNwIhAPw2HXcminPm%2FdV7Qd63xvnECpl2vdqKf9Szmqvdl1nfKogECLr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igx49CAn4QW2W0a9puMq3AMHCc4JaHohndqRsJhK%2B6Dc2IPN%2FjGfKuwnwyubkJC%2BHsccIT4W18R7WrkTnHK5jYTlNCTbTGdKy1EnHabkp0RWTjFbfamhc4yrHk9RnrVKxcwuJ1Dv0GcKet678cQJ%2FfdnZtpq7Z5h%2FLbviFdIirh5DEQLUn8KtRnB9YLQdUBm%2BitREyJt5eRigeAHP%2FA5fHjUSlD1CGMX0IoS1PRbO64OBIjb33E995cAtphDDw0FzTt4aM9hYPfE%2BLYIW5Xom23WgsrUswJGeRaL4vcV3ul2MLTfTA0CHepTGyVDSHje%2BOE%2BcEowgkTvDnGm%2FDFNmYbB63zBMtX6cyth2bYSXzMGuC9vtL5AWlz9VDQQHiTUw7d5GUdBM2qaSxCYZeEVl49C%2BBGNCGikfBja4Maoc1hXxzZFiicD445uMWZarLYL2oiL9ensjYpkBY2FdFh3AeT%2Fxw%2Fcal66pE8qN5xr3ooA%2FzMHw4APEwPHme5odNRW0Iyna2egPngSkRXaR4r%2F4nKFsnCGkA%2BhFCTfsRApEJLjvQkb8dapZbJ4T%2FDVO3MRD2JxM0vi4Sca7GBqJSPhjMnK3VMeVZhzSBG605rWeKx6koIQX8QR%2Bfmf54dGhd1wjx5Rm8oXCxTdNCghMjDpnYjLBjqkATeDha8ym%2FW48rxEyFy9VQS1p7lYHuiWOaw2PDgj6XgS%2FTE%2FqFTKH9dxyiiCf9RQRwSe11gv2sf5zNHcqJreCstRxqqyOD0yEcyAZuw4PGxCrchSUxc0e8xFOB27m%2BYCpyPX4Be8E50Y7X9jp1%2F3IcwoGHk6JF8ufgvv1htXiloamHrgdwX5OVHIT8xMUFpmkGOuvCFJOuIqWyNNE6IuzH1CIipp&X-Amz-Signature=2f6fa18e529a76303b31870753621dc69558a61ab6da0321c94bfbaf4b4cdfda&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
 
 ### Case 1. PNG + `<img>` tag

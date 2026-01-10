@@ -53,10 +53,10 @@ fs.mkdirSync(rootDir, { recursive: true });
     const tempTitle = properties?.[PROPERTY.TITLE]?.["title"];
     const title = tempTitle.length > 0? tempTitle[0]?.["plain_text"] : id;
 
-    // // 1년 이내 업데이트된 포스트만 처리
-    // if (dayjs(last_edited_time).isBefore(oneYearAgo)) {
-    //   continue;
-    // }
+    // 1년 이내 업데이트된 포스트만 처리
+    if (dayjs(last_edited_time).isBefore(oneYearAgo)) {
+      continue;
+    }
     console.log(`⏭️  Creating/Updating post: "${title}" (last updated: ${updatedDate})`);
 
     // category

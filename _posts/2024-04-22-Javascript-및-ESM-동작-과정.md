@@ -2,9 +2,9 @@
 layout: post
 title: "Javascript 및 ESM 동작 과정"
 created: 2024-04-22
-edited: 2025-07-04
+edited: 2026-01-10
 category: [기술]
-tags: []
+tags: [Engineering:rgb(219 237 219):rgb(28 56 41)]
 notion_id: ddf86066-166e-4e19-847a-da7b5b236899
 ---
 
