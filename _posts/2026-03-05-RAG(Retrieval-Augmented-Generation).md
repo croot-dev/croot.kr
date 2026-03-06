@@ -2,9 +2,9 @@
 layout: post
 title: "RAG(Retrieval-Augmented Generation)"
 created: 2026-03-05
-edited: 2026-03-05
-category: [기타]
-tags: []
+edited: 2026-03-06
+category: [기술]
+tags: [Data & AI:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 31a6063e-6590-8095-b6a4-fca4d21d8141
 ---
 
