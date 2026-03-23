@@ -3,8 +3,8 @@ layout: post
 title: "AI Orchestration & LangChain"
 created: 2026-03-23
 edited: 2026-03-23
-category: [기타]
-tags: []
+category: [기술]
+tags: [Data & AI:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 32c6063e-6590-80c7-a566-c0b73be41c12
 ---
 
