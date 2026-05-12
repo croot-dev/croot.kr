@@ -9,6 +9,9 @@ notion_id: 34b6063e-6590-80e2-b43c-f73c0dae6c48
 ---
 
 
+![0](/assets/img/2026-04-23-PR-기반-AI-코드-리뷰-자동화-구축-(GitHub-Actions-+-Anthropic).md/0.png)_image.png_
+
+
 ---
 
 
