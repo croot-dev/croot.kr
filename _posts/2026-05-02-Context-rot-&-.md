@@ -2,7 +2,7 @@
 layout: post
 title: "Context rot & "
 created: 2026-05-02
-edited: 2026-05-02
+edited: 2026-05-12
 category: [취미]
 tags: [Data & AI:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 3546063e-6590-800a-ad83-d19e15e85207

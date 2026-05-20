@@ -1,18 +1,24 @@
 ---
 layout: post
-title: "RAG(Retrieval-Augmented Generation)"
+title: "RAG(Retrieval-Augmented Generation) 와 MCP(Model Context Protocol)"
 created: 2026-03-05
-edited: 2026-03-06
+edited: 2026-05-20
 category: [기술]
 tags: [Data & AI:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 31a6063e-6590-8095-b6a4-fca4d21d8141
 ---
 
 
-이제는 여기저기 기본 구조로 자리잡은 RAG에 대해 정리 겸 글을 작성해보려고 한다.
+이제는 여기저기 기본 구조로 자리잡은 RAG와 MCP 대해 정리 겸 글을 작성해보려고 한다.
 
 
 요즘은 Agent + RAG를 함께 사용하는 듯 하다.
+
+
+---
+
+
+# RAG(Retrieval-Augmented Generation)
 
 
 ## 정의
@@ -110,7 +116,7 @@ RAG 시스템은 크게 **데이터를 준비하는 과정(Indexing Pipeline)**�
 ### Overview
 
 
-![0](/assets/img/2026-03-05-RAG(Retrieval-Augmented-Generation).md/0.png)_image.png_
+![0](/assets/img/2026-03-05-RAG(Retrieval-Augmented-Generation)-와-MCP(Model-Context-Protocol).md/0.png)_image.png_
 
 
 ```mermaid
@@ -351,7 +357,7 @@ Agent는 다음과 같은 역할을 수행합니다.
 ---
 
 
-# RAG 1.0 vs RAG 2.0
+## RAG 1.0 vs RAG 2.0
 
 
 | 구분       | RAG 1.0       | RAG 2.0                       |
@@ -361,4 +367,127 @@ Agent는 다음과 같은 역할을 수행합니다.
 | 문서 선택    | Top-K         | Reranking                     |
 | 구조       | 단일 파이프라인      | Agent + RAG                   |
 | 활용       | 간단한 QA        | 복잡한 지식 시스템                    |
+
+
+---
+
+
+# MCP (Model Context Protocol)
+
+
+## 정의
+
+
+대형 언어 모델(LLM)이 외부 데이터베이스, 파일 시스템, 애플리케이션과 같은 외부 도구에 안전하고 쉽게 연결할 수 있도록 해주는 표준화된 통신 규격
+
+
+---
+
+
+## 구성
+
+
+![1](/assets/img/2026-03-05-RAG(Retrieval-Augmented-Generation)-와-MCP(Model-Context-Protocol).md/1.png)_image.png_
+
+
+### **MCP Server**
+
+- AI가 쓸 수 있도록 기능과 데이터를 MCP 방식으로 노출하는 백엔드 프로그램
+- 예시: Tool 제공, Resource 제공, Prompt 제공 등
+
+### **Client**
+
+- 역할: 사용자의 요청을 받고 AI 모델과 상호작용하며, 결과를 보여주는 인터페이스
+- 예시: Claude code, Cursor Editor
+
+### **Host**
+
+- 역할: 클라이언트와 서버 간 통신을 중재, 프로토콜에 따른 메시징을 관리
+- 예시: Claude Desktop, Cursor 등
+
+### Transport
+
+- 역할: AI 클라이언트와 외부 MCP 서버가 데이터를 실제로 주고받는 통신 방식
+
+### Tool
+
+- 역할: 사용자의 요청을 해결하기 위해 직접 실행하거나 조작할 수 있는 외부 기능
+- 예시: add_task(), list_task()
+
+## JSON-RPC
+
+
+### 정의
+
+
+JSON-RPC는 JSON 형식으로 원격 함수 호출(Request/Response)을 수행하기 위한 경량 프로토콜
+
+
+### **구성**
+
+
+| 요소     | 의미        |
+| ------ | --------- |
+| method | 호출할 함수 이름 |
+| params | 함수 인자     |
+| result | 실행 결과     |
+| error  | 실패 정보     |
+| id     | 요청/응답 매칭  |
+
+
+### 예시
+
+
+**Client request:**
+
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "addTask",
+  "params": {
+    "title": "운동하기"
+  }
+}
+```
+
+
+**Server response:**
+
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "message": "Task added"
+  }
+}
+```
+
+
+---
+
+
+## 서버 구현 예제
+
+
+```typescript
+// Server 인스턴스 생성 
+const server = new McpServer({
+    name: "mcp-example",
+    version: '1.0.0',
+});
+
+// Tool 등록
+server.registerTool('tool-name', {/* options */}, async () => {})
+
+
+async function main() {
+    // Transport 선언
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+}
+```
 

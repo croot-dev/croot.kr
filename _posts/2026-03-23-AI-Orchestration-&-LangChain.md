@@ -2,7 +2,7 @@
 layout: post
 title: "AI Orchestration & LangChain"
 created: 2026-03-23
-edited: 2026-03-23
+edited: 2026-05-20
 category: [기술]
 tags: [Data & AI:rgb(238 224 218):rgb(68 42 30)]
 notion_id: 32c6063e-6590-80c7-a566-c0b73be41c12
@@ -250,5 +250,5 @@ const result = await chain.invoke({ topic: "AI Orchestration" });
 ### 구현 예제
 
 
-[https://github.com/croot-dev/langchange-example](https://github.com/croot-dev/langchange-example)
+[https://github.com/croot-dev/langchain-example](https://github.com/croot-dev/langchain-example)
 
